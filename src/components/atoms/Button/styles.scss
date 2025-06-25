@@ -1,0 +1,39 @@
+@use "src/styles/colors" as colors;
+
+.sw-button {
+    padding: .5rem 2rem;
+    margin: .5rem 0;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    text-align: center;
+    transition: all 150ms linear;
+    position: relative;
+    border: 1px solid transparent;
+
+}
+
+.sw-button-shadow {
+    box-shadow: 2px 4px 1px 1px rgba(0, 0, 0, 0.25);
+
+    &:hover {
+        box-shadow: 6px 8px 1px 1px rgba(0, 0, 0, 0.25);
+    }
+}
+
+.sw-button-filled {
+    color: colors.$text;
+    background: colors.$primary;
+
+    &:hover {
+        transform: translateY(-4px);
+    }
+    &:active {
+        transform: translateY(2px);
+        box-shadow: none;
+    }
+}
+
+.sw-button-outlined {
+
+}

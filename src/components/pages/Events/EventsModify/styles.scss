@@ -1,0 +1,42 @@
+@use "src/styles/colors" as colors;
+
+
+.modify-events-table {
+    width: 100%;
+    border-spacing: 0;
+
+    thead td {
+        border-bottom: 2px solid colors.$border;
+        background: colors.$border-muted;
+    }
+
+    tbody {
+        tr {
+            transition: background-color 250ms linear;
+
+            &:nth-child(even) {
+                background: colors.$bg-dark;
+            }
+
+            &:hover {
+                background: colors.$border-muted;
+            }
+        }
+    }
+
+    td {
+        text-align: center;
+        padding: 4px 8px;
+        border: 1px solid colors.$border;
+        min-width: 4rem;
+    }
+
+    .table-control {
+        cursor: pointer;
+        transition: color 150ms linear;
+
+        &:hover {
+            color: colors.$primary;
+        }
+    }
+}
