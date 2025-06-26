@@ -20,7 +20,7 @@ class DatabaseManager
                 \PDO::ATTR_DEFAULT_FETCH_MODE,
                 \PDO::FETCH_ASSOC
             );
-            echo "DataBaseManger is working ..";
+            // echo "DataBaseManger is working ..";
         } catch (\PDOException $e) {
             echo "PDOException : $e \n";
         }
@@ -64,25 +64,3 @@ class DatabaseManager
         $this->conn = null;
     }
 }
-/*
-$query = "CREATE TABLE Events (
-	EventId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-	EventName TEXT NOT NULL,
-	EventDescription TEXT NOT NULL,
-	EventStartTime TEXT NOT NULL,
-	EventEndTime TEXT NOT NULL,
-	EventDomains TEXT NOT NULL,
-	EventBanner TEXT,
-	EventStatus TEXT NOT NULL CHECK(EventStatus IN ('Active', 'Close', 'Register')),
-	EventRegisterLink TEXT NOT NULL
-)";
-
-
-$dataBase = new \DataBaseManager("eventsPageData.db");
-
-$dataBase->CreateAction($query, "CreateEventsTable");
-
-$dataBase->getAllActions();
-
-$dataBase->ExecuteAction("CreateEventsTable");
-*/

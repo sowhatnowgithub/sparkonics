@@ -3,10 +3,13 @@
 namespace Sowhatnow\Api\Controllers;
 
 use Sowhatnow\Api\Models\EventsPageModel;
-class EventsPageHandling
+class EventsPageController
 {
     public $model;
     public $query;
+    // @param $uri
+    // @param $method
+    // @param $query
     public function __construct()
     {
         $this->model = new EventsPageModel();
@@ -26,10 +29,24 @@ class EventsPageHandling
 		) VALUES (";
         $escapedValues = [];
         foreach ($eventValues as $value) {
-            $escapedValues[] = $this->conn->quote($value);
+            $escapedValues[] = $this->model->cleanQuery($value);
         }
         $this->query = $this->query . implode(",", $escapedValues) . ")";
         $this->model->EventAdd($this->query);
     }
-    public function FetchEvent() {}
+    //@param $eventId
+    public function FetchEvent($eventId): array
+    {
+        return $this->model->FetchEvent($eventId);
+    }
+
+    public function FetchAllEvents(): array
+    {
+        return $this->model->FetchAllEvents();
+    }
+    //@return void
+    public function __destruct()
+    {
+        $this->model = null;
+    }
 }

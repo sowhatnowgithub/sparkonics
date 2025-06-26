@@ -8,7 +8,8 @@ class EventsPageModel
     public function __construct()
     {
         try {
-            $this->conn = new \PDO("sqlite:Database/eventsPageData.db");
+            $dbPath = __DIR__ . "/Database/eventsPageData.db";
+            $this->conn = new \PDO("sqlite:$dbPath");
             $this->conn->setAttribute(
                 \PDO::ATTR_ERRMODE,
                 \PDO::ERRMODE_EXCEPTION
@@ -17,13 +18,20 @@ class EventsPageModel
                 \PDO::ATTR_DEFAULT_FETCH_MODE,
                 \PDO::FETCH_ASSOC
             );
-            echo "Connection to the database is successfull \n";
+            //echo "Connection to the database is successfull \n";
         } catch (\PDOException $e) {
-            echo "Exception PDO : " . $e . "\n";
+            // echo "Exception PDO : " . $e . "\n";
             exit();
         }
     }
-    // @param $values
+    //@param $query
+    // @return string
+
+    public function cleanQuery($query)
+    {
+        return $this->conn->quote($query);
+    }
+    // @param $query
     public function EventAdd($query): void
     {
         $this->query = $query;
@@ -34,27 +42,43 @@ class EventsPageModel
         }
     }
     //@param $eventId
-    public function EventFetch($eventId): array
+    //@return array
+    public function FetchEvent($eventId): array
     {
         try {
             $stmt = $this->conn->prepare(
-                "SELECT * FROM Events WHERE EventId = $eventId"
+                "SELECT * FROM Events WHERE EventId = :eventId"
             );
-            $event = $stmt->fetch();
-            return $event;
+            $stmt->bindParam(":eventId", $eventId, \PDO::PARAM_INT);
+            $stmt->execute();
+            $event = $stmt->fetch(\PDO::FETCH_ASSOC);
+            $stmt = null;
+            if ($event != false) {
+                return $event;
+            } else {
+                return ["Error" => "Error in fetching"];
+            }
         } catch (\Exception $e) {
-            echo "Exception at Event Fetch : $e\n";
+            //  echo "Exception at Event Fetch : $e\n";
         }
+        return ["Error" => "Error in fetching"];
     }
-    public function EventsFetchAll(): array
+    //@return array
+    public function FetchAllEvents(): array
     {
         try {
             $stmt = $this->conn->prepare("SELECT * FROM Events");
             $stmt->execute();
             $events = $stmt->fetchAll(\PDO::FETCH_ASSOC);
-            return $events;
+            $stmt = null;
+            if ($events != false) {
+                return $events;
+            } else {
+                return ["Error" => "Failed to fetch"];
+            }
         } catch (\Exception $e) {
-            echo "Exception at EventsFethcAll : $e";
+            // echo "Exception at EventsFethcAll : $e";
         }
+        return ["Error" => "Failed to Fetch"];
     }
 }
