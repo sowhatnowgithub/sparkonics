@@ -1,16 +1,17 @@
 {
-    "name": "sowhatnow/sparkonics-server",
-    "description": "This is the backend for sparkonics",
-    "autoload": {
-        "psr-4": {
-            "Sowhatnow\\App\\": "app/",
-			"Sowhatnow\\Routes\\": "routes/"
-        }
-    },
-    "authors": [
-        {
-            "name": "sowhatnow"
-        }
-    ],
-    "require": {}
+  "name": "sowhatnow/sparkonics-server",
+  "description": "This is the backend for sparkonics",
+  "autoload": {
+    "psr-4": {
+      "Sowhatnow\\App\\": "app/",
+      "Sowhatnow\\Routes\\": "routes/",
+      "Sowhatnow\\Api\\": "api/"
+    }
+  },
+  "authors": [
+    {
+      "name": "sowhatnow"
+    }
+  ],
+  "require": {}
 }

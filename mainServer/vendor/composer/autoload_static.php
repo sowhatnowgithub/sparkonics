@@ -11,6 +11,7 @@ class ComposerStaticInit67d2a79743f0ade210ebebeea6fad28e
         array (
             'Sowhatnow\\Routes\\' => 17,
             'Sowhatnow\\App\\' => 14,
+            'Sowhatnow\\Api\\' => 14,
         ),
     );
 
@@ -22,6 +23,10 @@ class ComposerStaticInit67d2a79743f0ade210ebebeea6fad28e
         'Sowhatnow\\App\\' => 
         array (
             0 => __DIR__ . '/../..' . '/app',
+        ),
+        'Sowhatnow\\Api\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/api',
         ),
     );
 

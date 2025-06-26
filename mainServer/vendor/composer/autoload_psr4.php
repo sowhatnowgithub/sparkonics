@@ -8,4 +8,5 @@ $baseDir = dirname($vendorDir);
 return array(
     'Sowhatnow\\Routes\\' => array($baseDir . '/routes'),
     'Sowhatnow\\App\\' => array($baseDir . '/app'),
+    'Sowhatnow\\Api\\' => array($baseDir . '/api'),
 );

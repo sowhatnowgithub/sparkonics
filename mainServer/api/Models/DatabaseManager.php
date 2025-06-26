@@ -11,7 +11,7 @@ class DatabaseManager
     public function __construct($databasePath)
     {
         try {
-            $this->conn = new \PDO("sqlite:Database/$databasePath");
+            $this->conn = new \PDO("sqlite:$databasePath");
             $this->conn->setAttribute(
                 \PDO::ATTR_ERRMODE,
                 \PDO::ERRMODE_EXCEPTION

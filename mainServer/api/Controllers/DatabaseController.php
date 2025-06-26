@@ -1,4 +1,5 @@
 <?php
+require_once "../../vendor/autoload.php";
 use Sowhatnow\Api\Models\DatabaseManager;
 
 $query = "CREATE TABLE Events (
@@ -12,8 +13,9 @@ $query = "CREATE TABLE Events (
 	EventStatus TEXT NOT NULL CHECK(EventStatus IN ('Active', 'Close', 'Register')),
 	EventRegisterLink TEXT NOT NULL
 )";
-
-$dataBase = new DatabaseManager("eventsPageData.db");
+$dbPath =
+    "/Users/pavan/Desktop/Current_projects/sparkonics/mainServer/api/Models/Database/eventsPageData.db";
+$dataBase = new DatabaseManager($dbPath);
 
 $dataBase->CreateAction($query, "CreateEventsTable");
 

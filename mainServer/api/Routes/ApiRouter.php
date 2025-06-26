@@ -59,7 +59,6 @@ class ApiRouter
                         "controllerAction" => $regex["controllerAction"],
                         "arg" => $regex["arg"],
                     ];
-
                     $out = $this->routeActionHelper($matches[1], $route);
                     break;
                 }
@@ -73,7 +72,12 @@ class ApiRouter
     // @return array
     public function routeActionHelper($args, $route): array
     {
-        parse_str($args, $args);
+        if (
+            is_string($args) &&
+            (strpos($args, "=") !== false || strpos($args, "&") !== false)
+        ) {
+            parse_str($args, $args);
+        }
 
         try {
             list($actionName, $actionMethod) = $route["controllerAction"];
