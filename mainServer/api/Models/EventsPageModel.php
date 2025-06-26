@@ -32,7 +32,7 @@ class EventsPageModel
         return $this->conn->quote($query);
     }
     // @param $query
-    public function EventAdd($query): void
+    public function AddEvent($query): void
     {
         $this->query = $query;
         try {
@@ -81,4 +81,29 @@ class EventsPageModel
         }
         return ["Error" => "Failed to Fetch"];
     }
+    public function DeleteEvent($eventId): array
+    {
+        try {
+            $stmt = $this->conn->prepare(
+                "DELETE FROM Events WHERE EventId = :eventId"
+            );
+            $stmt->bindParam(":eventId", $eventId, \PDO::PARAM_INT);
+            $stmt->execute();
+			$stmt = null;
+			return ['Sucess' => "God"];
+        } catch (\Exception $e) {
+            //  echo "Exception at Event Fetch : $e\n";
+        }
+        return ["Error" => "Error in fetching"];
+    }
+	public function ModifyEvent($query){
+		try {
+			$stmt = $this->conn->prepare($query);
+			$stmt->execute();
+			return ["Sucess" => "God"];
+		} catch (\PDOException $e) {
+			return ['Error' => "Fetch failed"];
+		}
+	}
+
 }

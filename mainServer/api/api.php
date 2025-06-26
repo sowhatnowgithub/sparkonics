@@ -16,22 +16,21 @@ $router->routeCreate(
 );
 $router->routeCreate(
     "/api/events/add",
-    ["EventsPageController", "EventAdd"],
+    ["EventsPageController", "AddEvent"],
     "GET",
     true
 );
-$router->routeCreateRegex(
-    '~^/api/events/modify/([a-zA-Z0-9_-]+)$~',
-    "modifyEvent",
-    ["EventsPageController", "EventModify"],
+$router->routeCreate(
+	"/api/events/modify",
+    ["EventsPageController", "ModifyEvent"],
     "GET",
     true
 );
 $router->routeCreateRegex(
     '~^/api/events/delete/([a-zA-Z0-9_-]+)$~',
     "deleteEvent",
-    ["EventsPageController", "EventDelete"],
-    "GET"
+    ["EventsPageController", "DeleteEvent"],
+    "GET", true
 );
 $router->routeCreateRegex(
     '~^/api/events/([a-zA-Z0-9_-]+)$~',
