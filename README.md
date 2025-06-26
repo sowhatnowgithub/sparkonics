@@ -1,6 +1,48 @@
 # sparkonics
 
 
+# Project Dependencies
+
+This project uses the following dependencies:
+You don't have specifically install these seperately most of them are included when installed php and openswoole extension
+- **PHP 8.4** or higher
+- **OpenSwoole** (with Coroutines and SSL support and curl and mysql)
+- **PDO SQLite** extension
+- **PDO MySQL** extension
+- **cURL** PHP extension
+## installation guide
+With mac os, gotta build from source openswoole and set up CPPflags and some tools have to be installed
+Detailed guide available in openswoole docs
+```
+#add this into your bash to let the openswoole c installation smooth
+export CPPFLAGS="-I$(brew --prefix brotli)/include"
+export LDFLAGS="-L$(brew --prefix brotli)/lib"
+
+export CPPFLAGS="-I/opt/homebrew/opt/pcre2/include"
+export LDFLAGS="-L/opt/homebrew/opt/pcre2/lib"
+export PKG_CONFIG_PATH="/opt/homebrew/opt/pcre2/lib/pkgconfig"
+
+```
+‼️Pecl Installation didn't work in macOs for openswoole.
+
+## Basic set-up guide
+Clone the repo,
+and run the following
+```
+composer install
+composer dump-autoload 
+```
+
+## Docker Container For Arm
+
+Will add soon
+Gotta Sleep
+
+If you have AMD device then use docker's 
+```
+docker buildx build --platform linux/amd64 -t 
+```
+
 #  Sparkonics API Documentation
 
 # Events API documentation
@@ -59,5 +101,10 @@ To modify an event, you **must** include:
 
 You may also include one or more of the following:  
 `EventName`, `EventDescription`, `EventStartTime`, `EventEndTime`, `EventDomains`, `EventBanner`, `EventStatus`, `EventRegisterLink`
+
+## Developments
+
+--Planning to implement a image api endpoint too, with efficient compresion of GET request and Responses
+
 
 
