@@ -1,3 +1,4 @@
+# for fronend-brancq
 # Logs
 logs
 *.log
@@ -22,3 +23,5 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+mainServer/
