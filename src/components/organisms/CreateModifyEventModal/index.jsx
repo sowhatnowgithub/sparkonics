@@ -3,7 +3,7 @@ import {useEffect, useState} from "react";
 import {Button, DatetimeInput, ImageInput, TextareaInput, TextInput} from "../../atoms/index.jsx";
 import BackendAPI from "../../../api.jsx";
 
-const CreateModifyEventModal = ({ show, onClose, onCreate, event, onModify }) => {
+const CreateModifyEventModal = ({show, onClose, onCreate, event, onModify}) => {
     const [eventDetails, setEventDetails] = useState({})
     const [errors, setErrors] = useState({})
     const [processingRequest, setProcessingRequest] = useState(false)
@@ -70,13 +70,17 @@ const CreateModifyEventModal = ({ show, onClose, onCreate, event, onModify }) =>
     
     
     return (
-        <Modal show={show} onClose={() => {setEventDetails({}); setErrors({}); onClose()}} title={event ? 'Modify event' : 'Create event'}>
+        <Modal show={show} onClose={() => {
+            setEventDetails({});
+            setErrors({});
+            onClose()
+        }} title={event ? 'Modify event' : 'Create event'}>
             <ImageInput
                 label={"Event banner"}
                 imageURLSrc={eventDetails.banner}
                 updateBanner={(url) => setValue("banner")({target: {value: url}})}
                 error={errors.banner}
-                />
+            />
             
             <TextInput
                 label={"Event name"}
@@ -119,7 +123,7 @@ const CreateModifyEventModal = ({ show, onClose, onCreate, event, onModify }) =>
                 }}
                 error={errors.endTime}
                 InputProps={{min: eventDetails.startTime, disabled: eventDetails.startTime === undefined}}
-                />
+            />
             
             <TextInput
                 label={"Admin password"}
@@ -133,7 +137,8 @@ const CreateModifyEventModal = ({ show, onClose, onCreate, event, onModify }) =>
                 }}
             />
             
-            <Button onClick={submitForm} variant={"filled"}>{processingRequest ? (event ? 'Modifying event' : 'Adding event...') : (event ? "Modify event" : 'Create event')}</Button>
+            <Button onClick={submitForm}
+                    variant={"filled"}>{processingRequest ? (event ? 'Modifying event' : 'Adding event...') : (event ? "Modify event" : 'Create event')}</Button>
         </Modal>
     )
 }

@@ -1,8 +1,8 @@
 import "./styles.scss"
 import {useEffect} from "react";
 
-const Modal = ({ show, onClose, contentClass, title, ...props }) => {
-    const keydownHandler = ({ key }) => {
+const Modal = ({show, onClose, contentClass, title, ...props}) => {
+    const keydownHandler = ({key}) => {
         switch (key) {
             case 'Escape':
                 onClose();

@@ -3,7 +3,7 @@ import "./styles.scss";
 import BackendAPI from "../../../api.jsx";
 import {useState} from "react";
 
-const ImageInput = ({ imageURLSrc, className, updateBanner, error, label, ...props }) => {
+const ImageInput = ({imageURLSrc, className, updateBanner, error, label, ...props}) => {
     const [processing, setProcessing] = useState(false)
     
     const onFileUpload = (event) => {

@@ -1,7 +1,21 @@
 import "./styles.scss"
 import clsx from "clsx";
 
-const TextInput = ({ autoComplete, autoFocus, className, defaultValue, helperText, label, placeholder, type, value, error, InputRef, InputProps, ...props }) => {
+const TextInput = ({
+                       autoComplete,
+                       autoFocus,
+                       className,
+                       defaultValue,
+                       helperText,
+                       label,
+                       placeholder,
+                       type,
+                       value,
+                       error,
+                       InputRef,
+                       InputProps,
+                       ...props
+                   }) => {
     
     return (
         <div className={clsx('sw-input', className)} {...props}>

@@ -1,6 +1,6 @@
 // api.jsx
 
-const BASE_URL = 'https://your-backend-url.com'; // Replace with your actual backend URL
+const BASE_URL = 'https://sparkonics-event-api-amd64.onrender.com/api/events'; // Replace with your actual backend URL
 
 const BackendAPI = {
     get: async (url) => {

@@ -1,6 +1,6 @@
 import clsx from "clsx";
 
-const DatetimeInput = ({ className, defaultValue, helperText, label, value, error, InputRef, InputProps, ...props }) => {
+const DatetimeInput = ({className, defaultValue, helperText, label, value, error, InputRef, InputProps, ...props}) => {
     
     return (
         <div className={clsx('sw-input', className)} {...props}>

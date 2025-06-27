@@ -33,6 +33,7 @@
         color: colors.$text-muted;
         font-size: .8rem;
     }
+
     .sw-input-error {
         color: colors.$text-muted;
         font-size: .8rem;
@@ -40,7 +41,7 @@
 
 
     .sw-input-shake {
-        animation: shake 250ms cubic-bezier(.36,.07,.19,.97) both;
+        animation: shake 250ms cubic-bezier(.36, .07, .19, .97) both;
         transform: translate3d(0, 0, 0);
         backface-visibility: hidden;
         perspective: 1000px;

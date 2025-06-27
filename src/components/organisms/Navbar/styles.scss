@@ -1,7 +1,6 @@
 @use "src/styles/colors" as colors;
 
 
-
 nav {
     background: colors.$bg-dark;
     display: flex;
@@ -34,7 +33,7 @@ nav {
     }
 
 
-    .hamburger{
+    .hamburger {
         width: 2rem;
         height: 2rem;
         position: relative;
@@ -47,7 +46,7 @@ nav {
             width: 1rem;
             background-color: colors.$text;
 
-            &:before{
+            &:before {
                 transform: translateY(-12px);
                 transition-duration: 0.5s;
                 width: 1rem;
@@ -57,7 +56,7 @@ nav {
                 display: block;
             }
 
-            &:after{
+            &:after {
                 transform: translateY(8px);
                 transition-duration: 0.5s;
                 width: 1rem;
@@ -74,7 +73,7 @@ nav {
             width: 1rem;
             background-color: colors.$text;
 
-            &:before{
+            &:before {
                 transform: translateY(-12px);
                 transition-duration: 0.5s;
                 width: 1rem;
@@ -84,7 +83,7 @@ nav {
                 display: block;
             }
 
-            &:after{
+            &:after {
                 transform: translateY(8px);
                 transition-duration: 0.5s;
                 width: 1rem;
@@ -99,11 +98,11 @@ nav {
             .icon-left {
                 background: transparent;
 
-                &:before{
+                &:before {
                     transform: rotateZ(45deg) scaleX(1.4) translate(-4px, -4px);
                 }
 
-                &:after{
+                &:after {
                     transform: rotateZ(-45deg) scaleX(1.4) translate(-4px, 4px);
                 }
             }
@@ -111,11 +110,11 @@ nav {
             .icon-right {
                 background: transparent;
 
-                &:before{
+                &:before {
                     transform: rotateZ(-45deg) scaleX(1.4) translate(4px, -4px);
                 }
 
-                &:after{
+                &:after {
                     transform: rotateZ(45deg) scaleX(1.4) translate(4px, 4px);
                 }
             }

@@ -86,7 +86,7 @@ const EventsLanding = () => {
                 "endTime": "2025-06-27T23:59"
             }
         ]
-
+        
         
         const now = new Date();
         
