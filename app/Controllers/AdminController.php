@@ -2,18 +2,39 @@
 
 namespace Sowhatnow\App\Controllers;
 
-use Sowhatnow\App\Models\User;
+use Sowhatnow\App\Models\AdminModel;
 
 class AdminController
 {
+    protected $adminModel;
+    public const apiBaseUrl = "http://localhost:1978";
+    public function __construct()
+    {
+        $this->adminModel = new AdminModel();
+    }
     public function index()
     {
-        $userModel = new AdminModel();
-        $users = $userModel->getAll();
-        require __DIR__ . "/../Views/users.php";
+        require "/Users/pavan/Desktop/Current_projects/sparkonics/app/Views/AdminLogin.php";
     }
-    public function test()
+    public function Authenticate($credentials)
     {
-        echo __NAMESPACE__;
+        $trueCredentials = $this->adminModel->AuthenticateData();
+        if ($trueCredentials["User"] === $credentials["username"]) {
+            if ($trueCredentials["Password"] === $credentials["password"]) {
+                require "/Users/pavan/Desktop/Current_projects/sparkonics/app/Views/AdminPanel.php";
+            } else {
+                echo "Authentication Failed";
+            }
+        } else {
+            echo "Authentication Failed\n";
+        }
+    }
+    public function GetForm($section, $action)
+    {
+        $formControlData = $this->adminModel->AdminFormControl(
+            $section,
+            $action
+        );
+        require "/Users/pavan/Desktop/Current_projects/sparkonics/app/Views/AdminControl.php";
     }
 }

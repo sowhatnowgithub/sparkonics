@@ -27,3 +27,4 @@ dist-ssr
 mainServer/
 
 vendor/*
+*credentials.json*

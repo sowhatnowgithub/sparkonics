@@ -1,14 +1,15 @@
 <?php
 
 namespace Sowhatnow\Api\Models;
-class EventsPageModel
+
+class ProfsPageModel
 {
-    protected $conn = null;
+    protected $conn;
     protected $query;
     public function __construct()
     {
         try {
-            $dbPath = __DIR__ . "/Database/eventsPageData.db";
+            $dbPath = __DIR__ . "/Database/ProfsPageData.db";
             $this->conn = new \PDO("sqlite:$dbPath");
             $this->conn->setAttribute(
                 \PDO::ATTR_ERRMODE,
@@ -18,26 +19,20 @@ class EventsPageModel
                 \PDO::ATTR_DEFAULT_FETCH_MODE,
                 \PDO::FETCH_ASSOC
             );
-            //echo "Connection to the database is successfull \n";
         } catch (\PDOException $e) {
-            // echo "Exception PDO : " . $e . "\n";
-            return ["Error" => "Failed to connect"];
+            return ["Error" => "Failed to fetch"];
             exit();
         }
     }
-    //@param $query
-    // @return string
 
-    public function cleanQuery($query)
+    public function cleanQuery($query): string
     {
         return $this->conn->quote($query);
     }
-    // @param $query
-    public function AddEvent($query): array
+    public function AddProf($query): array
     {
-        $this->query = $query;
         try {
-            $stmt = $this->conn->prepare($this->query);
+            $stmt = $this->conn->prepare($query);
             $stmt->execute();
             $stmt = null;
             return ["Success" => "God"];
@@ -45,59 +40,54 @@ class EventsPageModel
             return ["Error" => "Failed to fetch"];
         }
     }
-    //@param $eventId
-    //@return array
-    public function FetchEvent($eventId): array
+    public function FetchProf($profId): array
     {
         try {
             $stmt = $this->conn->prepare(
-                "SELECT * FROM Events WHERE EventId = :eventId"
+                "SELECT * FROM Progs WHERE ProfId = :profId"
             );
-            $stmt->bindParam(":eventId", $eventId, \PDO::PARAM_INT);
+            $stmt->bindParam(":profId", $profId, \PDO::PARAM_INT);
             $stmt->execute();
-            $event = $stmt->fetch(\PDO::FETCH_ASSOC);
+            $prof = $stmt->fetch();
             $stmt = null;
-            if ($event != false) {
-                return $event;
-            } else {
-                return ["Error" => "Error in fetching"];
-            }
-        } catch (\PDOException $e) {
-            return ["Error" => "Error in fetching"];
-            //  echo "Exception at Event Fetch : $e\n";
-        }
-    }
-    //@return array
-    public function FetchAllEvents(): array
-    {
-        try {
-            $stmt = $this->conn->prepare("SELECT * FROM Events");
-            $stmt->execute();
-            $events = $stmt->fetchAll(\PDO::FETCH_ASSOC);
-            $stmt = null;
-            if ($events != false) {
-                return $events;
+            if (prof != false) {
+                return $prof;
             } else {
                 return ["Error" => "Failed to fetch"];
             }
         } catch (\PDOException $e) {
-            // echo "Exception at EventsFethcAll : $e";
             return ["Error" => "Failed to fetch"];
         }
     }
-    public function DeleteEvent($eventId): array
+    public function FetchAllProfs(): array
+    {
+        try {
+            $this->query = "SELECT * FROM Profs";
+            $stmt = $this->conn->prepare($this->query);
+            $stmt->execute();
+            $profs = $stmt->fetchAll();
+            $stmt = null;
+            if ($profs != false) {
+                return $profs;
+            } else {
+                return ["Error" => "Failed to fetch"];
+            }
+        } catch (\PDOException $e) {
+            return ["Error" => "Failed to fetch"];
+        }
+    }
+    public function DeleteProf($profId): array
     {
         try {
             $stmt = $this->conn->prepare(
-                "DELETE FROM Events WHERE EventId = :eventId"
+                "DELETE FROM Profs WHERE ProfId = :profId"
             );
-            $stmt->bindParam(":eventId", $eventId, \PDO::PARAM_INT);
+            $stmt->bindParam(":profId", $profId, \PDO::PARAM_INT);
             $stmt->execute();
             $stmt = null;
-            return ["Sucess" => "God"];
+            return ["Success" => "god"];
         } catch (\PDOException $e) {
-            return ["Error" => "Error in fetching"];
-            //  echo "Exception at Event Fetch : $e\n";
+            return ["Error" => "Failed to fetch"];
         }
     }
     public function ModifyEvent($query)

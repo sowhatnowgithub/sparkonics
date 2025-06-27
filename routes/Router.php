@@ -4,6 +4,7 @@ namespace Sowhatnow\Routes;
 
 class Router
 {
+    public $controller, $action;
     private $routes = [];
     // @param string $uri The URI expects the path
     // @param array $controllerAction
@@ -17,25 +18,34 @@ class Router
     {
         $this->routes["POST"][$uri] = $controllerAction;
     }
-    // @param $uri
-    // @param $method Ex: GET, POST
-    public function dispatch($uri, $method): void
+    public function routeAction($uri, $method, $setting = false)
     {
-        if (isset($this->routes[$method][$uri])) {
-            list($controllerName, $action) = $this->routes[$method][$uri];
-            $controllerClass = "Sowhatnow\\App\\Controllers\\{$controllerName}";
-            if (class_exists($controllerClass)) {
-                $controller = new $controllerClass();
-                if (method_exists($controller, $action)) {
-                    $controller->$action();
+        try {
+            list($this->controller, $this->action) = @$this->routes[$method][
+                $uri
+            ];
+            $controllerClass = "Sowhatnow\\App\\Controllers\\{$this->controller}";
+            try {
+                if (class_exists($controllerClass)) {
+                    if (method_exists($controllerClass, $this->action)) {
+                        $model = new $controllerClass();
+                        if ($setting != false) {
+                            $model->{$this->action}($setting);
+                        } else {
+                            $model->{$this->action}();
+                        }
+                    }
                 } else {
-                    http_response_code(404);
+                    echo "Failed at Controller Class\n";
+                    exit();
                 }
-            } else {
-                http_response_code(404);
+            } catch (\Exception $e) {
+                echo "Failed at Rotuer\n";
+                exit();
             }
-        } else {
+        } catch (\Exception $e) {
             http_response_code(404);
+            exit();
         }
     }
 }

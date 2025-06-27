@@ -9,6 +9,15 @@ $uri = parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH);
 $method = $_SERVER["REQUEST_METHOD"];
 $router = new Router();
 
-$router->get("/", ["UserController", "test"]);
 $router->get("/admin", ["AdminController", "index"]);
-$router->dispatch($uri, $method);
+$router->post("/admin/auth", ["AdminController", "Authenticate"]);
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $router->routeAction(
+        $_SERVER["REQUEST_URI"],
+        $_SERVER["REQUEST_METHOD"],
+        $_POST
+    );
+} else {
+    $router->routeAction($_SERVER["REQUEST_URI"], $_SERVER["REQUEST_METHOD"]);
+}

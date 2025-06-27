@@ -1,0 +1,93 @@
+{
+  "Events": {
+    "Add": {
+      "request_method": "POST",
+      "action_url": "/api/events/add",
+      "FormData": {
+        "EventName": ["required", "text", "Enter Event Name like sowhatnow"],
+        "EventDescription": ["required", "textarea", "Enter Event Description"],
+        "EventStartTime": ["required", "datetime-local", ""],
+        "EventEndTime": ["required", "datetime-local", ""],
+        "EventDomains": ["required", "text", "Eg: Signals, Digi, Analog"],
+        "EventBanner": ["required", "url", "https://expample.com/banner.jpg"],
+        "EventRegisterLink": ["required", "url", "https://example.com/register"]
+      }
+    },
+    "Modify": {
+      "request_method": "POST",
+      "action_url": "/api/events/modify",
+      "FormData": {
+        "EventId": ["required", "number", "Enter Event Id"],
+        "EventName": ["", "text", "Enter Event Name like sowhatnow"],
+        "EventDescription": ["", "textarea", "Enter Event Description"],
+        "EventStartTime": ["", "datetime-local", ""],
+        "EventEndTime": ["", "datetime-local", ""],
+        "EventDomains": ["", "text", "Eg: Signals, Digi, Analog"],
+        "EventBanner": ["", "url", "https://expample.com/banner.jpg"],
+        "EventRegisterLink": ["", "url", "https://example.com/register"]
+      }
+    },
+    "Delete": {
+      "request_method": "GET",
+      "action_url": "/api/events/delete/"
+    },
+    "Fetch": {
+      "request_method": "GET",
+      "action_url": "/api/events/"
+    },
+    "FetchAll": {
+      "request_method": "GET",
+      "action_url": "/api/events"
+    }
+  },
+  "Profs": {
+    "Add": {
+      "request_method": "POST",
+      "action_url": "/api/profs/add",
+      "FormData": {
+        "ProfName": ["required", "text", "Enter Prof Name like L.Praful"],
+        "ProfPosition": ["required", "text", "Asst.Prof, etc "],
+        "ProfContact": [
+          "required",
+          "text",
+          "Like there room no, official iitp mail"
+        ],
+        "ProfDomain": ["required", "text", "Signals, IOT, ML etc"],
+        "ProfCurrentProject": [
+          "required",
+          "textarea",
+          "There current project in public domain, don't include his private ones without his concern"
+        ],
+        "ProfImage": ["required", "file"]
+      }
+    },
+    "Modify": {
+      "request_method": "POST",
+      "action_url": "/api/profs/modify",
+      "FormData": {
+        "ProfId": ["required", "number", "Enter Prof Id"],
+        "ProfName": ["", "text", "Enter Prof Name like L.Praful"],
+        "ProfPosition": ["", "text", "Asst.Prof, etc "],
+        "ProfContact": ["", "text", "Like there room no, official iitp mail"],
+        "ProfDomain": ["", "text", "Signals, IOT, ML etc"],
+        "ProfCurrentProject": [
+          "",
+          "textarea",
+          "There current project in public domain, don't include his private ones without his concern"
+        ]
+      }
+    },
+    "Delete": {
+      "request_method": "GET",
+      "action_url": "/api/profs/delete/"
+    },
+    "Fetch": {
+      "request_method": "GET",
+      "action_url": "/api/profs/"
+    },
+    "FetchAll": {
+      "request_method": "GET",
+      "action_url": "/api/profs"
+    }
+  }
+}

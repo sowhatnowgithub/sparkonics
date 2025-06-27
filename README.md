@@ -30,14 +30,14 @@ Clone the repo,
 and run the following
 ```
 composer install
-composer dump-autoload 
+composer dump-autoload
 ```
 
-## Docker Container 
+## Docker Container
 
  **Docker For linux/arm**
 ```
-docker pull sowhatnowdocker/sparkonics-event-api:latest 
+docker pull sowhatnowdocker/sparkonics-event-api:latest
 docker run -p 1978:1978 sowhatnowdocker/sparkonics-event-api:latest
 ```
  **Docker For linux/amd**
@@ -64,15 +64,10 @@ The **Sparkonics Events API** allows you to add, fetch, modify, and delete event
   "EventEndTime": "2025-06-20 18:00:00",
   "EventDomains": "Music, Food, Games",
   "EventBanner": "https://example.com/banner.jpg",
-  "EventStatus": "Active",
   "EventRegisterLink": "https://example.com/register"
 }
 ```
-## 🎯 EventStatus Accepted Values
-
-- `Active`
-- `Close`
-- `Register`
+`
 
 ## 🔗 API Base URL
 
@@ -86,29 +81,25 @@ http://localhost:1978
 |---------------------------|--------------------|--------|--------------------------------|
 | `/api/events`             | Get all events     | GET    | `/api/events`                  |
 | `/api/events/{id}`        | Get event by ID    | GET    | `/api/events/1`                |
-| `/api/events/add`         | Add a new event    | GET    | `/api/events/add?...`          |
-| `/api/events/modify`      | Modify event by ID | GET    | `/api/events/modify?...`       |
+| `/api/events/add`         | Add a new event    | POST   | `/api/events/add`              |
+| `/api/events/modify`      | Modify event by ID | POST   | `/api/events/modify`           |
 | `/api/events/delete/{id}` | Delete event by ID | GET    | `/api/events/delete/1`         |
 
 ## ✅ Required Fields for `/add`
 
-The following fields are required when adding an event:  
+The following fields are required when adding an event:
 `EventName`, `EventDescription`, `EventStartTime`, `EventEndTime`, `EventDomains`, `EventBanner`, `EventStatus`, `EventRegisterLink`
 
 ---
 
 ## 🔧 Optional Fields for `/modify`
 
-To modify an event, you **must** include:  
+To modify an event, you **must** include:
 `EventId`
 
-You may also include one or more of the following:  
+You may also include one or more of the following:
 `EventName`, `EventDescription`, `EventStartTime`, `EventEndTime`, `EventDomains`, `EventBanner`, `EventStatus`, `EventRegisterLink`
 
 ## Developments
 
 --Planning to implement a image api endpoint too, with efficient compresion of GET request and Responses
-
-
-
-

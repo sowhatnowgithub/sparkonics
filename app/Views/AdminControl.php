@@ -1,0 +1,89 @@
+<!-- Admin Panel-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>AdminPanelX</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+        background-color: #f5f5f5;
+      }
+      form {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        max-width: 500px;
+        margin: auto;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      label {
+        display: block;
+        margin: 15px 0 5px;
+        font-weight: bold;
+      }
+      input[type="text"],
+      input[type="datetime-local"],
+      input[type="url"],
+      textarea {
+        width: 100%;
+        padding: 8px;
+        box-sizing: border-box;
+      }
+      input[type="submit"] {
+        margin-top: 20px;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+<?php
+$baseUrl =
+    Sowhatnow\App\Controllers\AdminController::apiBaseUrl .
+    "{$formControlData["action_url"]}";
+if ($action == "Add" || $action == "Modify") {
+    $data = "<form method='{$formControlData["request_method"]}' action='$baseUrl'>";
+    $data .= "<h2>$section $action</h2>";
+    foreach ($formControlData["FormData"] as $FormName => $setting) {
+        $data .= "<label for='{$FormName}'>$FormName</label>";
+        if ($setting[1] == "textarea") {
+            $data .= "<textarea rows='5' id='{$FormName}' name='{$FormName}' type='{$setting[1]}' placeholder='{$setting[2]}' {$setting[0]} ></textarea>";
+        } else {
+            $data .= "<input id='{$FormName}' name='{$FormName}'  type='{$setting[1]}' placeholder='{$setting[2]}' {$setting[0]}  />";
+        }
+    }
+    $data .= "<input type='submit'/>";
+    $data .= "</form>";
+    echo $data;
+} elseif ($action === "FetchAll") {
+} elseif ($action === "Delete" || $action === "Fetch") {
+}
+?>
+<script>
+  async function sendRequest() {
+    const input = document.getElementById('userInput').value.trim();
+    if (!input) {
+      document.getElementById('output').textContent = "Please enter something.";
+      return;
+    }
+
+
+    try {
+      const res = await fetch(url);
+      const data = await res.json(); // assuming your backend returns JSON
+      document.getElementById('output').textContent = JSON.stringify(data, null, 2);
+    } catch (err) {
+      document.getElementById('output').textContent = "Error:\n" + err;
+    }
+  }
+</script>
+</body>
+</html>

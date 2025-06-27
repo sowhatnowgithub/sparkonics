@@ -4,7 +4,6 @@ use OpenSwoole\Http\Server;
 use OpenSwoole\Http\Request;
 use OpenSwoole\Http\Response;
 use Sowhatnow\Api\Routes\ApiRouter;
-
 // Routes declaration
 
 $router = new ApiRouter();
@@ -17,13 +16,13 @@ $router->routeCreate(
 $router->routeCreate(
     "/api/events/add",
     ["EventsPageController", "AddEvent"],
-    "GET",
+    "POST",
     true
 );
 $router->routeCreate(
     "/api/events/modify",
     ["EventsPageController", "ModifyEvent"],
-    "GET",
+    "POST",
     true
 );
 $router->routeCreateRegex(
@@ -40,7 +39,25 @@ $router->routeCreateRegex(
     "GET",
     true
 );
-
+$router->routeCreate(
+    "/api/profs",
+    ["ProfsPageController", "FetchAllProfs"],
+    "GET",
+    false
+);
+$router->routeCreate(
+    "/api/profs/add",
+    ["ProfsPageController", "AddProf"],
+    "GET",
+    true
+);
+$router->routeCreateRegex(
+    '~^/api/profs/([a-zA-Z0-9_-]+)$~',
+    "fetchEvent",
+    ["EventsPageController", "FetchEvent"],
+    "GET",
+    true
+);
 $host = "0.0.0.0";
 $port = 1978;
 
@@ -74,16 +91,24 @@ $server->on("Request", function (Request $request, Response $response) use (
     $response->header("X-Frame-Options", "SAMEORIGIN");
     $response->header("X-RateLimit-Remaining", "999");
     $returnData = [];
-    if (isset($request->server["query_string"])) {
+    if ($request->server["request_method"] === "GET") {
+        if (isset($request->server["query_string"])) {
+            $returnData = $router->routeAction(
+                $request->server["request_uri"],
+                $request->server["request_method"],
+                $request->server["query_string"]
+            );
+        } else {
+            $returnData = $router->routeAction(
+                $request->server["request_uri"],
+                $request->server["request_method"]
+            );
+        }
+    } elseif ($request->server["request_method"] == "POST") {
         $returnData = $router->routeAction(
             $request->server["request_uri"],
             $request->server["request_method"],
-            $request->server["query_string"]
-        );
-    } else {
-        $returnData = $router->routeAction(
-            $request->server["request_uri"],
-            $request->server["request_method"]
+            $request->post
         );
     }
     $response->end(json_encode($returnData));

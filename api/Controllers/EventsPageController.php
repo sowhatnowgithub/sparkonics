@@ -7,15 +7,13 @@ class EventsPageController
 {
     public $model;
     public $query;
-    // @param $uri
-    // @param $method
-    // @param $query
+
     public function __construct()
     {
         $this->model = new EventsPageModel();
     }
     //@param $eventValues
-    public function AddEvent($eventValues): void
+    public function AddEvent($eventValues): array
     {
         $this->query = "	INSERT INTO Events (
 		    EventName,
@@ -24,7 +22,6 @@ class EventsPageController
 		    EventEndTime,
 		    EventDomains,
 		    EventBanner,
-		    EventStatus,
 		    EventRegisterLink
 		) VALUES (";
         $escapedValues = [];
@@ -32,7 +29,7 @@ class EventsPageController
             $escapedValues[] = $this->model->cleanQuery($value);
         }
         $this->query = $this->query . implode(",", $escapedValues) . ")";
-        $this->model->AddEvent($this->query);
+        return $this->model->AddEvent($this->query);
     }
     //@param $eventId
     public function FetchEvent($eventId): array
@@ -43,24 +40,30 @@ class EventsPageController
     {
         return $this->model->FetchAllEvents();
     }
-	public function DeleteEvent($eventId){
-		return $this->model->DeleteEvent($eventId);
-	}
-	public function ModifyEvent($settings){
-		$this->query  = "UPDATE EVENTS SET ";
-		$clause;
-		$escapedValues  =[];
-		foreach($settings as $setting => $value) {
-			$settingTemp = $this->model->cleanQuery($setting);
-			$valueTemp = $this->model->cleanQuery($value);
-			if($setting == "EventId") $clause = $valueTemp; 
-			else 
-			$escapedValues[] = "$settingTemp = $valueTemp";
-		}
-		$this->query.=implode(",",$escapedValues) . " WHERE EventId = $clause";
-		return $this->model->ModifyEvent($this->query);
-		
-	}
+    public function DeleteEvent($eventId): array
+    {
+        return $this->model->DeleteEvent($eventId);
+    }
+    public function ModifyEvent($settings): array
+    {
+        $this->query = "UPDATE EVENTS SET ";
+        $clause = null;
+        $escapedValues = [];
+        foreach ($settings as $setting => $value) {
+            if ($value != "") {
+                $settingTemp = $this->model->cleanQuery($setting);
+                $valueTemp = $this->model->cleanQuery($value);
+                if ($setting == "EventId") {
+                    $clause = $valueTemp;
+                } else {
+                    $escapedValues[] = "$settingTemp = $valueTemp";
+                }
+            }
+        }
+        $this->query .=
+            implode(",", $escapedValues) . " WHERE EventId = $clause";
+        return $this->model->ModifyEvent($this->query);
+    }
     //@return void
     public function __destruct()
     {
