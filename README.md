@@ -33,14 +33,17 @@ composer install
 composer dump-autoload 
 ```
 
-## Docker Container For Arm
+## Docker Container 
 
-Will add soon
-Gotta Sleep
-
-If you have AMD device then use docker's 
+ **Docker For linux/arm**
 ```
-docker buildx build --platform linux/amd64 -t 
+docker pull sowhatnowdocker/sparkonics-event-api:latest 
+docker run -p 1978:1978 sowhatnowdocker/sparkonics-event-api:latest
+```
+ **Docker For linux/amd**
+```
+docker pull sowhatnowdocker/sparkonics-event-api:amd64v1
+docker run -p 1978:1978 sowhatnowdocker/sparkonics-event-api:amd64v1
 ```
 
 #  Sparkonics API Documentation
@@ -105,6 +108,7 @@ You may also include one or more of the following:
 ## Developments
 
 --Planning to implement a image api endpoint too, with efficient compresion of GET request and Responses
+
 
 
 
