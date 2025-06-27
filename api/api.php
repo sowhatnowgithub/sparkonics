@@ -53,7 +53,7 @@ $router->routeCreate(
 );
 $router->routeCreateRegex(
     '~^/api/profs/([a-zA-Z0-9_-]+)$~',
-    "fetchEvent",
+    "fetchProf",
     ["EventsPageController", "FetchEvent"],
     "GET",
     true

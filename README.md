@@ -1,5 +1,13 @@
 # sparkonics
+# Production server key changes to make:
+Check the Controller and Models for the absolute paths
+Check the AdminController and openswoole for the api url,
+Check the Composer and Docer to expose the port carefully with
 
+## Developments
+
+--Planning to implement a image api endpoint too, with efficient compresion of GET request and Responses
+--Gotta resolve this absolute file paths issue
 
 # Project Dependencies
 
@@ -99,7 +107,3 @@ To modify an event, you **must** include:
 
 You may also include one or more of the following:
 `EventName`, `EventDescription`, `EventStartTime`, `EventEndTime`, `EventDomains`, `EventBanner`, `EventStatus`, `EventRegisterLink`
-
-## Developments
-
---Planning to implement a image api endpoint too, with efficient compresion of GET request and Responses

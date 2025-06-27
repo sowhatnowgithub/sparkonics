@@ -11,6 +11,7 @@ $router = new Router();
 
 $router->get("/admin", ["AdminController", "index"]);
 $router->post("/admin/auth", ["AdminController", "Authenticate"]);
+$router->post("/admin/apicontrol", ["AdminController", "ApiHandler"]);
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $router->routeAction(

@@ -49,41 +49,23 @@
 $baseUrl =
     Sowhatnow\App\Controllers\AdminController::apiBaseUrl .
     "{$formControlData["action_url"]}";
-if ($action == "Add" || $action == "Modify") {
-    $data = "<form method='{$formControlData["request_method"]}' action='$baseUrl'>";
-    $data .= "<h2>$section $action</h2>";
-    foreach ($formControlData["FormData"] as $FormName => $setting) {
-        $data .= "<label for='{$FormName}'>$FormName</label>";
-        if ($setting[1] == "textarea") {
-            $data .= "<textarea rows='5' id='{$FormName}' name='{$FormName}' type='{$setting[1]}' placeholder='{$setting[2]}' {$setting[0]} ></textarea>";
-        } else {
-            $data .= "<input id='{$FormName}' name='{$FormName}'  type='{$setting[1]}' placeholder='{$setting[2]}' {$setting[0]}  />";
-        }
+$data = "<form method='POST' action='apicontrol' >";
+$data .= "<h2>$section $action</h2>";
+foreach ($formControlData["FormData"] as $FormName => $setting) {
+    $data .= "<label for='{$FormName}'>$FormName</label>";
+    if ($setting[1] == "textarea") {
+        $data .= "<textarea rows='5' id='{$FormName}' name='{$FormName}' type='{$setting[1]}' placeholder='{$setting[2]}' {$setting[0]} ></textarea>";
+    } else {
+        $data .= "<input id='{$FormName}' name='{$FormName}'  type='{$setting[1]}' placeholder='{$setting[2]}' {$setting[0]}  />";
     }
-    $data .= "<input type='submit'/>";
-    $data .= "</form>";
-    echo $data;
-} elseif ($action === "FetchAll") {
-} elseif ($action === "Delete" || $action === "Fetch") {
 }
+
+$data .= "<input type='hidden' name='method' value='{$formControlData["request_method"]}'/>";
+$data .= "<input type='hidden' name='action' value='{$action}'/>";
+$data .= "<input type='hidden' name='baseUrl' value='{$baseUrl}'/>";
+$data .= "<input type='submit'/>";
+$data .= "</form>";
+echo $data;
 ?>
-<script>
-  async function sendRequest() {
-    const input = document.getElementById('userInput').value.trim();
-    if (!input) {
-      document.getElementById('output').textContent = "Please enter something.";
-      return;
-    }
-
-
-    try {
-      const res = await fetch(url);
-      const data = await res.json(); // assuming your backend returns JSON
-      document.getElementById('output').textContent = JSON.stringify(data, null, 2);
-    } catch (err) {
-      document.getElementById('output').textContent = "Error:\n" + err;
-    }
-  }
-</script>
 </body>
 </html>

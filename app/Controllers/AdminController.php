@@ -37,4 +37,8 @@ class AdminController
         );
         require "/Users/pavan/Desktop/Current_projects/sparkonics/app/Views/AdminControl.php";
     }
+    public function ApiHandler($formData)
+    {
+        require "/Users/pavan/Desktop/Current_projects/sparkonics/app/Views/AdminApiControl.php";
+    }
 }

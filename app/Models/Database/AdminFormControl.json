@@ -29,15 +29,22 @@
     },
     "Delete": {
       "request_method": "GET",
-      "action_url": "/api/events/delete/"
+      "action_url": "/api/events/delete/",
+      "FormData": {
+        "EventId": ["required", "number", "Enter Event Id to delete"]
+      }
     },
     "Fetch": {
       "request_method": "GET",
-      "action_url": "/api/events/"
+      "action_url": "/api/events/",
+      "FormData": {
+        "EventId": ["required", "number", "Enter Event Id to Fetch"]
+      }
     },
     "FetchAll": {
       "request_method": "GET",
-      "action_url": "/api/events"
+      "action_url": "/api/events",
+      "FormData": {}
     }
   },
   "Profs": {
@@ -58,7 +65,7 @@
           "textarea",
           "There current project in public domain, don't include his private ones without his concern"
         ],
-        "ProfImage": ["required", "file"]
+        "ProfImage": ["required", "file", ""]
       }
     },
     "Modify": {
@@ -79,15 +86,22 @@
     },
     "Delete": {
       "request_method": "GET",
-      "action_url": "/api/profs/delete/"
+      "action_url": "/api/profs/delete/",
+      "FormData": {
+        "EventId": ["required", "number", "Enter Event Id to delete"]
+      }
     },
     "Fetch": {
       "request_method": "GET",
-      "action_url": "/api/profs/"
+      "action_url": "/api/profs/",
+      "FormData": {
+        "EventId": ["required", "number", "Enter Event Id to Fetch"]
+      }
     },
     "FetchAll": {
       "request_method": "GET",
-      "action_url": "/api/profs"
+      "action_url": "/api/profs",
+      "FormData": {}
     }
   }
 }
