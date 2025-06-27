@@ -21,7 +21,7 @@ $router->routeCreate(
     true
 );
 $router->routeCreate(
-	"/api/events/modify",
+    "/api/events/modify",
     ["EventsPageController", "ModifyEvent"],
     "GET",
     true
@@ -30,7 +30,8 @@ $router->routeCreateRegex(
     '~^/api/events/delete/([a-zA-Z0-9_-]+)$~',
     "deleteEvent",
     ["EventsPageController", "DeleteEvent"],
-    "GET", true
+    "GET",
+    true
 );
 $router->routeCreateRegex(
     '~^/api/events/([a-zA-Z0-9_-]+)$~',
