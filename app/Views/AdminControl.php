@@ -46,9 +46,7 @@
   </head>
   <body>
 <?php
-$baseUrl =
-    Sowhatnow\App\Controllers\AdminController::apiBaseUrl .
-    "{$formControlData["action_url"]}";
+$baseUrl = Sowhatnow\Env::API_BASE_URL . "{$formControlData["action_url"]}";
 $data = "<form method='POST' action='apicontrol' >";
 $data .= "<h2>$section $action</h2>";
 foreach ($formControlData["FormData"] as $FormName => $setting) {

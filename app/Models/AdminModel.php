@@ -1,14 +1,14 @@
 <?php
 
 namespace Sowhatnow\App\Models;
-
+use Sowhatnow\Env;
 class AdminModel
 {
     public function AuthenticateData()
     {
         $data = json_decode(
             file_get_contents(
-                "/Users/pavan/Desktop/Current_projects/sparkonics/app/Models/Database/credentials.json"
+                Env::BASE_PATH . "/app/Models/Database/credentials.json"
             ),
             1
         );
@@ -18,7 +18,7 @@ class AdminModel
     {
         $formData = json_decode(
             file_get_contents(
-                "/Users/pavan/Desktop/Current_projects/sparkonics/app/Models/Database/AdminFormControl.json"
+                Env::BASE_PATH . "/app/Models/Database/AdminFormControl.json"
             ),
             1
         );

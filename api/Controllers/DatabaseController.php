@@ -1,7 +1,7 @@
 <?php
-require_once "../../vendor/autoload.php";
 use Sowhatnow\Api\Models\DatabaseManager;
-
+use Sowhatnow\Env;
+require_once Env::BASE_PATH . "/vendor/autoload.php";
 $eventsTableQuery = "CREATE TABLE Events (
 	EventId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
 	EventName TEXT NOT NULL,
@@ -21,10 +21,8 @@ $profsTableQuery = "CREATE TABLE Profs (
 	ProfDomain TEXT NOT NULL,
 	ProfCurrentProjects TEXT NOT NULL
 )";
-$dbPathEvent =
-    "/Users/pavan/Desktop/Current_projects/sparkonics/api/Models/Database/eventsPageData.db";
-$dbPathProf =
-    "/Users/pavan/Desktop/Current_projects/sparkonics/api/Models/Database/profsPageData.db";
+$dbPathEvent = Env::BASE_PATH . "/api/Models/Database/eventsPageData.db";
+$dbPathProf = Env::BASE_PATH . "/api/Models/Database/profsPageData.db";
 $dataBase = new DatabaseManager($dbPathEvent);
 
 $dataBase->CreateAction($eventsTableQuery, "CreateEventsTable");

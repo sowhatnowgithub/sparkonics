@@ -1,6 +1,8 @@
 <?php
 
 namespace Sowhatnow\Api\Models;
+use Sowhatnow\Env;
+
 class EventsPageModel
 {
     protected $conn = null;
@@ -8,7 +10,7 @@ class EventsPageModel
     public function __construct()
     {
         try {
-            $dbPath = __DIR__ . "/Database/eventsPageData.db";
+            $dbPath = Env::BASE_PATH . "/api/Models/Database/eventsPageData.db";
             $this->conn = new \PDO("sqlite:$dbPath");
             $this->conn->setAttribute(
                 \PDO::ATTR_ERRMODE,

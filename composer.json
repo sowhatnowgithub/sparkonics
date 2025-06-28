@@ -5,7 +5,8 @@
     "psr-4": {
       "Sowhatnow\\App\\": "app/",
       "Sowhatnow\\Routes\\": "routes/",
-      "Sowhatnow\\Api\\": "api/"
+      "Sowhatnow\\Api\\": "api/",
+      "Sowhatnow\\": "./"
     }
   },
   "authors": [

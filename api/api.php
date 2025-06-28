@@ -4,6 +4,7 @@ use OpenSwoole\Http\Server;
 use OpenSwoole\Http\Request;
 use OpenSwoole\Http\Response;
 use Sowhatnow\Api\Routes\ApiRouter;
+use Sowhatnow\Env;
 // Routes declaration
 
 $router = new ApiRouter();
@@ -58,8 +59,8 @@ $router->routeCreateRegex(
     "GET",
     true
 );
-$host = "0.0.0.0";
-$port = 1978;
+$host = Env::API_HOST;
+$port = Env::API_PORT;
 
 $server = new Server($host, $port);
 

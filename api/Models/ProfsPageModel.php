@@ -1,7 +1,7 @@
 <?php
 
 namespace Sowhatnow\Api\Models;
-
+use Sowhatnow\Env;
 class ProfsPageModel
 {
     protected $conn;
@@ -9,7 +9,7 @@ class ProfsPageModel
     public function __construct()
     {
         try {
-            $dbPath = __DIR__ . "/Database/ProfsPageData.db";
+            $dbPath = Env::BASE_PATH . "/api/Models/Database/ProfsPageData.db";
             $this->conn = new \PDO("sqlite:$dbPath");
             $this->conn->setAttribute(
                 \PDO::ATTR_ERRMODE,

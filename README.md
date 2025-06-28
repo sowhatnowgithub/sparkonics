@@ -1,14 +1,10 @@
 # sparkonics
-# Production server key changes to make:
-Check the Controller and Models for the absolute paths
-Check the AdminController and openswoole for the api url,
-Check the Composer and Docer to expose the port carefully with
+
 
 ## Developments
-
 --Planning to implement a image api endpoint too, with efficient compresion of GET request and Responses
---Gotta resolve this absolute file paths issue
-
+# For migration
+  Check the Env.php, this is the responisble for maintaing the Env specific Variables
 # Project Dependencies
 
 This project uses the following dependencies:
