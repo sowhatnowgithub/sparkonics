@@ -29,6 +29,10 @@ class ProfsPageController
     {
         return $this->model->FetchAllProfs();
     }
+    public function FetchProf($profId): array
+    {
+        return $this->model->FetchProf($profId);
+    }
     public function DeleteProf($profId): array
     {
         return $this->model->DeleteProf($profId);

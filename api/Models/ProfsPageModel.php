@@ -44,13 +44,13 @@ class ProfsPageModel
     {
         try {
             $stmt = $this->conn->prepare(
-                "SELECT * FROM Progs WHERE ProfId = :profId"
+                "SELECT * FROM Profs WHERE ProfId = :profId"
             );
             $stmt->bindParam(":profId", $profId, \PDO::PARAM_INT);
             $stmt->execute();
             $prof = $stmt->fetch();
             $stmt = null;
-            if (prof != false) {
+            if ($prof != false) {
                 return $prof;
             } else {
                 return ["Error" => "Failed to fetch"];

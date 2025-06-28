@@ -88,14 +88,14 @@
       "request_method": "GET",
       "action_url": "/api/profs/delete/",
       "FormData": {
-        "EventId": ["required", "number", "Enter Event Id to delete"]
+        "ProfId": ["required", "number", "Enter Event Id to delete"]
       }
     },
     "Fetch": {
       "request_method": "GET",
       "action_url": "/api/profs/",
       "FormData": {
-        "EventId": ["required", "number", "Enter Event Id to Fetch"]
+        "ProfId": ["required", "number", "Enter Event Id to Fetch"]
       }
     },
     "FetchAll": {

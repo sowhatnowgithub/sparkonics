@@ -98,13 +98,19 @@ class ApiRouter
                         return ["Error" => "Failed to fetch"];
                     }
                 } else {
+                    return ["Error" => "Failed to fetch"];
+
                     echo "Method is not present with in the $controllerClass\n";
                 }
             } else {
+                return ["Error" => "Failed to fetch"];
+
                 echo "ControllerAction is not present\n";
             }
         } catch (\Exception $e) {
             return ["Error" => "Failed to fetch"];
         }
+
+        return ["Error" => "Failed to fetch"];
     }
 }
