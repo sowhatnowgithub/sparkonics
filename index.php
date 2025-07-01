@@ -6,6 +6,13 @@ require_once "vendor/autoload.php";
 use Sowhatnow\App\Controllers\HomeController;
 use Sowhatnow\Routes\Router;
 use Sowhatnow\Env;
+
+enum userTypes
+{
+    case Public;
+    case Admin;
+}
+
 $uri = parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH);
 $method = $_SERVER["REQUEST_METHOD"];
 $router = new Router();
@@ -13,12 +20,8 @@ $router = new Router();
 $router->get("/admin", ["AdminController", "index"]);
 $router->post("/admin/auth", ["AdminController", "Authenticate"]);
 $router->post("/admin/apicontrol", ["AdminController", "ApiHandler"]);
+$router->post("/admin/getform", ["AdminController", "GetForm"]);
 
-enum userTypes
-{
-    case Public;
-    case Admin;
-}
 $userType = userTypes::Public;
 foreach ($router->routes["GET"] as $routes => $actions) {
     if (strpos($routes, $uri) !== false) {

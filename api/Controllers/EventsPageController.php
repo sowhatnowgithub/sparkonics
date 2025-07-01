@@ -49,6 +49,7 @@ class EventsPageController
         $this->query = "UPDATE EVENTS SET ";
         $clause = null;
         $escapedValues = [];
+        var_dump($settings);
         foreach ($settings as $setting => $value) {
             if ($value != "") {
                 $settingTemp = $this->model->cleanQuery($setting);

@@ -9,10 +9,10 @@ foreach ($formData as $Name => $dat) {
     }
 }
 if ($formData["action"] === "Add" || $formData["action"] === "Modify") {
-    if ($formData["request_method"] === "POST") {
+    if ($formData["method"] === "POST") {
         curl_setopt($ch, CURLOPT_URL, $baseUrl);
         curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
     } elseif ($formData["request_method"] === "GET") {
         $query = http_build_query($data);
         curl_setopt($ch, CURLOPT_URL, $baseUrl . "?" . $query);

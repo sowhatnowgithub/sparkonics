@@ -28,8 +28,10 @@ class AdminController
             echo "Authentication Failed\n";
         }
     }
-    public function GetForm($section, $action)
+    public function GetForm($formData)
     {
+        $section = $formData["section"];
+        $action = $formData["action"];
         $formControlData = $this->adminModel->AdminFormControl(
             $section,
             $action

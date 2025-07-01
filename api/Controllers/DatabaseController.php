@@ -15,20 +15,20 @@ $eventsTableQuery = "CREATE TABLE Events (
 $profsTableQuery = "CREATE TABLE Profs (
 	ProfId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
 	ProfName TEXT NOT NULL,
-	ProfImage TEXT NOT NULL,
 	ProfPosition TEXT NOT NULL,
+	ProfImage TEXT NOT NULL,
 	ProfContact TEXT NOT NULL,
 	ProfDomain TEXT NOT NULL,
 	ProfCurrentProjects TEXT NOT NULL
 )";
 $dbPathEvent = Env::BASE_PATH . "/api/Models/Database/eventsPageData.db";
 $dbPathProf = Env::BASE_PATH . "/api/Models/Database/profsPageData.db";
-$dataBase = new DatabaseManager($dbPathEvent);
+$dataBase = new DatabaseManager($dbPathProf);
 
-$dataBase->CreateAction($eventsTableQuery, "CreateEventsTable");
+//$dataBase->CreateAction($eventsTableQuery, "CreateEventsTable");
 
-//$dataBase->CreateAction($profsTableQuery, "CreateProfsTable");
+$dataBase->CreateAction($profsTableQuery, "CreateProfsTable");
 $dataBase->getAllActions();
 
 //$dataBase->ExecuteAction("CreateProfsTable");
-$dataBase->ExecuteAction("CreateEventsTable");
+$dataBase->ExecuteAction("CreateProfsTable");
