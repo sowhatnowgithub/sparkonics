@@ -11,7 +11,7 @@ const AnimationManager = () => {
                     entry.target.classList.remove("animation-fade-slide-in-shown");
                 }
             });
-        }, {threshold: .5});
+        }, {threshold: .25});
         
         
         const observeFadeElements = () => {

@@ -1,12 +1,12 @@
 @use "src/styles/colors" as colors;
 
 .events-future {
-    gap: 1rem;
+    gap: 2rem;
 
     h1 {
         font-size: 3rem;
         font-weight: lighter;
-        margin-bottom: 0;
+        margin-bottom: -1rem;
     }
 
     .event {
@@ -55,8 +55,33 @@
         min-width: 20rem;
         max-width: 100vw;
         aspect-ratio: 16 / 9;
-        object-fit: contain;
+        object-fit: cover;
         height: auto;
         display: block;
+    }
+}
+
+@media screen and (max-width: 550px) {
+    .event {
+        flex-direction: column !important;
+        align-items: center;
+        text-align: center;
+
+        div {
+            width: 100%;
+            justify-content: center;
+            flex-direction: column;
+
+            span:nth-child(2) {
+                display: none;
+            }
+        }
+        p {
+            max-width: unset !important;
+        }
+
+        img {
+            width: 100%;
+        }
     }
 }

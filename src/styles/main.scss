@@ -11,6 +11,7 @@
     text-decoration: none;
     box-sizing: border-box;
 
+
     &:before,
     &:after {
         box-sizing: inherit;
@@ -28,4 +29,12 @@ body {
 .main {
     padding: 3rem 6rem;
     background-color: colors.$bg-light;
+    overflow: auto;
+}
+
+@media screen and (max-width: 550px) {
+    .main {
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
 }
