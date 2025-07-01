@@ -2,9 +2,11 @@ import "./styles.scss"
 import {useEffect, useState} from "react";
 import {ProgressBar} from "../../../molecules/index.jsx";
 import {Button, FlexBox, Image, RelativeTime} from "../../../atoms/index.jsx";
+import clsx from "clsx";
 
 
 const EventsLanding = () => {
+    const [slideNumber, setSlideNumber] = useState(0)
     const [upcomingEvents, setUpcomingEvents] = useState([])
     const [ongoingEvents, setOngoingEvents] = useState([])
     const [pastEvents, setPastEvents] = useState([])
@@ -118,7 +120,7 @@ const EventsLanding = () => {
         const now = new Date();
         
         const upcoming = [];
-        const ongoing = [];
+        let ongoing = [];
         const past = [];
         
         events.map(event => {
@@ -129,6 +131,8 @@ const EventsLanding = () => {
             else if (start <= now && now <= end) ongoing.push(event)
             else past.push(event)
         })
+        
+        ongoing = ongoing.sort(() => Math.random() - .5)
         
         setUpcomingEvents(upcoming)
         setOngoingEvents(ongoing)
@@ -153,32 +157,58 @@ const EventsLanding = () => {
     };
     
     
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setSlideNumber(p => (p + 1) % ongoingEvents.length)
+        }, 15 * 1000);
+        return () => clearInterval(interval);
+    }, [ongoingEvents]);
+    
     return (
         <div className="events">
             <ProgressBar/>
-            <h1>Up next</h1>
-            <h1>Up next</h1>
-            <h1>Up next</h1>
-            <h1>Up next</h1>
-            <h1>Up next</h1>
-            <h1>Up next</h1>
-            <h1>Up next</h1>
-            <h1>Up next</h1>
-            <h1>Up next</h1>
-            <h1>Up next</h1>
-            <h1>Up next</h1>
-            <h1>Up next</h1>
-            <h1>Up next</h1>
-            <h1>Up next</h1>
-            <h1>Up next</h1>
-            <h1>Up next</h1>
-            <h1>Up next</h1>
-            <h1>Up next</h1>
+            
+            <div className="events-present">
+                <div className="accordion-left" onClick={() => setSlideNumber(p => (p - 1) % ongoingEvents.length)}>
+                    <span></span>
+                </div>
+                <FlexBox
+                    className="events"
+                    style={{ transform: `translateX(-${(slideNumber % ongoingEvents.length) * 100}vw)` }}
+                    >
+                    {ongoingEvents.map(event => (
+                        <div className="event">
+                            <Image src={event.EventBanner} alt={`Banner for ${event.EventName}`} className={"event-banner"}/>
+                            
+                            <FlexBox column align justify fullWidth className={"event-details"}>
+                                <span>Ongoing event - Ends in <RelativeTime value={event.EventEndTime} /> </span>
+                                <h2>{event.EventName}</h2>
+                                <h3>{event.EventDomains.replaceAll(",", " •")}</h3>
+                                <p>{event.EventDescription}</p>
+                            </FlexBox>
+                        
+                        </div>
+                    ))}
+                </FlexBox>
+                
+                <div className="accordion-right" onClick={() => setSlideNumber(p => (p + 1) % ongoingEvents.length)}>
+                    <span></span>
+                </div>
+                
+                <FlexBox justify align fullWidth className="slide-icons">
+                    {ongoingEvents.map((event, index) => (
+                        <div className={clsx("slide-icon", index === slideNumber && 'slide-icon-current')} onClick={() => setSlideNumber(index)}></div>
+                    ))}
+                </FlexBox>
+            </div>
+            
+            
+            
+            
             
             
             <FlexBox column className={"events-future"}>
                 <h1>Up next</h1>
-                
                 
                 {upcomingEvents.map(event => (
                     <FlexBox fullWidth justifyBetween className={"event animation-fade-slide-in"} key={event.EventId}>

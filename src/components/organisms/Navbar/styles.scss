@@ -8,10 +8,23 @@ nav {
     align-items: center;
     padding: 1rem 2rem;
 
+
+    position: absolute;
+    top: 0rem;
+    left: 0rem;
+    right: 0;
+    margin-top: 1rem;
+    margin-left: 2rem;
+    margin-right: 2rem;
+
+    z-index: 10;
+    box-sizing: border-box;
+
     .icon {
         font-weight: bolder;
         font-family: "Chakra Petch", serif;
         color: colors.$text;
+        font-size: 1.75rem;
     }
 
     .options-desktop {
@@ -124,14 +137,12 @@ nav {
             cursor: pointer;
         }
     }
-
-
     .options-mobile-wrapper {
         width: 100vw;
         height: 100vh;
         position: absolute;
-        top: 0;
-        left: 0;
+        top: -1rem;
+        left: -2rem;
         background-color: rgba(0, 0, 0, 0.25);
         opacity: 0;
         visibility: hidden;
@@ -145,6 +156,23 @@ nav {
             background-color: colors.$bg-dark;
             transition: all 250ms linear;
             transform: translateX(-100%);
+
+            .icon {
+                margin-bottom: 3rem;
+                padding-bottom: .25rem;
+                border-bottom: 2px solid colors.$border;
+            }
+
+            .options {
+                gap: 1rem;
+
+                .option {
+                    padding: 1rem 2rem;
+                    text-align: center;
+                    font-size: 1.25rem;
+                    color: colors.$text;
+                }
+            }
         }
 
 
@@ -159,9 +187,9 @@ nav {
     }
 }
 
-@media screen and (max-width: 550px) {
+@media screen and (max-width: 768px) {
     .options-desktop {
-        visibility: hidden;
+        display: none !important;
     }
     .hamburger {
         display: flex !important;

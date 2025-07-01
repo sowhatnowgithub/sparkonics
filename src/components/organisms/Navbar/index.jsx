@@ -8,7 +8,7 @@ const Navbar = () => {
     const [showSidenav, setShowSidenav] = useState(false)
     
     const onClickSidenav = (e) => {
-        if (e.target == e.currentTarget) setShowSidenav(false);
+        if (e.target === e.currentTarget) setShowSidenav(false);
         if (e.target.href != null) setShowSidenav(false)
     }
     
@@ -34,19 +34,19 @@ const Navbar = () => {
             
             <div className={clsx('options-mobile-wrapper', showSidenav && 'options-mobile-shown')}
                  onClick={onClickSidenav}>
-                <div className="options-mobile">
+                <FlexBox fullWidth column align className="options-mobile">
                     <Link to={"/"} className={"icon"}>
                         Sparkonics
                     </Link>
                     
-                    <FlexBox column className={"options-"}>
+                    <FlexBox column align className={"options"}>
                         <NavLink to={"/about/"} className={"option"}>About us</NavLink>
                         <NavLink to={"/events/"} className={"option"}>Events</NavLink>
                         <NavLink to={"/projects/"} className={"option"}>Projects</NavLink>
                         <NavLink to={"/team/"} className={"option"}>The Team</NavLink>
                         <NavLink to={"/connect/"} className={"option"}>Join us</NavLink>
                     </FlexBox>
-                </div>
+                </FlexBox>
             </div>
         </nav>
     )
