@@ -3,7 +3,7 @@
 .events-present {
     position: relative;
     overflow: hidden;
-    height: 100vh;
+    height: 100dvh;
     margin-top: -3rem;
     margin-left: -6rem;
     margin-right: -6rem;
@@ -14,20 +14,20 @@
 
         .event {
             flex: 0 0 100vw;
-            height: 100vh;
+            height: 100dvh;
             position: relative;
             justify-content: center;
 
             .event-banner {
                 width: 100vw;
-                height: 100vh;
+                height: 100dvh;
                 object-fit: cover;
             }
 
             .event-details {
                 position: absolute;
 
-                height: calc(100vh - 6rem - 5.25rem);
+                height: calc(100dvh - 6rem - 5.25rem);
                 margin: 3rem 6rem;
                 width: calc(100vw - 12rem);
                 top: 5.25rem;
