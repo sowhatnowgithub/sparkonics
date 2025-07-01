@@ -5,7 +5,7 @@ namespace Sowhatnow\Routes;
 class Router
 {
     public $controller, $action;
-    private $routes = [];
+    public $routes = [];
     // @param string $uri The URI expects the path
     // @param array $controllerAction
     public function get($uri, $controllerAction): void
@@ -34,6 +34,9 @@ class Router
                         } else {
                             $model->{$this->action}();
                         }
+                    } else {
+                        echo "Failed at Method Class\n";
+                        exit();
                     }
                 } else {
                     echo "Failed at Controller Class\n";
