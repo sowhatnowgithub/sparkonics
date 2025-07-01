@@ -1,0 +1,62 @@
+@use "src/styles/colors" as colors;
+
+.events-future {
+    gap: 1rem;
+
+    h1 {
+        font-size: 3rem;
+        font-weight: lighter;
+        margin-bottom: 0;
+    }
+
+    .event {
+        gap: 3rem;
+
+        .event-description {
+            padding: 1rem 0;
+            width: 100%;
+            border-top-style: dashed;
+            border-top-color: colors.$border-muted;
+
+            span {
+                font-weight: lighter;
+                font-size: .85rem;
+            }
+
+            h2 {
+                font-weight: bold;
+                font-size: 1.75rem;
+            }
+
+            h3 {
+                font-size: .85rem;
+                font-weight: lighter;
+                text-transform: uppercase;
+                margin-bottom: 1.25rem;
+            }
+
+            p {
+                font-size: 1rem;
+                color: colors.$text-muted;
+                font-weight: lighter;
+                margin-bottom: 3rem;
+                max-width: 75%;
+            }
+        }
+
+
+        &:nth-child(odd) {
+            flex-direction: row-reverse;
+        }
+    }
+
+    img {
+        width: 30vw;
+        min-width: 20rem;
+        max-width: 100vw;
+        aspect-ratio: 16 / 9;
+        object-fit: contain;
+        height: auto;
+        display: block;
+    }
+}

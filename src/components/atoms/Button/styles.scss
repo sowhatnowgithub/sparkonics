@@ -23,10 +23,11 @@
 
 .sw-button-filled {
     color: colors.$text;
-    background: colors.$primary;
+    background: color-mix(in oklab, colors.$green, white 0%);
 
     &:hover {
         transform: translateY(-4px);
+        background: color-mix(in oklab, colors.$green, white 20%);
     }
 
     &:active {

@@ -23,11 +23,11 @@ nav {
             transition: color 250ms linear;
 
             &:hover {
-                color: colors.$primary;
+                color: colors.$blue;
             }
 
             &.active {
-                color: colors.$primary;
+                color: colors.$blue;
             }
         }
     }

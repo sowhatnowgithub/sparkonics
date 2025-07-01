@@ -21,7 +21,7 @@
         transition: all 150ms linear;
 
         &:focus {
-            border-color: colors.$primary;
+            border-color: colors.$green;
         }
 
         &:disabled {
