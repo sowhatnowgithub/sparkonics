@@ -141,8 +141,8 @@ nav {
         width: 100vw;
         height: 100vh;
         position: absolute;
-        top: -1rem;
-        left: -2rem;
+        top: -.5rem;
+        left: -1rem;
         background-color: rgba(0, 0, 0, 0.25);
         opacity: 0;
         visibility: hidden;
@@ -188,6 +188,13 @@ nav {
 }
 
 @media screen and (max-width: 768px) {
+    nav {
+        margin-top: .5rem;
+        margin-left: 1rem;
+        margin-right: 1rem;
+
+    }
+
     .options-desktop {
         display: none !important;
     }
