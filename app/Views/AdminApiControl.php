@@ -57,6 +57,8 @@ $headers = [];
 if (!$isFileUpload) {
     $headers[] = "Content-Type: application/x-www-form-urlencoded";
 }
+$headers[] = "Authorization: ApiKey public_secret_api_key";
+
 curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
 $response = curl_exec($ch);

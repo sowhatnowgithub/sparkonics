@@ -152,13 +152,19 @@
 
   <script>
     let currentSection = "";
+    const baseUrl = "<?php echo Sowhatnow\Env::API_BASE_URL; ?>";
+
     function handleNavClick(section) {
       currentSection = section;
       document.getElementById("subbar").style.display = "flex";
+      const endpoint = `${baseUrl}/api/${section.toLowerCase()}`;
 
-      const endpoint = `http://localhost:1978/api/${section.toLowerCase()}`;
-
-      fetch(endpoint)
+      fetch(endpoint, {
+        method: "GET", // or "POST", depending on your use case
+        headers: {
+          "Authorization": "ApiKey public_secret_api_key"
+        }
+      })
         .then((response) => {
           const contentType = response.headers.get("Content-Type");
           if (contentType && contentType.includes("application/json")) {
@@ -229,8 +235,7 @@
 
 
     <?php
-    use Sowhatnow\Env;
-    $url = Env::HOST_ADDRESS;
+    $url = Sowhatnow\Env::HOST_ADDRESS;
     echo "fetch('$url/admin/getform', {
         method: 'POST',
         body: formData,

@@ -6,7 +6,6 @@ use OpenSwoole\Http\Response;
 use Sowhatnow\Api\Routes\ApiRouter;
 use Sowhatnow\Env;
 // Routes declaration
-
 $router = new ApiRouter();
 // Routes for events
 require Env::BASE_PATH . "/api/Routes/Routes.php";
@@ -36,51 +35,77 @@ $server->on("Start", function (Server $server) use ($host, $port) {
 $server->on("Request", function (Request $request, Response $response) use (
     $router
 ) {
+    if ($request->server["request_method"] === "OPTIONS") {
+        // this is for preflight request send by browsers
+        $response->header("Access-Control-Allow-Origin", "*");
+        $response->header(
+            "Access-Control-Allow-Methods",
+            "GET, POST, PUT, DELETE, OPTIONS"
+        );
+        $response->header(
+            "Access-Control-Allow-Headers",
+            "Authorization, Content-Type, Accept"
+        );
+
+        $response->status(204);
+        $response->end();
+        return;
+    }
+
     $postData = [];
     $returnData = [];
-    if (!isset($request->files)) {
-        $postData = $request->post;
-    } else {
-        if (isset($request->post)) {
-            $postData = [
-                "files" => $request->files["ImageFile"],
-                "post" => $request->post,
-            ];
+    $headers = $request->header;
+    require "Authenticate.php";
+
+    if (!$invalidKey) {
+        if (!isset($request->files)) {
+            $postData = $request->post;
         } else {
-            $postData = $request->files["ImageFile"];
+            if (isset($request->post)) {
+                $postData = [
+                    "files" => $request->files["ImageFile"],
+                    "post" => $request->post,
+                ];
+            } else {
+                $postData = $request->files["ImageFile"];
+            }
         }
-    }
-    if ($request->server["request_method"] === "GET") {
-        if (isset($request->server["query_string"])) {
+        if ($request->server["request_method"] === "GET") {
+            if (isset($request->server["query_string"])) {
+                $returnData = $router->routeAction(
+                    $request->server["request_uri"],
+                    $request->server["request_method"],
+                    $request->server["query_string"]
+                );
+            } else {
+                $returnData = $router->routeAction(
+                    $request->server["request_uri"],
+                    $request->server["request_method"]
+                );
+            }
+        } elseif ($request->server["request_method"] == "POST") {
             $returnData = $router->routeAction(
                 $request->server["request_uri"],
                 $request->server["request_method"],
-                $request->server["query_string"]
-            );
-        } else {
-            $returnData = $router->routeAction(
-                $request->server["request_uri"],
-                $request->server["request_method"]
+                $postData
             );
         }
-    } elseif ($request->server["request_method"] == "POST") {
-        $returnData = $router->routeAction(
-            $request->server["request_uri"],
-            $request->server["request_method"],
-            $postData
-        );
-    }
 
-    if (isset($returnData["ImagePath"])) {
-        $response->sendFile($returnData["ImagePath"]);
-    } elseif (isset($returnData)) {
+        if (isset($returnData["ImagePath"])) {
+            $response->sendFile($returnData["ImagePath"]);
+        } elseif (isset($returnData)) {
+            $response->header("Content-Type", "application/json");
+            $response->header("Access-Control-Allow-Origin", "*");
+            $response->header("X-RateLimit-Limit", "1000");
+            $response->header("Allow", "GET, POST, PUT, DELETE");
+            $response->header("X-Frame-Options", "SAMEORIGIN");
+
+            $response->header("X-RateLimit-Remaining", "999");
+            $response->end(json_encode($returnData));
+        }
+    } else {
         $response->header("Content-Type", "application/json");
-        $response->header("Access-Control-Allow-Origin", "*");
-        $response->header("X-RateLimit-Limit", "1000");
-        $response->header("Allow", "GET, POST, PUT, DELETE");
-        $response->header("X-Frame-Options", "SAMEORIGIN");
-        $response->header("X-RateLimit-Remaining", "999");
-        $response->end(json_encode($returnData));
+        $response->end(json_encode($errorMessage));
     }
 });
 

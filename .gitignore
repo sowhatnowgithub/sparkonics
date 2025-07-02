@@ -30,6 +30,4 @@ vendor/*
 *credentials.json*
 # Ignore all contents of any Images folder anywhere in the project
 **/Images/*
-
-# But keep the Images folders themselves
-!**/Images/
+*Authenticate.php*
