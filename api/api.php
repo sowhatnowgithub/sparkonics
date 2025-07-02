@@ -36,13 +36,20 @@ $server->on("Start", function (Server $server) use ($host, $port) {
 $server->on("Request", function (Request $request, Response $response) use (
     $router
 ) {
-    $response->header("Content-Type", "application/json");
-    $response->header("Access-Control-Allow-Origin", "*");
-    $response->header("X-RateLimit-Limit", "1000");
-    $response->header("Allow", "GET, POST, PUT, DELETE");
-    $response->header("X-Frame-Options", "SAMEORIGIN");
-    $response->header("X-RateLimit-Remaining", "999");
+    $postData = [];
     $returnData = [];
+    if (!isset($request->files)) {
+        $postData = $request->post;
+    } else {
+        if (isset($request->post)) {
+            $postData = [
+                "files" => $request->files["ImageFile"],
+                "post" => $request->post,
+            ];
+        } else {
+            $postData = $request->files["ImageFile"];
+        }
+    }
     if ($request->server["request_method"] === "GET") {
         if (isset($request->server["query_string"])) {
             $returnData = $router->routeAction(
@@ -60,10 +67,21 @@ $server->on("Request", function (Request $request, Response $response) use (
         $returnData = $router->routeAction(
             $request->server["request_uri"],
             $request->server["request_method"],
-            $request->post
+            $postData
         );
     }
-    $response->end(json_encode($returnData));
+
+    if (isset($returnData["ImagePath"])) {
+        $response->sendFile($returnData["ImagePath"]);
+    } elseif (isset($returnData)) {
+        $response->header("Content-Type", "application/json");
+        $response->header("Access-Control-Allow-Origin", "*");
+        $response->header("X-RateLimit-Limit", "1000");
+        $response->header("Allow", "GET, POST, PUT, DELETE");
+        $response->header("X-Frame-Options", "SAMEORIGIN");
+        $response->header("X-RateLimit-Remaining", "999");
+        $response->end(json_encode($returnData));
+    }
 });
 
 $server->on("Shutdown", function (Server $server) {

@@ -3,19 +3,21 @@
     "Add": {
       "request_method": "POST",
       "action_url": "/api/events/add",
+      "enctype": "application/x-www-form-urlencoded",
       "FormData": {
         "EventName": ["required", "text", "Enter Event Name like sowhatnow"],
         "EventDescription": ["required", "textarea", "Enter Event Description"],
         "EventStartTime": ["required", "datetime-local", ""],
         "EventEndTime": ["required", "datetime-local", ""],
         "EventDomains": ["required", "text", "Eg: Signals, Digi, Analog"],
-        "EventBanner": ["required", "url", "https://expample.com/banner.jpg"],
+        "EventBanner": ["required", "text", "/api/images/123"],
         "EventRegisterLink": ["required", "url", "https://example.com/register"]
       }
     },
     "Modify": {
       "request_method": "POST",
       "action_url": "/api/events/modify",
+      "enctype": "application/x-www-form-urlencoded",
       "FormData": {
         "EventId": ["required", "number", "Enter Event Id"],
         "EventName": ["", "text", "Enter Event Name like sowhatnow"],
@@ -23,13 +25,14 @@
         "EventStartTime": ["", "datetime-local", ""],
         "EventEndTime": ["", "datetime-local", ""],
         "EventDomains": ["", "text", "Eg: Signals, Digi, Analog"],
-        "EventBanner": ["", "url", "https://expample.com/banner.jpg"],
+        "EventBanner": ["", "text", "/api/images/123"],
         "EventRegisterLink": ["", "url", "https://example.com/register"]
       }
     },
     "Delete": {
       "request_method": "GET",
       "action_url": "/api/events/delete/",
+      "enctype": "application/x-www-form-urlencoded",
       "FormData": {
         "EventId": ["required", "number", "Enter Event Id to delete"]
       }
@@ -37,6 +40,7 @@
     "Fetch": {
       "request_method": "GET",
       "action_url": "/api/events/",
+      "enctype": "application/x-www-form-urlencoded",
       "FormData": {
         "EventId": ["required", "number", "Enter Event Id to Fetch"]
       }
@@ -44,6 +48,7 @@
     "FetchAll": {
       "request_method": "GET",
       "action_url": "/api/events",
+      "enctype": "application/x-www-form-urlencoded",
       "FormData": {}
     }
   },
@@ -51,33 +56,41 @@
     "Add": {
       "request_method": "POST",
       "action_url": "/api/profs/add",
+      "enctype": "application/x-www-form-urlencoded",
       "FormData": {
         "ProfName": ["required", "text", "Enter Prof Name like L.Praful"],
         "ProfPosition": ["required", "text", "Asst.Prof, etc "],
+        "ProfImage": [
+          "required",
+          "text",
+          "add the image path like /api/images/123"
+        ],
         "ProfContact": [
           "required",
           "text",
           "Like there room no, official iitp mail"
         ],
         "ProfDomain": ["required", "text", "Signals, IOT, ML etc"],
-        "ProfCurrentProject": [
+        "ProfCurrentProjects": [
           "required",
           "textarea",
           "There current project in public domain, don't include his private ones without his concern"
-        ],
-        "ProfImage": ["required", "file", ""]
+        ]
       }
     },
     "Modify": {
       "request_method": "POST",
       "action_url": "/api/profs/modify",
+      "enctype": "application/x-www-form-urlencoded",
+
       "FormData": {
         "ProfId": ["required", "number", "Enter Prof Id"],
         "ProfName": ["", "text", "Enter Prof Name like L.Praful"],
         "ProfPosition": ["", "text", "Asst.Prof, etc "],
+        "ProfImage": ["", "text", "add the image path like /api/images/123"],
         "ProfContact": ["", "text", "Like there room no, official iitp mail"],
         "ProfDomain": ["", "text", "Signals, IOT, ML etc"],
-        "ProfCurrentProject": [
+        "ProfCurrentProjects": [
           "",
           "textarea",
           "There current project in public domain, don't include his private ones without his concern"
@@ -87,6 +100,8 @@
     "Delete": {
       "request_method": "GET",
       "action_url": "/api/profs/delete/",
+      "enctype": "application/x-www-form-urlencoded",
+
       "FormData": {
         "ProfId": ["required", "number", "Enter Event Id to delete"]
       }
@@ -94,6 +109,8 @@
     "Fetch": {
       "request_method": "GET",
       "action_url": "/api/profs/",
+      "enctype": "application/x-www-form-urlencoded",
+
       "FormData": {
         "ProfId": ["required", "number", "Enter Event Id to Fetch"]
       }
@@ -101,6 +118,54 @@
     "FetchAll": {
       "request_method": "GET",
       "action_url": "/api/profs",
+      "enctype": "application/x-www-form-urlencoded",
+
+      "FormData": {}
+    }
+  },
+  "Images": {
+    "Add": {
+      "request_method": "POST",
+      "action_url": "/api/images/add",
+      "enctype": "multipart/form-data",
+
+      "FormData": {
+        "ImageId": ["required", "number", "Enter unique id for the image"],
+        "ImageFile": ["required", "file", ""]
+      }
+    },
+    "Modify": {
+      "request_method": "POST",
+      "action_url": "/api/images/modify",
+      "enctype": "multipart/form-data",
+      "FormData": {
+        "ImageId": ["required", "number", "Enter Image Id"],
+        "ImageFile": ["required", "file", ""]
+      }
+    },
+    "Delete": {
+      "request_method": "GET",
+      "action_url": "/api/images/delete/",
+      "enctype": "application/x-www-form-urlencoded",
+
+      "FormData": {
+        "ProfId": ["required", "number", "Enter Image Id to delete"]
+      }
+    },
+    "Fetch": {
+      "request_method": "GET",
+      "action_url": "/api/images/",
+      "enctype": "application/x-www-form-urlencoded",
+
+      "FormData": {
+        "ImageId": ["required", "number", "Enter Image Id to Fetch"]
+      }
+    },
+    "FetchAll": {
+      "request_method": "GET",
+      "action_url": "/api/images",
+      "enctype": "application/x-www-form-urlencoded",
+
       "FormData": {}
     }
   }

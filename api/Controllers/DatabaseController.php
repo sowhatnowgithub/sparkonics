@@ -1,7 +1,8 @@
 <?php
+
+require_once "../../vendor/autoload.php";
 use Sowhatnow\Api\Models\DatabaseManager;
 use Sowhatnow\Env;
-require_once Env::BASE_PATH . "/vendor/autoload.php";
 $eventsTableQuery = "CREATE TABLE Events (
 	EventId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
 	EventName TEXT NOT NULL,
@@ -21,14 +22,27 @@ $profsTableQuery = "CREATE TABLE Profs (
 	ProfDomain TEXT NOT NULL,
 	ProfCurrentProjects TEXT NOT NULL
 )";
+$imagesTableQuery = "CREATE TABLE Images (
+	ImageId INTEGER PRIMARY KEY NOT NULL,
+	ImageName TEXT NOT NULL,
+	ImageUrlPath TEXT NOT NULL,
+	ImageActualPath TEXT NOT NULL
+
+)";
 $dbPathEvent = Env::BASE_PATH . "/api/Models/Database/eventsPageData.db";
 $dbPathProf = Env::BASE_PATH . "/api/Models/Database/profsPageData.db";
-$dataBase = new DatabaseManager($dbPathProf);
+$dbPathImages = Env::BASE_PATH . "/api/Models/Database/imagesData.db";
 
-//$dataBase->CreateAction($eventsTableQuery, "CreateEventsTable");
+$dataBase = new DatabaseManager($dbPathImages);
+
+$dataBase->CreateAction($eventsTableQuery, "CreateEventsTable");
 
 $dataBase->CreateAction($profsTableQuery, "CreateProfsTable");
-$dataBase->getAllActions();
+$dataBase->CreateAction($imagesTableQuery, "CreateImagesTable");
+
+var_dump($dataBase->getAllActions());
 
 //$dataBase->ExecuteAction("CreateProfsTable");
-$dataBase->ExecuteAction("CreateProfsTable");
+//$dataBase->ExecuteAction("CreateProfsTable");
+
+$dataBase->ExecuteAction("CreateImagesTable");

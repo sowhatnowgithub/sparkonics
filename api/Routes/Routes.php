@@ -64,4 +64,37 @@ $router->routeCreateRegex(
     "GET",
     true
 );
+// Images Fetch
+$router->routeCreate(
+    "/api/images",
+    ["ImagesController", "FetchAllImages"],
+    "GET",
+    false
+);
+$router->routeCreate(
+    "/api/images/add",
+    ["ImagesController", "AddImage"],
+    "POST",
+    true
+);
+$router->routeCreateRegex(
+    '~^/api/images/([a-zA-Z0-9_-]+)$~',
+    "fetchimage",
+    ["ImagesController", "FetchImage"],
+    "GET",
+    true
+);
+$router->routeCreate(
+    "/api/images/modify",
+    ["ImagesController", "ModifyImage"],
+    "POST",
+    true
+);
+$router->routeCreateRegex(
+    '~^/api/images/delete/([a-zA-Z0-9_-]+)$~',
+    "deleteImage",
+    ["ImagesController", "DeleteImage"],
+    "GET",
+    true
+);
 ?>

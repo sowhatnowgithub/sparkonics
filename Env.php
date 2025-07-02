@@ -9,4 +9,5 @@ class Env
     public const API_HOST = "0.0.0.0";
     public const API_PORT = "1978"; // why 1978? Mums Birthday
     public const API_BASE_URL = "http://localhost:1978";
+    public const API_IMAGES_PATH = __DIR__ . "/api/Models/Database/Images";
 }

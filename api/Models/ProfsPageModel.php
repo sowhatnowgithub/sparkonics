@@ -90,8 +90,9 @@ class ProfsPageModel
             return ["Error" => "Failed to fetch"];
         }
     }
-    public function ModifyEvent($query)
+    public function ModifyProf($query)
     {
+        /*
         try {
             $stmt = $this->conn->prepare($query);
             $stmt->execute();
@@ -100,5 +101,6 @@ class ProfsPageModel
         } catch (\PDOException $e) {
             return ["Error" => "Fetch failed"];
         }
+        */
     }
 }

@@ -2,7 +2,7 @@
 <?php
 $baseUrl = Sowhatnow\Env::API_BASE_URL . "{$formControlData["action_url"]}";
 $hostAddress = Sowhatnow\Env::HOST_ADDRESS;
-$data = "<form method='POST' action='$hostAddress/admin/apicontrol' >";
+$data = "<form method='POST' action='$hostAddress/admin/apicontrol' enctype='{$formControlData["enctype"]}' >";
 $data .= "<h2>$section $action</h2>";
 foreach ($formControlData["FormData"] as $FormName => $setting) {
     $data .= "<label for='{$FormName}'>$FormName</label>";

@@ -3,16 +3,38 @@
 $ch = curl_init();
 $baseUrl = $formData["baseUrl"];
 $data = [];
+
+$isFileUpload = false;
+// Handle form data and check for file input
+if (
+    isset($_FILES["ImageFile"]) &&
+    $_FILES["ImageFile"]["error"] === UPLOAD_ERR_OK
+) {
+    $isFileUpload = true;
+    $fileTmpPath = $_FILES["ImageFile"]["tmp_name"];
+    $fileName = $_FILES["ImageFile"]["name"];
+    $fileType = $_FILES["ImageFile"]["type"];
+
+    // Attach file using CURLFile
+
+    $data["ImageFile"] = new CURLFile($fileTmpPath, $fileType, $fileName);
+}
 foreach ($formData as $Name => $dat) {
     if ($Name != "baseUrl" && $Name != "action" && $Name != "method") {
         $data[$Name] = $dat;
     }
 }
+
 if ($formData["action"] === "Add" || $formData["action"] === "Modify") {
     if ($formData["method"] === "POST") {
         curl_setopt($ch, CURLOPT_URL, $baseUrl);
         curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
+
+        if ($isFileUpload) {
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $data); // leave as array
+        } else {
+            curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
+        }
     } elseif ($formData["request_method"] === "GET") {
         $query = http_build_query($data);
         curl_setopt($ch, CURLOPT_URL, $baseUrl . "?" . $query);
@@ -27,19 +49,33 @@ if ($formData["action"] === "Add" || $formData["action"] === "Modify") {
 
     curl_setopt($ch, CURLOPT_URL, $baseUrl . $id);
 }
+
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
-curl_setopt($ch, CURLOPT_HTTPHEADER, [
-    "Content-Type: application/x-www-form-urlencoded",
-]);
+// Adjust headers
+$headers = [];
+if (!$isFileUpload) {
+    $headers[] = "Content-Type: application/x-www-form-urlencoded";
+}
+curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
 $response = curl_exec($ch);
 
 if (curl_errno($ch)) {
     echo "Curl error: " . curl_error($ch);
 } else {
-    $data = json_decode($response, true); // The `true` parameter returns an assoc array
-    print_r($data);
+    $contentType = curl_getinfo($ch, CURLINFO_CONTENT_TYPE);
+
+    if (strpos($contentType, "application/json") !== false) {
+        $data = json_decode($response, true);
+        print_r($data);
+    } elseif (strpos($contentType, "image/") !== false) {
+        header("Content-Type: $contentType");
+        echo $response;
+        exit();
+    } else {
+        echo "Unhandled content type: $contentType";
+    }
 }
 
 curl_close($ch);

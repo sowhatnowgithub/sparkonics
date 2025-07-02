@@ -138,6 +138,7 @@
   <div class="navbar">
     <button onclick="handleNavClick('Events')">Events</button>
     <button onclick="handleNavClick('Profs')">Profs</button>
+    <button onclick="handleNavClick('Images')">Images</button>
   </div>
 
   <div class="subbar" id="subbar">

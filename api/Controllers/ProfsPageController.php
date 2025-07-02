@@ -11,11 +11,12 @@ class ProfsPageController
     {
         $this->model = new ProfsPageModel();
     }
+
     public function AddProf($settings): array
     {
         $this->query = "INSERT INTO Profs (
-            ProfName, ProfImage,
-            ProfPosition, ProfContact, ProfDomain,
+            ProfName,
+            ProfPosition, ProfImage ,ProfContact, ProfDomain,
             ProfCurrentProjects
         ) VALUES (";
         $escapedValues = [];
@@ -43,16 +44,18 @@ class ProfsPageController
         $escapedValues = [];
         $clause = null;
         foreach ($settings as $setting => $value) {
-            if ($setting == "ProfId") {
-                $clause = $this->model->cleanQuote($value);
-            } else {
-                $setting = $this->model->cleanQuote($setting);
-                $value = $this->model->cleanQuote($value);
-                $escapedValues[] = "$setting = $value";
+            if ($value != "") {
+                if ($setting == "ProfId") {
+                    $clause = $this->model->cleanQuery($value);
+                } else {
+                    $setting = $this->model->cleanQuery($setting);
+                    $value = $this->model->cleanQuery($value);
+                    $escapedValues[] = "$setting = $value";
+                }
             }
         }
         $this->query .=
             implode(",", $escapedValues) . " WHERE ProfId = $clause";
-        $this->model->ModifyProf($this->query);
+        return $this->model->ModifyProf($this->query);
     }
 }
