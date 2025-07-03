@@ -97,4 +97,37 @@ $router->routeCreateRegex(
     "GET",
     true
 );
+// Routes fof Gallery
+$router->routeCreate(
+    "/api/gallery",
+    ["GalleryController", "FetchAllGallery"],
+    "GET",
+    false
+);
+$router->routeCreate(
+    "/api/gallery/add",
+    ["GalleryController", "AddGallery"],
+    "POST",
+    true
+);
+$router->routeCreateRegex(
+    '~^/api/gallery/([a-zA-Z0-9_-]+)$~',
+    "fetchGallery",
+    ["GalleryController", "FetchGallery"],
+    "GET",
+    true
+);
+$router->routeCreate(
+    "/api/gallery/modify",
+    ["GalleryController", "ModifyGallery"],
+    "POST",
+    true
+);
+$router->routeCreateRegex(
+    '~^/api/gallery/delete/([a-zA-Z0-9_-]+)$~',
+    "deleteGallery",
+    ["GalleryController", "DeleteGallery"],
+    "GET",
+    true
+);
 ?>

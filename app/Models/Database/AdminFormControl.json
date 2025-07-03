@@ -168,5 +168,82 @@
 
       "FormData": {}
     }
+  },
+  "Gallery": {
+    "Add": {
+      "request_method": "POST",
+      "action_url": "/api/gallery/add",
+      "enctype": "application/x-www-form-urlencoded",
+      "FormData": {
+        "GalleryImageUrlPath": [
+          "required",
+          "text",
+          "Enter the image URL or path like /api/images/123"
+        ],
+        "GalleryImageDate": [
+          "required",
+          "text",
+          "Enter the image date (e.g., YYYY-MM-DD)"
+        ],
+        "GalleryImageDescription": [
+          "required",
+          "textarea",
+          "Enter a brief description of the image"
+        ]
+      }
+    },
+    "Modify": {
+      "request_method": "POST",
+      "action_url": "/api/gallery/modify",
+      "enctype": "application/x-www-form-urlencoded",
+      "FormData": {
+        "GalleryImageId": ["required", "number", "Enter Gallery Image Id"],
+        "GalleryImageUrlPath": [
+          "",
+          "text",
+          "Enter the new image URL or path like /api/images/123"
+        ],
+        "GalleryImageDate": [
+          "",
+          "text",
+          "Enter the new image date (e.g., YYYY-MM-DD)"
+        ],
+        "GalleryImageDescription": [
+          "",
+          "textarea",
+          "Enter the new description of the image"
+        ]
+      }
+    },
+    "Delete": {
+      "request_method": "GET",
+      "action_url": "/api/gallery/delete/",
+      "enctype": "application/x-www-form-urlencoded",
+      "FormData": {
+        "GalleryImageId": [
+          "required",
+          "number",
+          "Enter Gallery Image Id to delete"
+        ]
+      }
+    },
+    "Fetch": {
+      "request_method": "GET",
+      "action_url": "/api/gallery/",
+      "enctype": "application/x-www-form-urlencoded",
+      "FormData": {
+        "GalleryImageId": [
+          "required",
+          "number",
+          "Enter Gallery Image Id to fetch"
+        ]
+      }
+    },
+    "FetchAll": {
+      "request_method": "GET",
+      "action_url": "/api/gallery",
+      "enctype": "application/x-www-form-urlencoded",
+      "FormData": {}
+    }
   }
 }
