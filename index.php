@@ -7,11 +7,7 @@ use Sowhatnow\App\Controllers\HomeController;
 use Sowhatnow\Routes\Router;
 use Sowhatnow\Env;
 
-enum userTypes
-{
-    case Public;
-    case Admin;
-}
+require_once "enump.php";
 
 $uri = parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH);
 $method = $_SERVER["REQUEST_METHOD"];
