@@ -153,7 +153,6 @@
   <script>
     let currentSection = "";
     const baseUrl = "<?php echo Sowhatnow\Env::API_BASE_URL; ?>";
-
     function handleNavClick(section) {
       currentSection = section;
       document.getElementById("subbar").style.display = "flex";
@@ -222,33 +221,66 @@
       row.style.display = (row.style.display === "none") ? "table-row" : "none";
     }
 
-
     function handleAction(action) {
-      if (!currentSection) {
-        alert("Please select a section (Events or Profs) first.");
-        return;
-      }
+       if (!currentSection) {
+         alert("Please select a section (Events or Profs) first.");
+         return;
+       }
 
-      const formData = new FormData();
-      formData.append("section", currentSection);
-      formData.append("action", action);
+       const formData = new FormData();
+       formData.append("section", currentSection);
+       formData.append("action", action);
 
+       const hostAddress = "<?php echo Sowhatnow\Env::HOST_ADDRESS; ?>";
 
-    <?php
-    $url = Sowhatnow\Env::HOST_ADDRESS;
-    echo "fetch('$url/admin/getform', {
-        method: 'POST',
-        body: formData,
-      })
-        .then((response) => response.text()) // expecting PHP HTML/text response
-        .then((text) => {
-          document.getElementById('output').innerHTML = text;
-        })
-        .catch((error) => {
-          document.getElementById('output').textContent = 'Error: ' + error;
-        });
-    }";
-    ?>
+       fetch(`${hostAddress}/admin/getform`, {
+         method: 'POST',
+         body: formData,
+       })
+         .then((response) => response.text())
+         .then((html) => {
+           document.getElementById('output').innerHTML = html;
+
+           const form = document.querySelector('#output form');
+           if (form) {
+             form.addEventListener('submit', function (e) {
+               e.preventDefault();
+
+               const submissionData = new FormData(form);
+
+               fetch(form.getAttribute('action') || window.location.href, {
+                 method: form.getAttribute('method') || 'POST',
+                 body: submissionData
+               })
+                 .then(response => {
+                   const contentType = response.headers.get("Content-Type");
+
+                   if (contentType.includes("application/json")) {
+                     return response.json().then(data => {
+                       document.getElementById("output").textContent = JSON.stringify(data, null, 2);
+                     });
+                   } else if (contentType.startsWith("image/")) {
+                     return response.blob().then(imageBlob => {
+                       const imageUrl = URL.createObjectURL(imageBlob);
+                       document.getElementById("output").innerHTML = `<img src="${imageUrl}" style="max-width: 100%;" />`;
+                     });
+                   } else {
+                     return response.text().then(text => {
+                       document.getElementById("output").textContent = text;
+                     });
+                   }
+                 })
+                 .catch(error => {
+                   document.getElementById("output").textContent = "Submission error: " + error;
+                 });
+             });
+
+           }
+         })
+         .catch((error) => {
+           document.getElementById('output').textContent = 'Error: ' + error;
+         });
+     }
   </script>
 
 </body>

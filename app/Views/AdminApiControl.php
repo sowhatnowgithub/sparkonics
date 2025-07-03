@@ -57,7 +57,7 @@ $headers = [];
 if (!$isFileUpload) {
     $headers[] = "Content-Type: application/x-www-form-urlencoded";
 }
-$headers[] = "Authorization: ApiKey public_secret_api_key";
+$headers[] = "Authorization: ApiKey admin_secret_api_key";
 
 curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
@@ -67,7 +67,6 @@ if (curl_errno($ch)) {
     echo "Curl error: " . curl_error($ch);
 } else {
     $contentType = curl_getinfo($ch, CURLINFO_CONTENT_TYPE);
-
     if (strpos($contentType, "application/json") !== false) {
         $data = json_decode($response, true);
         print_r($data);
