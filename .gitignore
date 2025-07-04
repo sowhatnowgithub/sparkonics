@@ -31,3 +31,4 @@ vendor/*
 # Ignore all contents of any Images folder anywhere in the project
 **/Images/*
 *Authenticate.php*
+*.db*

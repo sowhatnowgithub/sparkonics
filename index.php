@@ -3,7 +3,6 @@
 // index.php
 
 require_once "vendor/autoload.php";
-use Sowhatnow\App\Controllers\HomeController;
 use Sowhatnow\Routes\Router;
 use Sowhatnow\Env;
 
@@ -12,8 +11,13 @@ require_once "enum.php";
 $uri = parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH);
 $method = $_SERVER["REQUEST_METHOD"];
 $router = new Router();
-
+$router->get("/admin/home", ["AdminController", "Home"]);
 $router->get("/admin/", ["AdminController", "index"]);
+$router->get("/admin/members", ["AdminController", "Members"]);
+$router->get("/admin/dashboard", ["AdminController", "Dashboard"]);
+$router->get("/admin/log", ["AdminController", "LogUser"]);
+$router->get("/admin/logout", ["AdminController", "Logout"]);
+$router->get("/admin/websitecontrol", ["AdminController", "WebsiteControl"]);
 $router->post("/admin/auth", ["AdminController", "Authenticate"]);
 $router->post("/admin/apicontrol", ["AdminController", "ApiHandler"]);
 $router->post("/admin/getform", ["AdminController", "GetForm"]);

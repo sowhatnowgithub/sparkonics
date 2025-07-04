@@ -47,7 +47,7 @@ class Router
                 exit();
             }
         } catch (\Exception $e) {
-            http_response_code(404);
+            echo "some err";
             exit();
         }
     }

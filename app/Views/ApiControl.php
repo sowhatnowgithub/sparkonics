@@ -41,7 +41,14 @@ if ($formData["action"] === "Add" || $formData["action"] === "Modify") {
     }
 } elseif ($formData["action"] === "FetchAll") {
     curl_setopt($ch, CURLOPT_URL, $baseUrl);
-} elseif ($formData["action"] === "Fetch" || $formData["action"] === "Delete") {
+} elseif ($formData["action"] === "Fetch") {
+    $id = 1;
+    foreach ($data as $dat) {
+        $id = $dat;
+    }
+
+    curl_setopt($ch, CURLOPT_URL, $baseUrl . $id);
+} elseif ($formData["action"] === "Delete") {
     $id = 1;
     foreach ($data as $dat) {
         $id = $dat;
