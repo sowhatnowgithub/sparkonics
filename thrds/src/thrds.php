@@ -24,7 +24,6 @@
 	<div class="thrd-header">
 	<div class="thrd-create area">
 	<div class="thrd-create-open">
-		<button> Create Thrd </button>
 		<form id="create-thrd">
 	<input type="text" class="thrd-create title" placeholder="ThrdName" style="font-size: 16px" >
 	<input type="text" class="thrd-create user" placeholder="UserName" style="font-size: 16px" >
@@ -36,7 +35,6 @@
 	</div>
 	<div class="user-name-input">
 		<div class="user-name-open">
-			<button >Set Name</button>
 			<form id="set-user">
 		<input type="text" placeholder="Set anonymous name" class="set-username" style="font-size: 16px">
 		<!--	<input type="text" placeholder="Private Id, If have" style="font-size: 16px"> -->

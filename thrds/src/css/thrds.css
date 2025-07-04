@@ -1,360 +1,206 @@
-/* Reset and base */
+/* Base Styles */
 * {
     box-sizing: border-box;
-    font-weight: 700;
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 18px;
     margin: 0;
     padding: 0;
+    font-family: "Helvetica Neue", Arial, sans-serif;
 }
 
+html,
 body {
-    background: url("bg2.jpg") center center / cover no-repeat;
-
-    min-height: 100vh;
-    color: #333;
-    padding: 1rem;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    background: linear-gradient(
+        to bottom right,
+        #f9f9f9,
+        #e0e0e0
+    ); /* fallback */
+    background-image: url("bg2.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    height: 100%;
 }
 
-.thrds-main-body {
-    max-width: 1000px;
-    margin: 0 auto;
-}
-
-/* Header area */
+/* Header */
 .thrd-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 1.5rem;
-    gap: 1rem;
-    flex-wrap: wrap;
-    position: relative;
+    padding: 12px 24px;
+    border-bottom: 1px solid #ddd;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    position: sticky;
+    top: 0;
+    z-index: 10;
 }
 
-/* Create Thread & Set User Buttons */
-.thrd-create-open button,
-.user-name-open button {
-    background-color: #4a90e2;
-    background: url("hat.jpg") center center / cover no-repeat;
-
-    color: white;
-    border: none;
-    border-radius: 8px;
-    padding: 0.6rem 1.2rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.25s ease;
-    box-shadow: 0 2px 6px rgb(74 144 226 / 0.3);
-}
-
-.thrd-create-open button:hover,
-.user-name-open button:hover {
-    box-shadow: 0 4px 12px rgb(53 122 189 / 0.4);
-}
-
-/* Hidden forms on hover */
-#create-thrd,
-#set-user {
-    display: none;
-    position: absolute;
-    top: 120%;
-    left: 0;
-    background: white;
-    padding: 1rem;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    min-width: 280px;
-    z-index: 10000;
-    user-select: auto;
-}
-
-.thrd-create-open:hover #create-thrd,
-.user-name-open:hover #set-user {
-    display: block;
-}
-
-/* Inputs inside forms */
-#create-thrd input,
-#set-user input {
-    width: 100%;
-    padding: 0.5rem 0.75rem;
-    margin-bottom: 0.7rem;
-    border: 2px solid #cbd5e0;
-    border-radius: 8px;
-    font-size: 16px;
-    font-weight: 400;
-    transition: border-color 0.2s ease;
-}
-
-#create-thrd input:focus,
-#set-user input:focus {
-    border-color: #4a90e2;
-    outline: none;
-    box-shadow: 0 0 6px #4a90e2aa;
-}
-
-/* Submit buttons in forms */
-#create-thrd button[type="submit"],
-#set-user button[type="submit"] {
-    background-color: #38a169;
-    border: none;
-    color: white;
-    padding: 0.55rem 1.25rem;
-    font-weight: 600;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.25s ease;
-    width: 100%;
-    box-shadow: 0 2px 6px rgb(56 161 105 / 0.3);
-}
-
-#create-thrd button[type="submit"]:hover,
-#set-user button[type="submit"]:hover {
-    background-color: #2f855a;
-    box-shadow: 0 4px 12px rgb(47 133 90 / 0.5);
-}
-
-/* Error messages */
-.thrd-create.error {
-    color: #e53e3e;
-    font-size: 14px;
-    font-weight: 600;
-    margin-top: -0.5rem;
-    margin-bottom: 0.5rem;
-}
-
-/* Thread list container */
-.thrds.area {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    justify-content: center;
-}
-
-/* Individual thread box */
-.thrd-area {
-    background-color: lightskyblue;
-
-    border-radius: 16px;
-    box-shadow: 0 4px 12px rgb(0 0 0 / 0.1);
-    width: 280px;
-    padding: 1rem 1.2rem;
-    cursor: pointer;
-    position: relative;
+/* Buttons & Inputs */
+button {
+    padding: 8px 16px;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    background-color: lightpink;
+    background-image: url("hat.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: black;
+    font-size: 15px;
     transition:
-        box-shadow 0.3s ease,
-        transform 0.2s ease;
-    display: flex;
-    flex-direction: column;
-    user-select: none;
+        background-color 0.2s,
+        transform 0.1s;
+}
+
+button:hover {
+    background-color: lightblue;
+    background-image: url("hat.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    transform: scale(1.02);
+}
+
+input[type="text"] {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    width: 200px;
+    transition: box-shadow 0.2s;
+}
+
+input[type="text"]:focus {
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+    outline: none;
+}
+
+/* Thread List */
+.thrds.area {
+    padding: 24px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
+}
+
+/* Thread card - default view (collapsed) */
+.thrd-area {
+    backdrop-filter: blur(2px);
+    padding: 20px;
+    border-radius: 12px;
+    border: black 2px solid;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition:
+        transform 0.2s,
+        box-shadow 0.2s;
+    position: relative;
+    overflow: hidden;
+    max-height: 150px; /* Collapsed height */
 }
 
 .thrd-area:hover {
-    box-shadow: 0 8px 24px rgb(0 0 0 / 0.15);
     transform: translateY(-4px);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
 }
 
-/* Selected thread expands */
+/* Hide message area by default */
+.messageArea {
+    display: none;
+}
+
+/* Expanded thread view (when selected) */
 .thrd-area.thrd-selected {
-    background: url("bg1.jpg") center center / cover no-repeat;
+    background-image: url("bg1.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    max-height: none;
     position: fixed;
-    top: 5vh;
+    top: 64px;
     left: 50%;
     transform: translateX(-50%);
-    width: 90vw;
-    max-width: 900px;
-    height: 85vh;
-    border-radius: 20px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
-    cursor: default;
-    overflow-y: auto;
-    padding: 1.5rem 2rem;
-    z-index: 11000;
-}
-
-/* Thread details */
-.thrd-details {
-    font-weight: 600;
-    color: #2d3748;
-    margin-bottom: 1rem;
-    flex-wrap: nowrap;
+    width: 90%;
+    max-width: 800px;
+    height: calc(100% - 88px);
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    padding: 24px;
+    z-index: 100;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
 }
 
-.thrd-details .thrd-main {
-    flex-grow: 1;
-    font-size: 1.1rem;
-    line-height: 1.3;
+.thrd-area.thrd-selected .messageArea {
+    display: block;
+    flex: 1;
+    overflow-y: auto;
+    margin-top: 16px;
 }
 
-.thrd-details .thrd-date {
-    font-weight: 400;
-    font-size: 0.9rem;
-    color: #718096;
-    white-space: nowrap;
-    margin-left: 1rem;
-}
-
-/* Close thread button */
-.close-thrd {
-    position: absolute;
-    top: 1rem;
-    right: 1.5rem;
-}
-
+/* Close Button */
 .close-thrd-btn {
-    background: transparent;
+    position: absolute;
+    top: 16px;
+    right: 16px;
     border: none;
-    font-size: 28px;
-    color: #e53e3e;
-    font-weight: 700;
+    background-color: transparent;
+    color: #888;
+    font-size: 24px;
     cursor: pointer;
-    transition: color 0.3s ease;
-    line-height: 1;
-    user-select: none;
-    padding: 0 6px;
+    transition: color 0.2s;
 }
 
 .close-thrd-btn:hover {
-    color: #9b2c2c;
+    color: #333;
 }
 
-/* Message area hidden by default */
-.thrd-area .messageArea {
-    display: none;
-    flex-direction: column;
-    margin-top: 1rem;
-}
-
-/* Show message area on selected */
-.thrd-area.thrd-selected .messageArea {
-    display: flex;
-}
-
-/* Message input form */
-.message-input form {
-    display: flex;
-    gap: 0.8rem;
-    margin-bottom: 1rem;
-}
-
-.message-input input[type="text"] {
-    flex-grow: 1;
-    padding: 0.5rem 1rem;
-    border-radius: 12px;
-    border: 2px solid #cbd5e0;
-    font-size: 1rem;
-    transition: border-color 0.25s ease;
-}
-
-.message-input input[type="text"]:focus {
-    border-color: #4a90e2;
-    outline: none;
-    box-shadow: 0 0 8px #4a90e2aa;
-}
-
-.message-input button {
-    background-color: #4a90e2;
-    border: none;
-    border-radius: 12px;
-    color: white;
-    padding: 0 1.2rem;
-    font-size: 1.2rem;
-    cursor: pointer;
-    transition: background-color 0.25s ease;
-    box-shadow: 0 2px 6px rgb(74 144 226 / 0.3);
-}
-
-.message-input button:hover {
-    background-color: #357abd;
-    box-shadow: 0 4px 12px rgb(53 122 189 / 0.5);
-}
-
-/* Broadcasted messages container */
-.broadcasted-messages {
-    max-height: 50vh;
-    overflow-y: auto;
-    padding-right: 0.5rem;
-}
-
-/* Single broadcasted message */
+/* Messages */
 .broadcasted-message-server {
-    background-color: #edf2f7;
-    border-radius: 14px;
-    padding: 0.8rem 1rem;
-    margin-bottom: 0.8rem;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-    word-break: break-word;
-    font-size: 1rem;
-    color: #2d3748;
-    position: relative;
+    background-color: #fdfdfd;
+    border-left: 4px solid #007bff;
+    padding: 12px 16px;
+    margin: 12px 0;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .broadcasted-message-server .message-text {
-    margin-bottom: 0.3rem;
-    font-weight: 600;
-    color: #1a202c;
+    font-size: 15px;
+    margin-bottom: 6px;
+    color: #333;
 }
 
 .broadcasted-message-server .message-date {
-    font-size: 0.75rem;
-    color: #718096;
+    font-size: 11px;
+    color: #777;
     text-align: right;
-    user-select: none;
 }
 
-/* Highlight own messages */
-.broadcasted-message-server .message-text[style*="color: red"] {
-    color: #e53e3e !important;
-    font-weight: 700;
+/* Message Input Form */
+#message-input-form {
+    display: flex;
+    gap: 12px;
+    padding: 12px 0;
+    border-top: 1px solid #eee;
 }
 
-/* Responsive adjustments */
-@media (max-width: 600px) {
-    body {
-        padding: 0.5rem;
-    }
+#message-input-form input {
+    flex: 1;
+}
 
-    .thrd-header {
-        flex-direction: column;
-        align-items: stretch;
-    }
+#message-input-form button {
+    flex-shrink: 0;
+}
 
-    .thrd-create-open button,
-    .user-name-open button {
-        width: 100%;
-        font-size: 16px;
-        padding: 0.8rem;
-    }
-
-    #create-thrd,
-    #set-user {
-        min-width: 100%;
-        top: 100%;
-        left: 0;
-        border-radius: 12px;
-    }
-
+/* Responsive */
+@media (max-width: 768px) {
     .thrds.area {
-        flex-direction: column;
-        align-items: center;
+        padding: 16px;
+        gap: 16px;
     }
-
-    .thrd-area {
-        width: 95%;
-        max-width: none;
-    }
-
-    .thrd-area.thrd-selected {
-        width: 95vw;
-        height: 90vh;
-        top: 3vh;
-        border-radius: 12px;
-        padding: 1rem 1.5rem;
+    button,
+    input[type="text"] {
+        font-size: 14px;
+        padding: 6px 12px;
     }
 }
