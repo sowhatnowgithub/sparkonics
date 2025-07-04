@@ -18,7 +18,7 @@ class AdminModel
     {
         $formData = json_decode(
             file_get_contents(
-                Env::BASE_PATH . "/app/Models/Database/AdminFormControl.json"
+                Env::BASE_PATH . "/app/Models/Database/FormControlApi.json"
             ),
             1
         );

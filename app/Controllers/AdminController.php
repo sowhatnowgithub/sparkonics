@@ -136,7 +136,7 @@ class AdminController
             $action
         );
 
-        require Env::BASE_PATH . "/app/Views/FormControl.php";
+        require Env::BASE_PATH . "/app/Views/FormControlApi.php";
     }
     public function ApiHandler($formData)
     {
