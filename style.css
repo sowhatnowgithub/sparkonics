@@ -1,0 +1,165 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: #000;
+  color: #fff;
+}
+
+.gradient-bar {
+  background: linear-gradient(to right, #00b7ff, #ff00cc);
+  padding: 20px 0;
+  text-align: center;
+  box-shadow: 0 0 12px #00f0ff;
+}
+
+.title-highlight {
+  font-size: 30px;
+  font-weight: 600;
+  text-shadow: 0 0 8px #00e1ff;
+}
+
+/* Auth portion */
+.form-area {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 90vh;
+  background: url('background.jpg') center/cover no-repeat;
+  padding-top: 20px;
+}
+
+.auth-box {
+  width: 360px;
+  background: rgba(0, 0, 0, 0.75);
+  border-radius: 10px;
+  padding: 30px 25px;
+  backdrop-filter: blur(5px);
+  box-shadow: 0 0 20px rgba(0, 183, 255, 0.4);
+}
+
+/* For Animation */
+.fade-slide {
+  animation: scaleIn 0.4s ease-in-out;
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.auth-box h2 {
+  text-align: center;
+  margin-bottom: 15px;
+  color: #00cfff;
+  font-weight: 500;
+}
+
+.field-row {
+  margin-bottom: 18px;
+}
+
+.field-row input,
+.field-row select {
+  width: 100%;
+  padding: 9px;
+  border-radius: 5px;
+  background: transparent;
+  border: 1px solid #00b7ff;
+  color: #fff;
+  transition: 0.3s;
+}
+
+.field-row input:focus,
+.field-row select:focus {
+  border-color: #00f0ff;
+  box-shadow: 0 0 10px #00f0ff;
+  outline: none;
+}
+
+.field-row label {
+  display: block;
+  margin-top: 6px;
+  font-size: 13px;
+  color: #ccc;
+}
+
+/*For Glowing Button */
+.neon-button {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid #00e1ff;
+  background: transparent;
+  color: #00e1ff;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 5px;
+  position: relative;
+  z-index: 1;
+  transition: 0.3s;
+}
+
+.neon-button::before {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  background: #00e1ff;
+  border-radius: 8px;
+  filter: blur(10px);
+  opacity: 0.5;
+  z-index: -1;
+}
+
+.neon-button:hover {
+  background: #00e1ff;
+  color: #000;
+  box-shadow: 0 0 15px #00e1ff;
+}
+
+/* Form */
+.switch-prompt {
+  margin-top: 15px;
+  text-align: center;
+  font-size: 13px;
+}
+
+.switch-prompt a {
+  color: #00c3ff;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.switch-prompt a:hover {
+  text-decoration: underline;
+}
+
+.field-row select {
+  background-color: #111;
+  color: #fff;
+  border: 1px solid #00b7ff;
+  border-radius: 5px;
+  padding: 10px;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  cursor: pointer;
+}
+
+.field-row select::-ms-expand {
+  display: none;
+}
+
+.field-row select:focus {
+  outline: none;
+  box-shadow: 0 0 10px #00f0ff;
+  border-color: #00f0ff;
+}
+
+.field-row select option {
+  background-color: #000;
+  color: #fff;
+}
