@@ -27,7 +27,7 @@ dist-ssr
 mainServer/
 
 vendor/*
-*credentials.json*
+*credentials.*
 # Ignore all contents of any Images folder anywhere in the project
 **/Images/*
 *Authenticate.php*

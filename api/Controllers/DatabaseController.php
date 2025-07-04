@@ -78,5 +78,5 @@ var_dump($dataBase->getAllActions());
 //$dataBase->ExecuteAction("CreateProfsTable");
 //$dataBase->ExecuteAction("CreateImagesTable");
 //$dataBase->ExecuteAction("CreateGalleryTable");
-//$dataBase->ExecuteAction("CreateTeamTable");
-//$dataBase->ExecuteAction("CreateMemberTable");
+$dataBase->ExecuteAction("CreateTeamTable");
+$dataBase->ExecuteAction("CreateMemberTable");

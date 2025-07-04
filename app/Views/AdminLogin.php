@@ -45,7 +45,7 @@
     </style>
   </head>
   <body>
-      <form method="POST" action="admin/auth">
+      <form method="POST" action="/admin/auth">
           <input type="text" name="username" placeholder="sowhatnow@iitp.ac.in"/>
           <input type="text" name="password" placeholder="password"/>
           <input type="submit">

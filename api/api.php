@@ -23,7 +23,7 @@ $settings = [
     "task_enable_coroutine" => true,
     "enable_coroutine" => true,
     "http_compression" => true,
-    "http_compression_level" => 2,
+    "http_compression_level" => 3,
     "compression_min_length" => 128,
 ];
 $server->set($settings);
