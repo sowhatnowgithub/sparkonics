@@ -130,4 +130,37 @@ $router->routeCreateRegex(
     "GET",
     true
 );
+// Routes fof Team
+$router->routeCreate(
+    "/api/team",
+    ["TeamController", "FetchAllMems"],
+    "GET",
+    false
+);
+$router->routeCreate(
+    "/api/team/add",
+    ["TeamController", "AddMem"],
+    "POST",
+    true
+);
+$router->routeCreateRegex(
+    '~^/api/team/([a-zA-Z0-9_-]+)$~',
+    "fetchMem",
+    ["TeamController", "FetchMem"],
+    "GET",
+    true
+);
+$router->routeCreate(
+    "/api/team/modify",
+    ["TeamController", "ModifyMem"],
+    "POST",
+    true
+);
+$router->routeCreateRegex(
+    '~^/api/team/delete/([a-zA-Z0-9_-]+)$~',
+    "deleteMem",
+    ["TeamController", "DeleteMem"],
+    "GET",
+    true
+);
 ?>

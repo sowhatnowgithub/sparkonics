@@ -2,14 +2,14 @@
 
 namespace Sowhatnow\Api\Models;
 use Sowhatnow\Env;
-class ProfsPageModel
+class TeamModel
 {
     protected $conn;
     protected $query;
     public function __construct()
     {
         try {
-            $dbPath = Env::BASE_PATH . "/api/Models/Database/ProfsPageData.db";
+            $dbPath = Env::BASE_PATH . "/api/Models/Database/teamData.db";
             $this->conn = new \PDO("sqlite:$dbPath");
             $this->conn->setAttribute(
                 \PDO::ATTR_ERRMODE,
@@ -29,7 +29,7 @@ class ProfsPageModel
     {
         return $this->conn->quote($query);
     }
-    public function AddProf($query): array
+    public function AddMem($query): array
     {
         try {
             $stmt = $this->conn->prepare($query);
@@ -40,18 +40,18 @@ class ProfsPageModel
             return ["Error" => "Failed to fetch"];
         }
     }
-    public function FetchProf($profId): array
+    public function FetchMem($memId): array
     {
         try {
             $stmt = $this->conn->prepare(
-                "SELECT * FROM Profs WHERE ProfId = :profId"
+                "SELECT * FROM Team WHERE MemId = :memId"
             );
-            $stmt->bindParam(":profId", $profId, \PDO::PARAM_INT);
+            $stmt->bindParam(":memId", $memId, \PDO::PARAM_INT);
             $stmt->execute();
-            $prof = $stmt->fetch();
+            $mem = $stmt->fetch();
             $stmt = null;
-            if ($prof != false) {
-                return $prof;
+            if ($mem != false) {
+                return $mem;
             } else {
                 return ["Error" => "Failed to fetch"];
             }
@@ -59,16 +59,16 @@ class ProfsPageModel
             return ["Error" => "Failed to fetch"];
         }
     }
-    public function FetchAllProfs(): array
+    public function FetchAllMems(): array
     {
         try {
-            $this->query = "SELECT * FROM Profs";
+            $this->query = "SELECT * FROM Team";
             $stmt = $this->conn->prepare($this->query);
             $stmt->execute();
-            $profs = $stmt->fetchAll();
+            $mems = $stmt->fetchAll();
             $stmt = null;
-            if ($profs != false) {
-                return $profs;
+            if ($mems != false) {
+                return $mems;
             } else {
                 return ["Error" => "Failed to fetch"];
             }
@@ -76,13 +76,13 @@ class ProfsPageModel
             return ["Error" => "Failed to fetch"];
         }
     }
-    public function DeleteProf($profId): array
+    public function DeleteMem($memId): array
     {
         try {
             $stmt = $this->conn->prepare(
-                "DELETE FROM Profs WHERE ProfId = :profId"
+                "DELETE FROM Team WHERE MemId = :memId"
             );
-            $stmt->bindParam(":profId", $profId, \PDO::PARAM_INT);
+            $stmt->bindParam(":memId", $memId, \PDO::PARAM_INT);
             $stmt->execute();
             $stmt = null;
             return ["Success" => "god"];
@@ -90,7 +90,7 @@ class ProfsPageModel
             return ["Error" => "Failed to fetch"];
         }
     }
-    public function ModifyProf($query)
+    public function ModifyMem($query)
     {
         try {
             $stmt = $this->conn->prepare($query);

@@ -245,5 +245,66 @@
       "enctype": "application/x-www-form-urlencoded",
       "FormData": {}
     }
+  },
+  "Team": {
+    "Add": {
+      "request_method": "POST",
+      "action_url": "/api/team/add",
+      "enctype": "application/x-www-form-urlencoded",
+      "FormData": {
+        "MemName": ["required", "text", "Enter full name"],
+        "MemPosition": [
+          "required",
+          "text",
+          "Choose Coordinator or SubCoordinator, enter these names without typos"
+        ],
+        "MemRole": ["required", "text", "E.g., Sponsorship, Media, Logistics"],
+        "MemStartTime": ["required", "text", "Start year (e.g., 2024)"],
+        "MemEndTime": ["required", "text", "End year (e.g., 2025)"],
+        "MemImageUrl": ["required", "text", "Image path like /api/images/123"],
+        "MemLinkedin": ["required", "text", "LinkedIn profile URL"]
+      }
+    },
+    "Modify": {
+      "request_method": "POST",
+      "action_url": "/api/team/modify",
+      "enctype": "application/x-www-form-urlencoded",
+      "FormData": {
+        "MemId": ["required", "number", "Enter Team Member ID"],
+        "MemName": ["", "text", "Update full name"],
+        "MemPosition": [
+          "",
+          "text",
+          "Choose Coordinator or SubCoordinator, enter these names without typos"
+        ],
+        "MemRole": ["", "text", "Update role"],
+        "MemStartTime": ["", "text", "Update start year"],
+        "MemEndTime": ["", "text", "Update end year"],
+        "MemImageUrl": ["", "text", "Update image path"],
+        "MemLinkedin": ["", "text", "Update LinkedIn URL"]
+      }
+    },
+    "Delete": {
+      "request_method": "GET",
+      "action_url": "/api/team/delete/",
+      "enctype": "application/x-www-form-urlencoded",
+      "FormData": {
+        "MemId": ["required", "number", "Enter Team Member ID to delete"]
+      }
+    },
+    "Fetch": {
+      "request_method": "GET",
+      "action_url": "/api/team/",
+      "enctype": "application/x-www-form-urlencoded",
+      "FormData": {
+        "MemId": ["required", "number", "Enter Team Member ID to fetch"]
+      }
+    },
+    "FetchAll": {
+      "request_method": "GET",
+      "action_url": "/api/team",
+      "enctype": "application/x-www-form-urlencoded",
+      "FormData": {}
+    }
   }
 }

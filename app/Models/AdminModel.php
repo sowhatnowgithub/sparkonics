@@ -6,6 +6,7 @@ class AdminModel
 {
     public function AuthenticateData()
     {
+        /*
         $data = json_decode(
             file_get_contents(
                 Env::BASE_PATH . "/app/Models/Database/credentials.json"
@@ -13,7 +14,9 @@ class AdminModel
             1
         );
         return $data;
+        */
     }
+    public function RegisterMembers($settings) {}
     public function AdminFormControl($section, $action)
     {
         $formData = json_decode(

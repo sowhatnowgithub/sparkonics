@@ -62,7 +62,7 @@ class AdminController
                 exit();
             }
         } else {
-            echo "Don't have access to this since not cord";
+            require Env::BASE_PATH . "/app/Views/Error.php";
             exit();
         }
     }
@@ -115,6 +115,10 @@ class AdminController
     {
         require Env::BASE_PATH . "/app/Views/Login.html";
     }
+    public function Register($settings)
+    {
+        var_dump($settings);
+    }
     public function Home()
     {
         $this->sessionStatus();
@@ -158,7 +162,7 @@ class AdminController
 
         require Env::BASE_PATH . "/app/Views/Log.php";
     }
-    public function Members()
+    public function MembersControl()
     {
         $this->sessionStatusCord();
         require Env::BASE_PATH . "/app/Views/MembersControl.php";

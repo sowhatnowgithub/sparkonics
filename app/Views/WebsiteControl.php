@@ -3,14 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Dashboard</title>
+  <title>Website Control</title>
   <style>
+  <?php echo Sowhatnow\App\Views\NavBar::$STYLE; ?>
 
-    body {
-      font-family: Arial, sans-serif;
-      padding: 20px;
-      background-color: #f5f5f5;
-    }
     form {
       background-color: #fff;
       padding: 20px;
@@ -42,11 +38,7 @@
       cursor: pointer;
     }
 
-    body {
-      font-family: Arial, sans-serif;
-      padding: 20px;
-      background-color: #f5f5f5;
-    }
+
     .fancy-table {
       width: 100%;
       border-collapse: collapse;
@@ -84,7 +76,7 @@
     }
 
 
-    .navbar {
+    .controlbar {
       display: flex;
       gap: 20px;
       background-color: #fff;
@@ -95,7 +87,7 @@
       justify-content: center;
     }
 
-    .navbar button {
+    .controlbar button {
       background-color: #007bff;
       color: #fff;
       border: none;
@@ -133,12 +125,15 @@
   </style>
 </head>
 <body>
+    <?php echo Sowhatnow\App\Views\NavBar::$NAVBAR; ?>
 
-  <div class="navbar">
+  <div class="controlbar">
     <button onclick="handleNavClick('Events')">Events</button>
     <button onclick="handleNavClick('Profs')">Profs</button>
     <button onclick="handleNavClick('Images')">Images</button>
     <button onclick="handleNavClick('Gallery')">Gallery</button>
+    <button onclick="handleNavClick('Team')">Team</button>
+
   </div>
 
   <div class="subbar" id="subbar">

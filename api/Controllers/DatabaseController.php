@@ -38,32 +38,35 @@ $galleryTableQuery = "CREATE TABLE Gallery (
 )";
 
 $memberTableQuery = "CREATE TABLE Members (
-    MemberId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-    MemberName TEXT NOT NULL,
-    MemberWebMail TEXT NOT NULL,
-    MemberMobile TEXT NOT NULL,
-    MemberDegree TEXT NOT NULL,
-    MemberRollNo TEXT NOT NULL,
-    MemberLinkedin TEXT NOT NULL,
-    MemberPassword TEXT NOT NULL
+    MemId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    MemName TEXT NOT NULL,
+    MemWebMail TEXT NOT NULL,
+    MemMobile TEXT NOT NULL,
+    MemDegree TEXT NOT NULL,
+    MemRollNo TEXT NOT NULL,
+    MemPassword TEXT NOT NULL,
+    MemPosition TEXT NOT NULL,
+    MemAccessGranted BOOLEAN,
+    MemImageUrl TEXT
 )";
 $teamTableQuery = "CREATE TABLE Team (
-    TeamMemId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-    MemberId INTEGER NOT NULL,
-    TeamMemPosition TEXT NOT NULL CHECK (TeamMemPosition IN ('Cord', 'SubCord')),
-    TeamMemJob TEXT NOT NULL,
-    TeamMemTenure TEXT NOT NULL,
-    TeamMemImage TEXT NOT NULL,
-    FOREIGN KEY (MemberId) REFERENCES Members(MemberId) ON DELETE CASCADE,
-    UNIQUE (MemberId)
+    MemId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    MemName TEXT NOT NULL,
+    MemPosition TEXT NOT NULL CHECK (MemPosition IN ('Coordinator', 'SubCoordinator')),
+    MemRole TEXT NOT NULL,
+    MemStartTime TEXT NOT NULL,
+    MemEndTime TEXT NOT NULL,
+    MemImageUrl TEXT NOT NULL,
+    MemLinkedin TEXT NOT NULL
 )";
 $$dbPathEvent = Env::BASE_PATH . "/api/Models/Database/eventsPageData.db";
 $dbPathProf = Env::BASE_PATH . "/api/Models/Database/profsPageData.db";
 $dbPathImages = Env::BASE_PATH . "/api/Models/Database/imagesData.db";
 $dbPathGallery = Env::BASE_PATH . "/api/Models/Database/gallery.db";
+$dbPathMem = Env::BASE_PATH . "/app/Models/Database/members.db";
 $dbPathTeam = Env::BASE_PATH . "/api/Models/Database/team.db";
 
-$dataBase = new DatabaseManager($dbPathTeam);
+$dataBase = new DatabaseManager($dbPathMem);
 
 $dataBase->CreateAction($eventsTableQuery, "CreateEventsTable");
 $dataBase->CreateAction($galleryTableQuery, "CreateGalleryTable");
@@ -78,5 +81,5 @@ var_dump($dataBase->getAllActions());
 //$dataBase->ExecuteAction("CreateProfsTable");
 //$dataBase->ExecuteAction("CreateImagesTable");
 //$dataBase->ExecuteAction("CreateGalleryTable");
-$dataBase->ExecuteAction("CreateTeamTable");
+//$dataBase->ExecuteAction("CreateTeamTable");
 $dataBase->ExecuteAction("CreateMemberTable");

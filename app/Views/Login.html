@@ -234,24 +234,24 @@
             <form class="fade-slide" method="POST" action="/admin/register">
               <h2>Register</h2>
               <div class="field-row">
-                <input type="text" required />
+                <input type="text" required name="userrollnumber" placeholder="2302cm05"/>
                 <label>Roll Number</label>
               </div>
               <div class="field-row">
-                <select required>
+                <select required name="userdegree">
                   <option value="" disabled selected>Select Degree</option>
-                  <option>ECE</option>
-                  <option>EEE</option>
-                  <option>Dual Degree</option>
+                  <option value="ece">ECE</option>
+                  <option value="eee">EEE</option>
+                  <option value="dual-degree">Dual Degree</option>
                 </select>
                 <label>Program</label>
               </div>
               <div class="field-row">
-                <input type="tel" required />
+                <input type="tel" name="userphone" required />
                 <label>Phone Number</label>
               </div>
               <div class="field-row">
-                <input type="email" required />
+                <input type="email" placeholder="sowhatnow@iitp.ac.in" name="usermail" required />
                 <label>Webmail ID</label>
               </div>
               <div class="field-row">
@@ -259,14 +259,14 @@
                 <label>Password</label>
               </div>
               <div class="field-row">
-                <input type="text" required />
-                <label>Your Name</label>
+                <input type="text" placeholder="sowhatnow" required />
+                <label>User Name</label>
               </div>
               <div class="field-row">
-                <select required>
+                <select required name="userposition">
                   <option value="" disabled selected>Select Role</option>
-                  <option>SubCordinator</option>
-                  <option>Cordinator</option>
+                  <option value="SubCordinator">SubCoordinator</option>
+                  <option value="Coordinator">Coordinator</option>
                 </select>
                 <label>Position</label>
               </div>

@@ -3,24 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Members Control</title>
+  <title>Error</title>
 <?php echo "<style>" . Sowhatnow\App\Views\NavBar::$STYLE . "</style>"; ?>
 </head>
 <body>
 
     <?php echo Sowhatnow\App\Views\NavBar::$NAVBAR; ?>
-    <!-- Content Area (Placeholder for now) -->
      <div class="content" id="content-area">
-       <h2>Welcome to the Website Member Control Portal!</h2>
-       <p>You either hacked or you are a cord</p>
+       <h2>Welcome to the Website </h2>
+       <p>You donot have the access for this page</p>
      </div>
 
 </body>
 </html>
-<?php
- /*
-first create the api controller for members
-
-Add the features of automated time schedular
-*/
-?>
