@@ -3,7 +3,7 @@
 namespace Sowhatnow\App\Models;
 use PDOException;
 use Sowhatnow\Env;
-class MemberModel
+class MemberModel extends AdminModel
 {
     public $dbConn;
     public function __construct()

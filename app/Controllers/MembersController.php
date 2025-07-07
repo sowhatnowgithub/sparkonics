@@ -67,31 +67,35 @@ class MembersController extends AdminController
     }
     public function MemberDelete($data)
     {
-        $this->sessionStatusCord();
+        $this->sessionStatusCord("Deleting a member" . json_encode($data));
 
         echo $this->adminModel->DeleteMember($data["MemId"]);
     }
     public function GrantAccessMemeber($data)
     {
-        $this->sessionStatusCord();
+        $this->sessionStatusCord(
+            "Granting Access a member" . json_encode($data)
+        );
 
         echo $this->adminModel->GrantAccessMemeber($data);
     }
     public function MembersControl()
     {
-        $this->sessionStatusCord();
+        $this->sessionStatusCord("Accesing the members Control");
         $membersData = $this->adminModel->FetchMembers();
         $url = Env::HOST_ADDRESS;
         require Env::BASE_PATH . "/app/Views/MembersControl.php";
     }
     public function UpdateMemberRole($data)
     {
-        $this->sessionStatusCord();
+        $this->sessionStatusCord(
+            "Updating the members ROle" . json_encode($data)
+        );
         echo $this->adminModel->UpdateMemberRole($data);
     }
     public function UpdateMemberImage($data)
     {
-        $this->sessionStatus();
+        $this->sessionStatus("Updating the image " . json_encode($data));
         var_dump($data);
         echo $this->adminModel->UpdateMemberImage($data);
     }

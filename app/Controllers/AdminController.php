@@ -22,9 +22,10 @@ class AdminController
         ]);
     }
 
-    public function sessionStatus()
+    public function sessionStatus($content)
     {
         session_start();
+
         $timeout = 60 * 60 * 24 * 10;
 
         $trueCredentials = $this->adminModel->AuthenticateData();
@@ -43,6 +44,19 @@ class AdminController
                 exit();
             }
         }
+        $logFilePath = Env::BASE_PATH . "/app/Views/logs/user.log";
+
+        $logData =
+            "User Id : {$_SESSION["userid"]} " .
+            date("Y-m-d H:i:s") .
+            " " .
+            "UserMobile : {$_SESSION["usermobile"]} " .
+            "UserPosition : {$value["MemPosition"]} " .
+            "UserName : {$_SESSION["usermail"]} " .
+            "Content : $content \n";
+
+        $value = null;
+        file_put_contents($logFilePath, $logData, FILE_APPEND);
 
         if (
             isset($_SESSION["last_activity"]) &&
@@ -61,9 +75,9 @@ class AdminController
             exit();
         }
     }
-    public function sessionStatusCord()
+    public function sessionStatusCord($data)
     {
-        $this->sessionStatus();
+        $this->sessionStatus($data);
         if (
             isset($_SESSION["auth_cookie_cord"]) &&
             $_SESSION["userposition"] === "Coordinator"
@@ -153,17 +167,19 @@ class AdminController
 
     public function Home()
     {
-        $this->sessionStatus();
+        $this->sessionStatus("Using the Home page");
         require Env::BASE_PATH . "/app/Views/Home.php";
     }
     public function WebsiteControl()
     {
-        $this->sessionStatus();
+        $this->sessionStatus("Accesing the WebSite Controller Page");
         require Env::BASE_PATH . "/app/Views/WebsiteControl.php";
     }
     public function GetForm($formData)
     {
-        $this->sessionStatus();
+        $this->sessionStatus(
+            "Fetching the form for website control" . json_encode($formData)
+        );
 
         $section = $formData["section"];
         $action = $formData["action"];
@@ -176,7 +192,9 @@ class AdminController
     }
     public function ApiHandler($formData)
     {
-        $this->sessionStatus();
+        $this->sessionStatus(
+            "Accesing The Api Control with settings : " . json_encode($formData)
+        );
         require Env::BASE_PATH . "/app/Views/ApiControl.php";
     }
     public function Logout()
@@ -190,14 +208,13 @@ class AdminController
     }
     public function LogUser()
     {
-        $this->sessionStatusCord();
-
+        $this->sessionStatusCord("Accessing the Log Files");
         require Env::BASE_PATH . "/app/Views/Log.php";
     }
 
     public function Dashboard()
     {
-        $this->sessionStatus();
+        $this->sessionStatus("Accesing the Dashboard");
         $memberData = $this->adminModel->FetchMember($_SESSION["userid"]);
         $url = Env::HOST_ADDRESS;
         require Env::BASE_PATH . "/app/Views/Dashboard.php";
