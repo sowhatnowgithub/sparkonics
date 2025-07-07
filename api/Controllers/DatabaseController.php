@@ -47,7 +47,8 @@ $memberTableQuery = "CREATE TABLE Members (
     MemPassword TEXT NOT NULL,
     MemPosition TEXT NOT NULL,
     MemAccessGranted BOOLEAN,
-    MemImageUrl TEXT
+    MemImageUrl TEXT,
+    MemRole TEXT
 )";
 $teamTableQuery = "CREATE TABLE Team (
     MemId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,

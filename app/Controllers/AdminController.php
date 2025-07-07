@@ -21,10 +21,28 @@ class AdminController
             "samesite" => "Strict",
         ]);
     }
+
     public function sessionStatus()
     {
         session_start();
         $timeout = 60 * 60 * 24 * 10;
+
+        $trueCredentials = $this->adminModel->AuthenticateData();
+        $value = $trueCredentials[$_SESSION["usermobile"]];
+        if (isset($value)) {
+            if ($value["MemAccessGranted"] == 0) {
+                header("Location: {$this->url}/admin/");
+                exit();
+            }
+            if ($value["MemPosition"] != $_SESSION["userposition"]) {
+                header("Location: {$this->url}/admin/");
+                exit();
+            }
+            if ($value["MemId"] != $_SESSION["userid"]) {
+                header("Location: {$this->url}/admin/");
+                exit();
+            }
+        }
 
         if (
             isset($_SESSION["last_activity"]) &&
@@ -35,7 +53,7 @@ class AdminController
 
         $_SESSION["last_activity"] = time();
         if (
-            !isset($_SESSION["username"]) ||
+            !isset($_SESSION["usermobile"]) ||
             !isset($_SESSION["usermail"]) ||
             !isset($_SESSION["authenticated"])
         ) {
@@ -48,11 +66,11 @@ class AdminController
         $this->sessionStatus();
         if (
             isset($_SESSION["auth_cookie_cord"]) &&
-            $_SESSION["userrole"] === "cord"
+            $_SESSION["userposition"] === "Coordinator"
         ) {
             if (
                 $this->validateAuthCookie(
-                    $_SESSION["username"],
+                    $_SESSION["usermobile"],
                     $_SESSION["auth_cookie_cord"]
                 )
             ) {
@@ -67,16 +85,16 @@ class AdminController
         }
     }
 
-    protected function createAuthCookie($username)
+    protected function createAuthCookie($usermobile)
     {
         require "Authenticate.php";
-        $hash_value = hash_hmac("sha256", $username, $key, true);
+        $hash_value = hash_hmac("sha256", $usermobile, $key, true);
         return $hash_value;
     }
-    protected function validateAuthCookie($username, $hash)
+    protected function validateAuthCookie($usermobile, $hash)
     {
         require "Authenticate.php";
-        $recalculated_hash = hash_hmac("sha256", $username, $key, true);
+        $recalculated_hash = hash_hmac("sha256", $usermobile, $key, true);
 
         if ($hash === $recalculated_hash) {
             return true;
@@ -87,25 +105,42 @@ class AdminController
     {
         $trueCredentials = $this->adminModel->AuthenticateData();
 
-        if (
-            $trueCredentials["User"] === $credentials["username"] &&
-            $trueCredentials["Password"] === $credentials["password"] &&
-            $trueCredentials["Mail"] === $credentials["usermail"] &&
-            $trueCredentials["Role"] == $credentials["userrole"]
-        ) {
-            session_start();
-            session_regenerate_id(true);
-            $_SESSION["username"] = $credentials["username"];
-            $_SESSION["usermail"] = $credentials["usermail"];
-            $_SESSION["userrole"] = $credentials["userrole"];
-            $_SESSION["authenticated"] = true;
-            if ($credentials["userrole"] === "cord") {
-                $_SESSION["auth_cookie_cord"] = $this->createAuthCookie(
-                    trim($credentials["username"])
-                );
-            }
-            header("Location: {$this->url}/admin/home");
+        $value = $trueCredentials[$credentials["usermobile"]];
+        if (isset($value)) {
+            $trueCredentials = $value;
+            $value = null;
+        } else {
+            header("Location: {$this->url}/admin/");
             exit();
+        }
+        var_dump($trueCredentials);
+        echo "<br>";
+        var_dump($credentials);
+        if (
+            $trueCredentials["MemMobile"] === $credentials["usermobile"] &&
+            $trueCredentials["MemPassword"] === $credentials["userpassword"] &&
+            $trueCredentials["MemWebMail"] === $credentials["usermail"] &&
+            $trueCredentials["MemPosition"] == $credentials["userposition"]
+        ) {
+            if ($trueCredentials["MemAccessGranted"] == "1") {
+                session_start();
+                session_regenerate_id(true);
+                $_SESSION["userid"] = $trueCredentials["MemId"];
+                $_SESSION["usermobile"] = $trueCredentials["MemMobile"];
+                $_SESSION["usermail"] = $trueCredentials["MemWebMail"];
+                $_SESSION["userposition"] = $trueCredentials["MemPosition"];
+                $_SESSION["authenticated"] = true;
+                if ($credentials["userposition"] === "Coordinator") {
+                    $_SESSION["auth_cookie_cord"] = $this->createAuthCookie(
+                        trim($credentials["usermobile"])
+                    );
+                }
+                header("Location: {$this->url}/admin/home");
+                exit();
+            } else {
+                header("Location: {$this->url}/admin/");
+                exit();
+            }
         } else {
             header("Location: {$this->url}/admin/");
             exit();
@@ -115,10 +150,7 @@ class AdminController
     {
         require Env::BASE_PATH . "/app/Views/Login.html";
     }
-    public function Register($settings)
-    {
-        var_dump($settings);
-    }
+
     public function Home()
     {
         $this->sessionStatus();
@@ -162,14 +194,12 @@ class AdminController
 
         require Env::BASE_PATH . "/app/Views/Log.php";
     }
-    public function MembersControl()
-    {
-        $this->sessionStatusCord();
-        require Env::BASE_PATH . "/app/Views/MembersControl.php";
-    }
+
     public function Dashboard()
     {
         $this->sessionStatus();
+        $memberData = $this->adminModel->FetchMember($_SESSION["userid"]);
+        $url = Env::HOST_ADDRESS;
         require Env::BASE_PATH . "/app/Views/Dashboard.php";
     }
 }

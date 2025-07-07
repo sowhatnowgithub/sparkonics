@@ -13,16 +13,28 @@ $method = $_SERVER["REQUEST_METHOD"];
 $router = new Router();
 $router->get("/admin/home", ["AdminController", "Home"]);
 $router->get("/admin/", ["AdminController", "index"]);
-$router->get("/admin/members", ["AdminController", "MembersControl"]);
+$router->get("/admin/members", ["MembersController", "MembersControl"]);
 $router->get("/admin/dashboard", ["AdminController", "Dashboard"]);
 $router->get("/admin/log", ["AdminController", "LogUser"]);
 $router->get("/admin/logout", ["AdminController", "Logout"]);
 $router->get("/admin/websitecontrol", ["AdminController", "WebsiteControl"]);
-$router->post("/admin/register", ["AdminController", "Register"]);
+$router->post("/admin/register", ["MembersController", "RegisterMember"]);
 $router->post("/admin/auth", ["AdminController", "Authenticate"]);
 $router->post("/admin/apicontrol", ["AdminController", "ApiHandler"]);
 $router->post("/admin/getform", ["AdminController", "GetForm"]);
-
+$router->post("/admin/member/delete", ["MembersController", "MemberDelete"]);
+$router->post("/admin/member/access", [
+    "MembersController",
+    "GrantAccessMemeber",
+]);
+$router->post("/admin/member/updaterole", [
+    "MembersController",
+    "UpdateMemberRole",
+]);
+$router->post("/admin/member/updateimage", [
+    "MembersController",
+    "UpdateImage",
+]);
 $userType = userTypes::Public;
 foreach ($router->routes["GET"] as $routes => $actions) {
     if (strpos($routes, $uri) !== false) {

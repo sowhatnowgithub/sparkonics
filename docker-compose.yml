@@ -1,12 +1,37 @@
+version: "3.8"
+
 services:
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - .:/var/www
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - swoole-api
+      - php-fpm
+    networks:
+      - swoole-net
+
   swoole-api:
     build: .
     ports:
-      - "1978:1978"
+      - "1978:1978" # API HTTP server
+      - "9501:9501" # WebSocket server
     volumes:
-      - .:/var/www # Mount the full project
-      - ./vendor:/var/www/vendor # Ensure vendor is visible inside
+      - .:/var/www
+      - ./vendor:/var/www/vendor
     restart: unless-stopped
+    networks:
+      - swoole-net
+
+  php-fpm:
+    image: php:8.2-fpm
+    volumes:
+      - .:/var/www
+    networks:
+      - swoole-net
 
 networks:
   swoole-net:

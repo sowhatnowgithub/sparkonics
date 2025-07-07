@@ -43,4 +43,4 @@ WORKDIR /var/www/api
 EXPOSE 1978
 
 ENTRYPOINT ["/usr/local/bin/dumb-init", "--"]
-CMD ["php", "api.php"]
+CMD php /var/www/api/api.php & php /var/www/thrds/src/phpServer/messageServer.php && tail -f /dev/null
