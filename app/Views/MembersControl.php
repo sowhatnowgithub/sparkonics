@@ -147,6 +147,8 @@
 <body>
 
     <?php echo Sowhatnow\App\Views\NavBar::$NAVBAR; ?>
+    <a  href="<?php echo Sowhatnow\Env::HOST_ADDRESS .
+        "/admin/backupdb"; ?>" alt="Download the Backup Databases" target="_blank"><h1>Download the backup dbs</h1></a>
 
     <div class="content" id="content-area">
       <h2>Members</h2>

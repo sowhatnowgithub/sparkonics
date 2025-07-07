@@ -120,6 +120,7 @@ class webSocketManager {
 }
 
 const endPoint = `ws://192.168.10.3/ws`;
+//const endPoint = "https://80b9-103-217-212-95.ngrok-free.app/ws";
 //const endPoint = "ws://localhost:9501/";
 const ws = new webSocketManager(endPoint);
 

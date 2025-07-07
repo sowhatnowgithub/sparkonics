@@ -21,7 +21,12 @@ class AdminController
             "samesite" => "Strict",
         ]);
     }
-
+    public function BackUp()
+    {
+        $this->sessionStatusCord("Backing up the data");
+        $url = Env::BASE_PATH;
+        require Env::BASE_PATH . "/app/Views/backupData.php";
+    }
     public function sessionStatus($content)
     {
         session_start();

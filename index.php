@@ -16,6 +16,7 @@ $router->get("/admin/", ["AdminController", "index"]);
 $router->get("/admin/members", ["MembersController", "MembersControl"]);
 $router->get("/admin/dashboard", ["AdminController", "Dashboard"]);
 $router->get("/admin/log", ["AdminController", "LogUser"]);
+$router->get("/admin/backupdb", ["AdminController", "BackUp"]);
 $router->get("/admin/logout", ["AdminController", "Logout"]);
 $router->get("/admin/websitecontrol", ["AdminController", "WebsiteControl"]);
 $router->post("/admin/register", ["MembersController", "RegisterMember"]);
