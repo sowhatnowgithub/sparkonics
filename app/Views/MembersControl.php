@@ -6,144 +6,153 @@
   <title>Members Control</title>
   <?php echo "<style>" .
       Sowhatnow\App\Views\NavBar::$STYLE .
-      ".team-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 24px;
-      padding: 20px;
-    }
+      "
+      .team-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 24px;
+        padding: 20px;
+      }
 
-    .member-card {
-      background-color: #fff;
-      border: 1px solid #ddd;
-      border-radius: 12px;
-      padding: 16px;
-      text-align: center;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-      transition: transform 0.2s ease;
-    }
+      .member-card {
+        background-color: #ffffff;
+        border: 2px solid #003366;
+        border-radius: 12px;
+        padding: 16px;
+        text-align: center;
+        box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+        transition: transform 0.2s ease;
+      }
 
-    .member-card:hover {
-      transform: translateY(-5px);
-    }
+      .member-card:hover {
+        transform: translateY(-6px);
+      }
 
-    .member-photo {
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
-      object-fit: cover;
-      margin-bottom: 12px;
-    }
+      .member-photo {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-bottom: 12px;
+        border: 3px solid #FFD700;
+      }
 
-    .member-info h3 {
-      margin: 0;
-      font-size: 18px;
-      color: black;
-    }
+      .member-info h3 {
+        margin: 0;
+        font-size: 18px;
+        color: #003366;
+      }
 
-    .member-info .position {
-      font-weight: bold;
-      color: #0066cc;
-      margin: 4px 0;
-    }
+      .member-info .position {
+        font-weight: bold;
+        color: #FFD700;
+        margin: 4px 0;
+      }
 
-    .member-info p {
-      font-size: 14px;
-      margin: 2px 0;
-      color: black;
-    }
+      .member-info p {
+        font-size: 14px;
+        margin: 2px 0;
+        color: #003366;
+      }
 
-    .member-info a {
-      color: #444;
-      text-decoration: none;
-    }
+      .member-info a {
+        color: #003366;
+        text-decoration: none;
+      }
 
-    .member-info a:hover {
-      text-decoration: underline;
-    }
+      .member-info a:hover {
+        text-decoration: underline;
+      }
 
-    .modal {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0,0,0,0.6);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 999;
-    }
+      .modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.6);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 999;
+      }
 
-    .hidden {
-      display: none;
-    }
+      .hidden {
+        display: none;
+      }
 
-    .modal-content {
-      background: #fff;
-      color: black;
-      padding: 30px;
-      border-radius: 10px;
-      width: 90%;
-      max-width: 400px;
-      text-align: center;
-      position: relative;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.2);
-    }
+      .modal-content {
+        background: #ffffff;
+        color: #003366;
+        padding: 30px;
+        border-radius: 10px;
+        width: 90%;
+        max-width: 400px;
+        text-align: center;
+        position: relative;
+        box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+      }
 
-    .close {
-      position: absolute;
-      right: 16px;
-      top: 10px;
-      font-size: 24px;
-      cursor: pointer;
-    }
+      .close {
+        position: absolute;
+        right: 16px;
+        top: 10px;
+        font-size: 24px;
+        cursor: pointer;
+        color: #003366;
+      }
 
-    .modal-img {
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
-      object-fit: cover;
-      margin-bottom: 10px;
-    }
+      .modal-img {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-bottom: 10px;
+        border: 3px solid #FFD700;
+      }
 
-    .access-btn {
-      display: inline-block;
-      margin-top: 20px;
-      padding: 10px 18px;
-      background-color: #0066cc;
-      color: #fff;
-      border-radius: 6px;
-      text-decoration: none;
-      font-weight: bold;
-      transition: background-color 0.2s;
-    }
+      .access-btn {
+        display: inline-block;
+        margin-top: 15px;
+        padding: 10px 18px;
+        background-color: #003366;
+        color: #ffffff;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: background-color 0.2s;
+      }
 
-    .access-btn:hover {
-      background-color: #004ea2;
-    }
+      .access-btn:hover {
+        background-color: #002244;
+      }
 
-    .delete-btn {
-      display: inline-block;
-      margin-top: 10px;
-      padding: 8px 16px;
-      background-color: #e74c3c;
-      color: #fff;
-      border-radius: 6px;
-      text-decoration: none;
-      font-weight: bold;
-      transition: background-color 0.2s;
-    }
+      .delete-btn {
+        display: inline-block;
+        margin-top: 10px;
+        padding: 8px 16px;
+        background-color: #cc0000;
+        color: #ffffff;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: background-color 0.2s;
+      }
 
-    .delete-btn:hover {
-      background-color: #c0392b;
-    }
+      .delete-btn:hover {
+        background-color: #a30000;
+      }
 
-    .gold-background {
-      background-color: gold !important;
-    }
+      .gold-background {
+        background-color: #FFD700 !important;
+        color: #003366;
+      }
 
-  </style>"; ?>
+      body {
+        background-color: #e6f0ff; /* Light blue background */
+      }
+    </style>"; ?>
+
   <style>
     body {
       font-family: monospace;
@@ -190,16 +199,16 @@
             <?php $memberJson = htmlspecialchars(
                 json_encode($member),
                 ENT_QUOTES,
-                "UTF-8"
+                "UTF-8",
             ); ?>
             <div class="member-card" onclick='openModal(<?= $memberJson ?>)'>
               <img src="http://localhost<?= htmlspecialchars(
-                  $member["MemImageUrl"]
+                  $member["MemImageUrl"],
               ) ?>" alt="Member Image" class="member-photo">
               <div class="member-info">
                 <h3><?= htmlspecialchars($member["MemName"]) ?></h3>
                 <p class="position"><?= htmlspecialchars(
-                    $member["MemPosition"]
+                    $member["MemPosition"],
                 ) ?></p>
                 <p><?= htmlspecialchars($member["MemDegree"]) ?></p>
               </div>

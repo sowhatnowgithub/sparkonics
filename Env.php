@@ -11,4 +11,6 @@ class Env
     public const API_BASE_URL = "http://localhost:1978"; // For testing http://localhost:1978
     public const API_IMAGES_PATH = __DIR__ . "/api/Models/Database/Images";
     // also the thrds.js for websocker connection
+    // also don't forget to check the public folder for api calls and images
+    // And also don't forget scheduler needs absolute path
 }

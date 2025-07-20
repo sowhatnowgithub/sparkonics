@@ -90,7 +90,7 @@ class AdminController
             if (
                 $this->validateAuthCookie(
                     $_SESSION["usermobile"],
-                    $_SESSION["auth_cookie_cord"]
+                    $_SESSION["auth_cookie_cord"],
                 )
             ) {
                 return true;
@@ -151,7 +151,7 @@ class AdminController
                 $_SESSION["authenticated"] = true;
                 if ($credentials["userposition"] === "Coordinator") {
                     $_SESSION["auth_cookie_cord"] = $this->createAuthCookie(
-                        trim($credentials["usermobile"])
+                        trim($credentials["usermobile"]),
                     );
                 }
                 header("Location: {$this->url}/admin/home");
@@ -183,14 +183,14 @@ class AdminController
     public function GetForm($formData)
     {
         $this->sessionStatus(
-            "Fetching the form for website control" . json_encode($formData)
+            "Fetching the form for website control" . json_encode($formData),
         );
 
         $section = $formData["section"];
         $action = $formData["action"];
         $formControlData = $this->adminModel->AdminFormControl(
             $section,
-            $action
+            $action,
         );
 
         require Env::BASE_PATH . "/app/Views/FormControlApi.php";
@@ -198,7 +198,8 @@ class AdminController
     public function ApiHandler($formData)
     {
         $this->sessionStatus(
-            "Accesing The Api Control with settings : " . json_encode($formData)
+            "Accesing The Api Control with settings : " .
+                json_encode($formData),
         );
         require Env::BASE_PATH . "/app/Views/ApiControl.php";
     }

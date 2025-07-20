@@ -30,11 +30,30 @@ IntervalAfterSendDate, Indays
 
 
 */
-
 use Openswoole\Timer;
+use Swoole\Event;
 
 $sleep = 3000;
 //this is in milli seconds, i am thinking
 //It will be like a timer which will sleep for about 30minutes but for testing i will take 3seconds,
+date_default_timezone_set("Asia/Kolkata");
 
-Timer::tick($sleep, function () {});
+Timer::tick($sleep, function () {
+    try {
+        $dbPath =
+            "/Users/pavan/Desktop/Current_projects/sparkonics/app/Models/Database/Job.db";
+        $db = new PDO("sqlite:$dbPath");
+        $db->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+        $db->setAttribute(\PDO::ATTR_DEFAULT_FETCH_MODE, \PDO::FETCH_ASSOC);
+        $stmt = $db->prepare("SELECT * FROM Jobs");
+        $stmt->execute();
+        $jobs = $stmt->fetchAll();
+        foreach ($jobs as $job) {
+            echo $job["StartDate"] . "\n";
+        }
+    } catch (\PDOException $e) {
+        echo "Failed to fetch";
+        var_dump($e);
+    }
+});
+Event::wait();

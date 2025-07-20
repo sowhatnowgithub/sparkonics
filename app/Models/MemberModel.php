@@ -13,11 +13,11 @@ class MemberModel extends AdminModel
             $this->dbConn = new \PDO("sqlite:$dbPath");
             $this->dbConn->setAttribute(
                 \PDO::ATTR_ERRMODE,
-                \PDO::ERRMODE_EXCEPTION
+                \PDO::ERRMODE_EXCEPTION,
             );
             $this->dbConn->setAttribute(
                 \PDO::ATTR_DEFAULT_FETCH_MODE,
-                \PDO::FETCH_ASSOC
+                \PDO::FETCH_ASSOC,
             );
         } catch (PDOException $e) {
             echo "Failed to connect to db";
@@ -38,7 +38,7 @@ class MemberModel extends AdminModel
     {
         try {
             $stmt = $this->dbConn->prepare(
-                "UPDATE Members SET MemRole = :memRole WHERE MemId = :memId "
+                "UPDATE Members SET MemRole = :memRole WHERE MemId = :memId ",
             );
             $stmt->bindParam(":memId", $data["MemId"], \PDO::PARAM_INT);
             $stmt->bindParam(":memRole", $data["MemRole"]);
@@ -68,7 +68,7 @@ class MemberModel extends AdminModel
     {
         try {
             $stmt = $this->dbConn->prepare(
-                "UPDATE Members SET MemImageUrl = :imageUrl WHERE MemId = :memId "
+                "UPDATE Members SET MemImageUrl = :imageUrl WHERE MemId = :memId ",
             );
             $stmt->bindParam(":memId", $data["MemId"], \PDO::PARAM_INT);
             $stmt->bindParam(":imageUrl", $data["MemImageUrl"]);
@@ -83,13 +83,13 @@ class MemberModel extends AdminModel
     {
         try {
             $stmt = $this->dbConn->prepare(
-                "UPDATE Members SET MemAccessGranted = :memAccess WHERE MemId = :memId "
+                "UPDATE Members SET MemAccessGranted = :memAccess WHERE MemId = :memId ",
             );
             $stmt->bindParam(":memId", $data["MemId"], \PDO::PARAM_INT);
             $stmt->bindParam(
                 ":memAccess",
                 $data["MemAccessGranted"],
-                \PDO::PARAM_INT
+                \PDO::PARAM_INT,
             );
             $stmt->execute();
             $stmt = null;

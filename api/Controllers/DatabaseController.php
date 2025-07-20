@@ -66,21 +66,22 @@ $teamTableQuery = "CREATE TABLE Team (
     MemLinkedin TEXT NOT NULL
 )";
 
-$jobTableQuery = "CREATE TABLE Job (
+$jobTableQuery = "CREATE TABLE Jobs (
     JobId INTEGER PRIMARY KEY,
     RecipientEmail TEXT NOT NULL,
     SenderEmail TEXT NOT NULL,
+    SenderEmailPassword TEXT NOT NULL,
     Subject TEXT NOT NULL,
     CC TEXT,
     Body TEXT NOT NULL,
+    IsEventMail TEXT NOT NULL,
     StartDate TEXT NOT NULL,
-    SheduleType TEXT NOT NULL
     EndDate TEXT NOT NULL,
     IntervalDays INTEGER,
     NextScheduledAt TEXT,
     MaxOccurrences INTEGER,
-    Active BOOLEAN DEFAULT 1,
-);";
+    Active BOOLEAN DEFAULT 1
+)";
 $dbPathEvent = Env::BASE_PATH . "/api/Models/Database/eventsPageData.db";
 $dbPathProf = Env::BASE_PATH . "/api/Models/Database/profsPageData.db";
 $dbPathImages = Env::BASE_PATH . "/api/Models/Database/imagesData.db";

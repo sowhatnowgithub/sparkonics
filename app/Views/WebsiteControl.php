@@ -10,10 +10,12 @@
   body {
     font-family: monospace;
     background-color: #282c34;
+    color: #f8f8f2;
     padding: 20px;
   }
   pre {
-    background-color: #1e1e1e;
+    background-color: #003366;
+    color: #FFD700;
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
@@ -23,125 +25,140 @@
     max-height: 600px;
     max-width: 100%;
   }
+
   h1 {
-    color: #61dafb;
+    color: #003366;
   }
-    form {
-      background-color: #fff;
-      padding: 20px;
-      border-radius: 8px;
-      max-width: 500px;
-      margin: auto;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-    label {
-      display: block;
-      margin: 15px 0 5px;
-      font-weight: bold;
-    }
-    input[type="text"],
-    input[type="datetime-local"],
-    input[type="url"],
-    textarea {
-      width: 100%;
-      padding: 8px;
-      box-sizing: border-box;
-    }
-    input[type="submit"] {
-      margin-top: 20px;
-      padding: 10px 20px;
-      background-color: #007bff;
-      color: #fff;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-    }
 
+  form {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 500px;
+    margin: auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    color: #003366;
+  }
 
-    .fancy-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 20px auto;
-      background-color: #fff;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      font-size: 16px;
-    }
+  label {
+    display: block;
+    margin: 15px 0 5px;
+    font-weight: bold;
+  }
 
-    .fancy-table th, .fancy-table td {
-      border: 1px solid #ccc;
-      padding: 12px 16px;
-      text-align: left;
-    }
+  input[type="text"],
+  input[type="datetime-local"],
+  input[type="url"],
+  textarea {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 1px solid #003366;
+    border-radius: 4px;
+  }
 
-    .fancy-table th {
-      background-color: #007bff;
-      color: #fff;
-    }
+  input[type="submit"] {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #FFD700;
+    color: #003366;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
 
-    .summary-row {
-      cursor: pointer;
-      background-color: #f1f9ff;
-    }
+  .fancy-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px auto;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    font-size: 16px;
+  }
 
-    .summary-row:hover {
-      background-color: #e0f0ff;
-    }
+  .fancy-table th, .fancy-table td {
+    border: 1px solid #ccc;
+    padding: 12px 16px;
+    text-align: left;
+  }
 
-    .details-row td {
-      background-color: #f9f9f9;
-      color: white;
-      font-family: monospace;
-      white-space: pre-wrap;
-      padding: 16px;
-    }
+  .fancy-table th {
+    background-color: #003366;
+    color: #FFD700;
+  }
 
+  .summary-row {
+    cursor: pointer;
+    background-color: #FFF8DC;
+  }
 
-    .controlbar {
-      display: flex;
-      gap: 20px;
-      background-color: #fff;
-      padding: 10px 20px;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      margin-bottom: 10px;
-      justify-content: center;
-    }
+  .summary-row:hover {
+    background-color: #FFEFD5;
+  }
 
-    .controlbar button {
-      background-color: #007bff;
-      color: #fff;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 4px;
-      cursor: pointer;
-    }
+  .details-row td {
+    background-color: #003366;
+    color: #FFD700;
+    font-family: monospace;
+    white-space: pre-wrap;
+    padding: 16px;
+  }
 
-    .subbar {
-      display: none;
-      justify-content: center;
-      gap: 15px;
-      margin-bottom: 20px;
-    }
+  .controlbar {
+    display: flex;
+    gap: 20px;
+    background-color: #003366;
+    padding: 10px 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    margin-bottom: 10px;
+    justify-content: center;
+  }
 
-    .subbar button {
-      background-color: #28a745;
-      color: white;
-      border: none;
-      padding: 8px 16px;
-      border-radius: 4px;
-      cursor: pointer;
-    }
+  .controlbar button {
+    background-color: #FFD700;
+    color: #003366;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
 
-    #output {
-      background-color: #fff;
-      padding: 20px;
-      border-radius: 8px;
-      max-width: 800px;
-      margin: auto;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      white-space: pre-wrap;
-      word-wrap: break-word;
-    }
+  .controlbar button:hover {
+    background-color: #e6c200;
+  }
+
+  .subbar {
+    display: none;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+
+  .subbar button {
+    background-color: #003366;
+    color: #FFD700;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .subbar button:hover {
+    background-color: #002244;
+  }
+
+  #output {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 800px;
+    margin: auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    color: #003366;
+  }
   </style>
 </head>
 <body>

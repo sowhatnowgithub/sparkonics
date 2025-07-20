@@ -20,6 +20,7 @@ $router->get("/admin/backupdb", ["AdminController", "BackUp"]);
 $router->get("/admin/logout", ["AdminController", "Logout"]);
 $router->get("/admin/websitecontrol", ["AdminController", "WebsiteControl"]);
 $router->get("/admin/scheduler", ["SchedulerController", "SchedulerPage"]);
+$router->get("/admin/jobs", ["SchedulerController", "FetchAllJobs"]);
 $router->post("/admin/register", ["MembersController", "RegisterMember"]);
 $router->post("/admin/auth", ["AdminController", "Authenticate"]);
 $router->post("/admin/apicontrol", ["AdminController", "ApiHandler"]);
@@ -37,6 +38,9 @@ $router->post("/admin/member/updateimage", [
     "MembersController",
     "UpdateImage",
 ]);
+$router->post("/admin/jobs/add", ["SchedulerController", "AddJob"]);
+$router->post("/admin/jobs/modify", ["SchedulerController", "ModifyJob"]);
+$router->post("/admin/jobs/delete", ["SchedulerController", "DeleteJob"]);
 $userType = userTypes::Public;
 foreach ($router->routes["GET"] as $routes => $actions) {
     if (strpos($routes, $uri) !== false) {
@@ -76,12 +80,12 @@ if ($userType === userTypes::Public) {
         $router->routeAction(
             $_SERVER["REQUEST_URI"],
             $_SERVER["REQUEST_METHOD"],
-            $_POST
+            $_POST,
         );
     } elseif ($_SERVER["REQUEST_METHOD"] == "GET") {
         $router->routeAction(
             $_SERVER["REQUEST_URI"],
-            $_SERVER["REQUEST_METHOD"]
+            $_SERVER["REQUEST_METHOD"],
         );
     }
 }

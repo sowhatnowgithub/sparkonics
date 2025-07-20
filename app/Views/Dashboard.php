@@ -16,43 +16,43 @@
       font-family: 'Segoe UI', sans-serif;
     }
 
-      body {
-        font-family: monospace;
-        background-color: #282c34;
-        color: #f8f8f2;
-        padding: 20px;
-      }
-      pre {
-        background-color: #1e1e1e;
-        padding: 20px;
-        border-radius: 5px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-        overflow: auto;
-        white-space: pre-wrap;
-        word-wrap: break-word;
-        max-height: 600px;
-        max-width: 100%;
-      }
-      h1 {
-        color: #61dafb;
-      }
+    body {
+      font-family: monospace;
+      background-color: #282c34;
+      color: #f8f8f2;
+      padding: 20px;
+    }
+    pre {
+      background-color: #0b2d5e; /* darker blue */
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(255, 215, 0, 0.5); /* gold glow */
+      overflow: auto;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      max-height: 600px;
+      max-width: 100%;
+    }
+    h1 {
+      color: #5DADE2; /* light blue */
+    }
     .content {
       max-width: 1100px;
       margin: 40px auto;
       padding: 30px;
-      background-color: #fff;
+      background-color: #f0f7ff; /* very light blue */
       border-radius: 12px;
-      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 3px 10px rgba(0, 0, 50, 0.1);
     }
 
     .content h2 {
       font-size: 2rem;
-      color: #2e7d32;
+      color: #001f3f; /* dark blue */
       margin-bottom: 10px;
     }
 
     .content p {
-      color: #555;
+      color: #333a56; /* dark blue-grey */
       margin-bottom: 25px;
     }
 
@@ -61,9 +61,9 @@
       align-items: center;
       gap: 30px;
       padding: 20px;
-      background-color: #f9f9f9;
+      background-color: #fff8dc; /* light gold */
       border-radius: 10px;
-      border: 1px solid #e0e0e0;
+      border: 1px solid #ffd700; /* gold */
       margin-bottom: 30px;
     }
 
@@ -72,20 +72,20 @@
       height: 120px;
       border-radius: 50%;
       object-fit: cover;
-      border: 2px solid #4caf50;
-      background-color: #eee;
+      border: 2px solid #00509e; /* dark blue */
+      background-color: #fff8dc; /* light gold */
     }
 
     .user-info .details h3 {
       font-size: 1.5rem;
-      color: #333;
+      color: #001f3f; /* dark blue */
       margin-bottom: 10px;
     }
 
     .user-info .details p {
       margin: 6px 0;
       font-size: 1rem;
-      color: #666;
+      color: #5DADE2; /* light blue */
     }
 
     .info-cards {
@@ -95,47 +95,47 @@
     }
 
     .info-card {
-      background: #fcfcfc;
+      background: #fef9e7; /* very light gold */
       padding: 20px;
       border-radius: 10px;
-      border: 1px solid #e5e5e5;
+      border: 1px solid #d4af37; /* darker gold */
       transition: box-shadow 0.2s ease;
     }
 
     .info-card:hover {
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3); /* gold shadow */
     }
 
     .info-card h4 {
       font-size: 1.2rem;
-      color: #388e3c;
+      color: #00509e; /* dark blue */
       margin-bottom: 12px;
     }
 
     .info-card p {
       font-size: 0.95rem;
-      color: #555;
+      color: #5a5a5a;
       line-height: 1.5;
     }
 
     .info-card p strong {
-      color: #333;
+      color: #001f3f; /* dark blue */
     }
     .image-update button {
       padding: 10px 18px;
-      background: linear-gradient(to right, #43a047, #66bb6a);
-      color: #fff;
+      background: linear-gradient(to right, #ffd700, #ffec70); /* gold gradient */
+      color: #001f3f; /* dark blue */
       border: none;
       border-radius: 8px;
       font-size: 0.95rem;
       font-weight: 500;
       cursor: pointer;
       transition: background 0.3s ease, transform 0.2s ease;
-      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 3px 6px rgba(212, 175, 55, 0.4); /* gold shadow */
     }
 
     .image-update button:hover {
-      background: linear-gradient(to right, #388e3c, #4caf50);
+      background: linear-gradient(to right, #ffec70, #ffd700);
       transform: translateY(-2px);
     }
 
@@ -155,6 +155,7 @@
       }
     }
   </style>
+
 </head>
 <body>
 
