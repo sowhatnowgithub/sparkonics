@@ -15,7 +15,7 @@ class GalleryController
     public function AddGallery($settings): array
     {
         $this->query = "INSERT INTO Gallery (
-           GalleryImageUrlPath, GalleryImageDate, GalleryImageDescription
+           GalleryName, GalleryDate, GalleryDescription,GalleryImageBanner, GalleryDomain,GalleryParticipants,GalleryImagesUrl,GalleryImageDescription
         ) VALUES (";
         $escapedValues = [];
         foreach ($settings as $setting => $value) {
@@ -43,7 +43,7 @@ class GalleryController
         $clause = null;
         foreach ($settings as $setting => $value) {
             if ($value != "") {
-                if ($setting == "GalleryImageId") {
+                if ($setting == "GalleryId") {
                     $clause = $this->model->cleanQuery($value);
                 } else {
                     $setting = $this->model->cleanQuery($setting);
@@ -53,7 +53,7 @@ class GalleryController
             }
         }
         $this->query .=
-            implode(",", $escapedValues) . " WHERE GalleryImageId = $clause";
+            implode(",", $escapedValues) . " WHERE GalleryId = $clause";
         return $this->model->ModifyGallery($this->query);
     }
 }

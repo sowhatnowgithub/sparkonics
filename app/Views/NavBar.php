@@ -85,6 +85,9 @@ STYLE;
   <a href="/admin/logout">
     <button>Logout</button>
   </a>
+  <a href="/admin/scheduler">
+    <button>Scheduler</button>
+  </a>
 </div>
 NAVBAR;
 } ?>

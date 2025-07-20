@@ -33,6 +33,10 @@ if ($zip->open($zipFileName, ZipArchive::CREATE) === true) {
         $url . "/app/Views/logs/user.log",
         "/app/Views/logs/user.log"
     );
+    $zip->addFile(
+        $url . "/app/Models/Database/Scheduler.db",
+        "/app/Models/Database/Scheduler.db"
+    );
     $zip->close();
     header("Content-Type: application/zip");
     header('Content-Disposition: attachment; filename="dbs.zip"');

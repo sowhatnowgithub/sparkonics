@@ -44,7 +44,7 @@ class GalleryModel
     {
         try {
             $stmt = $this->conn->prepare(
-                "SELECT * FROM Gallery WHERE GalleryImageId = :galleryId"
+                "SELECT * FROM Gallery WHERE GalleryId = :galleryId"
             );
             $stmt->bindParam(":galleryId", $galleryId, \PDO::PARAM_INT);
             $stmt->execute();
@@ -53,7 +53,7 @@ class GalleryModel
             if ($gallery != false) {
                 return $gallery;
             } else {
-                return ["Error" => "Failed to fetch"];
+                return ["Error" => "Failed to fetcI"];
             }
         } catch (\PDOException $e) {
             return ["Error" => "Failed to fetch"];
@@ -70,7 +70,7 @@ class GalleryModel
             if ($gallery != false) {
                 return $gallery;
             } else {
-                return ["Error" => "Failed to fetch"];
+                return ["Error" => "Failed to fetcI"];
             }
         } catch (\PDOException $e) {
             return ["Error" => "Failed to fetch"];
@@ -80,7 +80,7 @@ class GalleryModel
     {
         try {
             $stmt = $this->conn->prepare(
-                "DELETE FROM Gallery WHERE GalleryImageId = :galleryId"
+                "DELETE FROM Gallery WHERE GalleryId = :galleryId"
             );
             $stmt->bindParam(":galleryId", $galleryId, \PDO::PARAM_INT);
             $stmt->execute();

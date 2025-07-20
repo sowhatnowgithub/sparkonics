@@ -11,7 +11,7 @@
      $db = new PDO("sqlite:phpServer/message.db");
      $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
      $messages = $db->query(
-         "select * from message order by public_id DESC,message_date DESC"
+         "select * from message order by public_id DESC,message_date DESC",
      );
      $messages = $messages->fetchAll();
      $thrds = $db->query("select * from thrd order by thrd_date DESC");
@@ -56,25 +56,25 @@
 
 <?php foreach ($thrds as $thrd) {
     $divStart = <<<START
-<div class="{$thrd["public_thrdid"]} thrd-area"><div class="thrd-details"><div class="thrd-main">Thread: <span class="thrd-title">{$thrd["thrd_name"]}</span>  by<span class="thrd-user"> {$thrd["user_name"]}</span> </div> <br> <div class="thrd-date">{$thrd["thrd_date"]}</div></div> <div class="messageArea">
-						<div class="close-thrd">
-							<button class="close-thrd-btn">X</button>
-						</div>
-						<div class="{$thrd["public_thrdid"]} message-input">
-						<form id="message-input-form">
-						<input type="text" id="message-input" placeholder="Enter message">
-						<button type="submit">💩</button>
-						</form>
-						</div>
-						<div class="message-panel">
-							<div class="thrd-messages">
-							<div class="broadcasted-messages">
-START;
+    <div class="{$thrd["public_thrdid"]} thrd-area"><div class="thrd-details"><div class="thrd-main">Thread: <span class="thrd-title">{$thrd["thrd_name"]}</span>  by<span class="thrd-user"> {$thrd["user_name"]}</span> </div> <br> <div class="thrd-date">{$thrd["thrd_date"]}</div></div> <div class="messageArea">
+    						<div class="close-thrd">
+    							<button class="close-thrd-btn">X</button>
+    						</div>
+    						<div class="{$thrd["public_thrdid"]} message-input">
+    						<form id="message-input-form">
+    						<input type="text" id="message-input" placeholder="Enter message">
+    						<button type="submit">💩</button>
+    						</form>
+    						</div>
+    						<div class="message-panel">
+    							<div class="thrd-messages">
+    							<div class="broadcasted-messages">
+    START;
     foreach ($messages as $message) {
         if ($message["public_id"] === $thrd["public_thrdid"]) {
             $divMessage = <<<MID
-<div class="broadcasted-message-server"><p style="color: blue" class="message-text">{$message["message_user"]} : {$message["message"]}</p><p class="message-date">{$message["message_date"]}</p></div>
-MID;
+            <div class="broadcasted-message-server"><p style="color: blue" class="message-text">{$message["message_user"]} : {$message["message"]}</p><p class="message-date">{$message["message_date"]}</p></div>
+            MID;
             $divStart = $divStart . $divMessage;
             $divMessage = "";
         }

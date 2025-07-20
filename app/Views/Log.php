@@ -9,8 +9,8 @@
   <style>
     body {
       font-family: monospace;
-      background-color: #282c34;
-      color: #f8f8f2;
+      background-color: black;
+      color: white;
       padding: 20px;
     }
     pre {
@@ -25,7 +25,7 @@
       max-width: 100%;
     }
     h1 {
-      color: #61dafb;
+      color: white;
     }
   </style>
 
@@ -36,15 +36,11 @@
   <h1>Latest Log Entries - user.log</h1>
 
   <?php
-  // Path to the user.log file
   $logFilePath = Sowhatnow\Env::BASE_PATH . "/app/Views/logs/user.log";
 
-  // Number of latest lines to display
   $linesToShow = 20;
 
-  // Check if the log file exists
   if (file_exists($logFilePath)) {
-      // Read the file line by line
       $file = new SplFileObject($logFilePath);
       $file->seek(PHP_INT_MAX); // Move to the end of the file
       $lines = [];
@@ -53,7 +49,7 @@
       for ($i = 0; $i < $linesToShow; $i++) {
           if ($file->key() === 0) {
               break;
-          } // Stop if we're at the beginning of the file
+          }
           $file->seek($file->key() - 1);
           $lines[] = $file->current();
       }
@@ -64,7 +60,7 @@
       // Display the lines inside a preformatted text block (terminal-like)
       echo "<pre>" . htmlspecialchars(implode("\n", $lines)) . "</pre>";
   } else {
-      echo "<p style='color: #ff6347;'>Error: user.log file not found.</p>";
+      echo "<p style='color: darkblue;'>Error: user.log file not found.</p>";
   }
   ?>
 

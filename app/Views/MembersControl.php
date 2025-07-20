@@ -38,7 +38,7 @@
     .member-info h3 {
       margin: 0;
       font-size: 18px;
-      color: #333;
+      color: black;
     }
 
     .member-info .position {
@@ -50,7 +50,7 @@
     .member-info p {
       font-size: 14px;
       margin: 2px 0;
-      color: #555;
+      color: black;
     }
 
     .member-info a {
@@ -81,6 +81,7 @@
 
     .modal-content {
       background: #fff;
+      color: black;
       padding: 30px;
       border-radius: 10px;
       width: 90%;
@@ -143,6 +144,28 @@
     }
 
   </style>"; ?>
+  <style>
+    body {
+      font-family: monospace;
+      background-color: #282c34;
+      color: #f8f8f2;
+      padding: 20px;
+    }
+    pre {
+      background-color: #1e1e1e;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      overflow: auto;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      max-height: 600px;
+      max-width: 100%;
+    }
+    h1 {
+      color: #61dafb;
+    }
+  </style>
 </head>
 <body>
 

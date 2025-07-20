@@ -175,20 +175,45 @@
       "action_url": "/api/gallery/add",
       "enctype": "application/x-www-form-urlencoded",
       "FormData": {
-        "GalleryImageUrlPath": [
+        "GalleryName": [
           "required",
           "text",
-          "Enter the image URL or path like /api/images/123"
+          "Enter the gallery name (e.g., Micro Mouse)"
         ],
-        "GalleryImageDate": [
+        "GalleryDate": [
           "required",
           "text",
-          "Enter the image date (e.g., YYYY-MM-DD)"
+          "Enter the gallery date (e.g., YYYY-MM-DD)"
+        ],
+        "GalleryDescription": [
+          "required",
+          "textarea",
+          "Enter a description of the gallery event"
+        ],
+        "GalleryImageBanner": [
+          "required",
+          "text",
+          "Enter banner image URL (e.g., /api/image/5)"
+        ],
+        "GalleryDomain": [
+          "required",
+          "text",
+          "Enter domain or category (e.g., Embedded&C&Sensors)"
+        ],
+        "GalleryParticipants": [
+          "required",
+          "number",
+          "Enter number of participants"
+        ],
+        "GalleryImagesUrl": [
+          "required",
+          "text",
+          "Enter multiple image URLs separated by & (e.g., /api/image/1&/api/image/2)"
         ],
         "GalleryImageDescription": [
           "required",
           "textarea",
-          "Enter a brief description of the image"
+          "Enter image descriptions separated by & (e.g., winner1&team&presentation)"
         ]
       }
     },
@@ -197,21 +222,26 @@
       "action_url": "/api/gallery/modify",
       "enctype": "application/x-www-form-urlencoded",
       "FormData": {
-        "GalleryImageId": ["required", "number", "Enter Gallery Image Id"],
-        "GalleryImageUrlPath": [
+        "GalleryId": ["required", "number", "Enter Gallery Id to modify"],
+        "GalleryName": ["", "text", "Update the gallery name"],
+        "GalleryDate": [
           "",
           "text",
-          "Enter the new image URL or path like /api/images/123"
+          "Update the gallery date (e.g., YYYY-MM-DD)"
         ],
-        "GalleryImageDate": [
+        "GalleryDescription": [
           "",
-          "text",
-          "Enter the new image date (e.g., YYYY-MM-DD)"
+          "textarea",
+          "Update the gallery description"
         ],
+        "GalleryImageBanner": ["", "text", "Update the banner image URL"],
+        "GalleryDomain": ["", "text", "Update the domain"],
+        "GalleryParticipants": ["", "number", "Update participant count"],
+        "GalleryImagesUrl": ["", "text", "Update image URLs separated by &"],
         "GalleryImageDescription": [
           "",
           "textarea",
-          "Enter the new description of the image"
+          "Update image descriptions separated by &"
         ]
       }
     },
@@ -220,11 +250,7 @@
       "action_url": "/api/gallery/delete/",
       "enctype": "application/x-www-form-urlencoded",
       "FormData": {
-        "GalleryImageId": [
-          "required",
-          "number",
-          "Enter Gallery Image Id to delete"
-        ]
+        "GalleryId": ["required", "number", "Enter Gallery Id to delete"]
       }
     },
     "Fetch": {
@@ -232,11 +258,7 @@
       "action_url": "/api/gallery/",
       "enctype": "application/x-www-form-urlencoded",
       "FormData": {
-        "GalleryImageId": [
-          "required",
-          "number",
-          "Enter Gallery Image Id to fetch"
-        ]
+        "GalleryId": ["required", "number", "Enter Gallery Id to fetch"]
       }
     },
     "FetchAll": {

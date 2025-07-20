@@ -7,6 +7,25 @@
   <style>
   <?php echo Sowhatnow\App\Views\NavBar::$STYLE; ?>
 
+  body {
+    font-family: monospace;
+    background-color: #282c34;
+    padding: 20px;
+  }
+  pre {
+    background-color: #1e1e1e;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    overflow: auto;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    max-height: 600px;
+    max-width: 100%;
+  }
+  h1 {
+    color: #61dafb;
+  }
     form {
       background-color: #fff;
       padding: 20px;
@@ -70,6 +89,7 @@
 
     .details-row td {
       background-color: #f9f9f9;
+      color: white;
       font-family: monospace;
       white-space: pre-wrap;
       padding: 16px;

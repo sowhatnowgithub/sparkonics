@@ -16,11 +16,26 @@
       font-family: 'Segoe UI', sans-serif;
     }
 
-    body {
-      background-color: #f2f4f8;
-      color: #333;
-    }
-
+      body {
+        font-family: monospace;
+        background-color: #282c34;
+        color: #f8f8f2;
+        padding: 20px;
+      }
+      pre {
+        background-color: #1e1e1e;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        overflow: auto;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        max-height: 600px;
+        max-width: 100%;
+      }
+      h1 {
+        color: #61dafb;
+      }
     .content {
       max-width: 1100px;
       margin: 40px auto;

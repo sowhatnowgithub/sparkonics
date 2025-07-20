@@ -1,0 +1,385 @@
+{
+  "tests": [
+    {
+      "testId": "ECE_DE_001",
+      "testTitle": "Digital Electronics Quiz",
+      "testIntro": "Test your understanding of logic gates, Boolean expressions, number systems, and flip-flops.",
+      "questions": [
+        {
+          "questionId": 1,
+          "questionType": "mcq",
+          "questionText": "What is the output of a NAND gate when both inputs are HIGH?",
+          "options": "LOW&HIGH&Depends on the load&Undefined",
+          "answer": "LOW",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 2,
+          "questionType": "numeric",
+          "questionText": "Convert binary 10101 to decimal.",
+          "options": "",
+          "answer": "21",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 3,
+          "questionType": "mcq",
+          "questionText": "Which gate is a universal gate?",
+          "options": "AND&OR&NAND&XOR",
+          "answer": "NAND",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 4,
+          "questionType": "numeric",
+          "questionText": "Find the 1's complement of 1100.",
+          "options": "",
+          "answer": "0011",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 5,
+          "questionType": "mcq",
+          "questionText": "Which of these is a combinational circuit?",
+          "options": "Counter&Shift Register&Multiplexer&Latch",
+          "answer": "Multiplexer",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 6,
+          "questionType": "mcq",
+          "questionText": "Which number system uses base 8?",
+          "options": "Binary&Octal&Hexadecimal&Decimal",
+          "answer": "Octal",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 7,
+          "questionType": "numeric",
+          "questionText": "What is the decimal equivalent of hexadecimal 'A'?",
+          "options": "",
+          "answer": "10",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 8,
+          "questionType": "mcq",
+          "questionText": "How many states are there in a 3-bit binary counter?",
+          "options": "4&6&8&16",
+          "answer": "8",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 9,
+          "questionType": "mcq",
+          "questionText": "Which logic gate is this symbol for?",
+          "options": "AND&NAND&NOR&OR",
+          "answer": "NOR",
+          "imageUrl": "https://example.com/images/nor_gate.png"
+        },
+        {
+          "questionId": 10,
+          "questionType": "numeric",
+          "questionText": "A full adder adds three bits. What is the maximum possible sum value?",
+          "options": "",
+          "answer": "3",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 11,
+          "questionType": "mcq",
+          "questionText": "What type of flip-flop toggles on every clock pulse?",
+          "options": "D Flip-Flop&SR Flip-Flop&JK Flip-Flop&T Flip-Flop",
+          "answer": "T Flip-Flop",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 12,
+          "questionType": "numeric",
+          "questionText": "If A=1 and B=1 in XOR gate, output is?",
+          "options": "",
+          "answer": "0",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 13,
+          "questionType": "mcq",
+          "questionText": "Which expression represents XOR gate?",
+          "options": "A.B&A+B&A'B+AB'&AB",
+          "answer": "A'B+AB'",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 14,
+          "questionType": "mcq",
+          "questionText": "Which component is used to store 1 bit?",
+          "options": "Multiplexer&Encoder&Flip-Flop&Decoder",
+          "answer": "Flip-Flop",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 15,
+          "questionType": "numeric",
+          "questionText": "Decimal equivalent of binary 1111?",
+          "options": "",
+          "answer": "15",
+          "imageUrl": ""
+        }
+      ]
+    },
+    {
+      "testId": "ECE_MP_002",
+      "testTitle": "Microprocessors & Number Systems Quiz",
+      "testIntro": "This test covers 8085 instruction sets, addressing modes, and number system conversions.",
+      "questions": [
+        {
+          "questionId": 16,
+          "questionType": "mcq",
+          "questionText": "What is the size of the 8085 microprocessor address bus?",
+          "options": "8-bit&16-bit&32-bit&64-bit",
+          "answer": "16-bit",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 17,
+          "questionType": "numeric",
+          "questionText": "What is the decimal of binary 10010?",
+          "options": "",
+          "answer": "18",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 18,
+          "questionType": "mcq",
+          "questionText": "Which register pair is used in LXI H instruction?",
+          "options": "BC&DE&HL&SP",
+          "answer": "HL",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 19,
+          "questionType": "numeric",
+          "questionText": "Hex value of decimal 31 is?",
+          "options": "",
+          "answer": "1F",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 20,
+          "questionType": "mcq",
+          "questionText": "Instruction 'MOV A, B' belongs to which group?",
+          "options": "Data Transfer&Branching&Arithmetic&Logical",
+          "answer": "Data Transfer",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 21,
+          "questionType": "mcq",
+          "questionText": "Which is a 1-byte instruction in 8085?",
+          "options": "MVI A, 32H&JMP 2050H&MOV B, C&LXI H, 5000H",
+          "answer": "MOV B, C",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 22,
+          "questionType": "numeric",
+          "questionText": "What is the result of 5 + (-3) in 2's complement (4-bit)?",
+          "options": "",
+          "answer": "0010",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 23,
+          "questionType": "mcq",
+          "questionText": "Which register is not user accessible in 8085?",
+          "options": "Accumulator&Program Counter&SP&All are accessible",
+          "answer": "Program Counter",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 24,
+          "questionType": "numeric",
+          "questionText": "How many machine cycles are used by instruction MOV A, C?",
+          "options": "",
+          "answer": "1",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 25,
+          "questionType": "mcq",
+          "questionText": "What is the function of the IN instruction?",
+          "options": "Output to port&Input from port&Halt CPU&Increment memory",
+          "answer": "Input from port",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 26,
+          "questionType": "numeric",
+          "questionText": "Decimal equivalent of Hex 2A is?",
+          "options": "",
+          "answer": "42",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 27,
+          "questionType": "mcq",
+          "questionText": "8085 has how many flag bits?",
+          "options": "2&3&5&8",
+          "answer": "5",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 28,
+          "questionType": "mcq",
+          "questionText": "Which flag is affected by the CMP instruction?",
+          "options": "Carry&Zero&Sign&All of these",
+          "answer": "All of these",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 29,
+          "questionType": "numeric",
+          "questionText": "How many address lines are needed for 2KB memory?",
+          "options": "",
+          "answer": "11",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 30,
+          "questionType": "mcq",
+          "questionText": "What is the maximum memory 8085 can access?",
+          "options": "64KB&128KB&1MB&1GB",
+          "answer": "64KB",
+          "imageUrl": ""
+        }
+      ]
+    },
+    {
+      "testId": "ECE_AE_003",
+      "testTitle": "Analog Electronics Core Quiz",
+      "testIntro": "This test assesses your fundamentals in analog circuits, diodes, transistors, amplifiers, and operational amplifiers. Includes MCQs and numeric questions only.",
+      "questions": [
+        {
+          "questionId": 1,
+          "questionType": "mcq",
+          "questionText": "Which of the following is a unidirectional device?",
+          "options": "Resistor&Zener Diode&Inductor&PN Junction Diode",
+          "answer": "PN Junction Diode",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 2,
+          "questionType": "numeric",
+          "questionText": "A resistor of 2kΩ and capacitor of 10µF are in series. What is the time constant?",
+          "options": "",
+          "answer": "0.02",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 3,
+          "questionType": "mcq",
+          "questionText": "What is the cut-in voltage of a silicon diode?",
+          "options": "0.2V&0.3V&0.7V&1.0V",
+          "answer": "0.7V",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 4,
+          "questionType": "numeric",
+          "questionText": "Calculate the voltage gain if input is 0.2V and output is 2V.",
+          "options": "",
+          "answer": "10",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 5,
+          "questionType": "mcq",
+          "questionText": "Which configuration of a BJT gives highest input impedance?",
+          "options": "Common Base&Common Emitter&Common Collector&Darlington Pair",
+          "answer": "Common Collector",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 6,
+          "questionType": "mcq",
+          "questionText": "In a transistor, the emitter is always _____ biased.",
+          "options": "Forward&Reverse&Zero&Floating",
+          "answer": "Forward",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 7,
+          "questionType": "numeric",
+          "questionText": "If β = 100 and IB = 20µA, find IC.",
+          "options": "",
+          "answer": "2",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 8,
+          "questionType": "mcq",
+          "questionText": "An ideal op-amp has input impedance _____ and output impedance _____.",
+          "options": "High, High&Low, Low&High, Low&Low, High",
+          "answer": "High, Low",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 9,
+          "questionType": "numeric",
+          "questionText": "A capacitor is charged to 5V. How much energy is stored if C = 10µF?",
+          "options": "",
+          "answer": "0.000125",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 10,
+          "questionType": "mcq",
+          "questionText": "Which amplifier configuration provides phase shift of 180°?",
+          "options": "Common Base&Common Collector&Common Emitter&Emitter Follower",
+          "answer": "Common Emitter",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 11,
+          "questionType": "numeric",
+          "questionText": "Find cutoff frequency for R = 1kΩ and C = 0.1µF in RC low pass filter.",
+          "options": "",
+          "answer": "1591.55",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 12,
+          "questionType": "mcq",
+          "questionText": "Which device acts like a switch in saturation and cutoff region?",
+          "options": "FET&Op-Amp&Transistor&Diode",
+          "answer": "Transistor",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 13,
+          "questionType": "mcq",
+          "questionText": "Which component blocks DC but allows AC to pass?",
+          "options": "Resistor&Inductor&Capacitor&Transformer",
+          "answer": "Capacitor",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 14,
+          "questionType": "mcq",
+          "questionText": "What is the function of a bypass capacitor in amplifier?",
+          "options": "Blocks DC&Increases gain&Provides negative feedback&Controls frequency",
+          "answer": "Increases gain",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 15,
+          "questionType": "numeric",
+          "questionText": "If the peak voltage of a sine wave is 10V, what is the RMS voltage?",
+          "options": "",
+          "answer": "7.07",
+          "imageUrl": ""
+        }
+      ]
+    }
+  ]
+}

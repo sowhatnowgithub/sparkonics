@@ -19,6 +19,7 @@ $router->get("/admin/log", ["AdminController", "LogUser"]);
 $router->get("/admin/backupdb", ["AdminController", "BackUp"]);
 $router->get("/admin/logout", ["AdminController", "Logout"]);
 $router->get("/admin/websitecontrol", ["AdminController", "WebsiteControl"]);
+$router->get("/admin/scheduler", ["SchedulerController", "SchedulerPage"]);
 $router->post("/admin/register", ["MembersController", "RegisterMember"]);
 $router->post("/admin/auth", ["AdminController", "Authenticate"]);
 $router->post("/admin/apicontrol", ["AdminController", "ApiHandler"]);
