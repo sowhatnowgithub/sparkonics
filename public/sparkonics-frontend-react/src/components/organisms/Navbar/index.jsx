@@ -21,12 +21,12 @@ const Navbar = () => {
         <NavLink to={"/events/"} className={"option"}>
           Events
         </NavLink>
-        <NavLink to="/projects" className="option" rel="noopener noreferrer">
-          Project/Gallery
-        </NavLink>
-        <NavLink to="/profs" className="option">
-          Professor
-        </NavLink>
+        <a href="/gallery" className="option">
+          Projects/Gallery
+        </a>
+        <a href="/profs" className="option">
+          Professors
+        </a>
         <NavLink
           to="/thrds"
           target="_blank"
@@ -37,6 +37,9 @@ const Navbar = () => {
         </NavLink>
         <a href="/teams/" className="option">
           Team
+        </a>
+        <a href="/oa" className="option">
+          OA
         </a>
         <NavLink to="/dev" className="option">
           DevX
@@ -68,43 +71,40 @@ const Navbar = () => {
         onClick={onClickSidenav}
       >
         <FlexBox fullWidth column align className="options-mobile">
-          <Link to={"/"} className={"icon"}>
-            Sparkonics
-          </Link>
-
-          <FlexBox column align className={"options"}>
-            <NavLink to={"/events/"} className={"option"}>
-              Events
-            </NavLink>
-            <NavLink to="/projects" className="option">
-              Project/Gallery
-            </NavLink>
-            <NavLink to="/profs" className="option">
-              Professor
-            </NavLink>
-            <NavLink
-              to="/thrds"
-              target="_blank"
-              className="option"
-              rel="noopener noreferrer"
-            >
-              Thrds
-            </NavLink>
-            <a href="/teams/" className="option">
-              Team
-            </a>
-            <NavLink to="/dev" className="option">
-              DevX
-            </NavLink>
-            <NavLink
-              to="/admin/"
-              target="_blank"
-              className="option"
-              rel="noopener noreferrer"
-            >
-              Admin
-            </NavLink>
-          </FlexBox>
+          <NavLink to={"/events/"} className={"option"}>
+            Events
+          </NavLink>
+          <a href="/gallery" className="option">
+            Projects/Gallery
+          </a>
+          <a href="/profs" className="option">
+            Professors
+          </a>
+          <NavLink
+            to="/thrds"
+            target="_blank"
+            className="option"
+            rel="noopener noreferrer"
+          >
+            Thrds
+          </NavLink>
+          <a href="/teams/" className="option">
+            Team
+          </a>
+          <a href="/oa" className="option">
+            OA
+          </a>
+          <NavLink to="/dev" className="option">
+            DevX
+          </NavLink>
+          <NavLink
+            to="/admin/"
+            target="_blank"
+            className="option"
+            rel="noopener noreferrer"
+          >
+            Admin
+          </NavLink>
         </FlexBox>
       </div>
     </nav>

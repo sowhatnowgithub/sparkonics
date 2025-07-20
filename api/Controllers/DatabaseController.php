@@ -66,29 +66,6 @@ $teamTableQuery = "CREATE TABLE Team (
     MemLinkedin TEXT NOT NULL
 )";
 
-$jobTaskTableQuery = "CREATE TABLE JobTask (
-    JobTaskId INTEGER PRIMARY KEY,
-    JobId INTEGER NOT NULL,
-    TaskId INTEGER NOT NULL,
-    LastSentAt TEXT,
-    NextScheduledAt TEXT,
-    JobStatus BOOLEAN DEFAULT 1,
-    CreatedAt TEXT,
-    Active BOOLEAN DEFAULT 1,
-    FOREIGN KEY (JobId) REFERENCES Job(JobId),
-    FOREIGN KEY (TaskId) REFERENCES Task(TaskId)
-)";
-$taskTableQuery = "CREATE TABLE Task (
-    TaskId INTEGER PRIMARY KEY,
-    TaskName TEXT NOT NULL,
-    ScheduleType TEXT NOT NULL,
-    StartDate TEXT NOT NULL,
-    EndDate TEXT,
-    DeadlineDate TEXT,
-    DaysBeforeDeadline INTEGER,
-    IntervalDays INTEGER,
-    MaxOccurrences INTEGER,
-)";
 $jobTableQuery = "CREATE TABLE Job (
     JobId INTEGER PRIMARY KEY,
     RecipientEmail TEXT NOT NULL,
@@ -96,15 +73,23 @@ $jobTableQuery = "CREATE TABLE Job (
     Subject TEXT NOT NULL,
     CC TEXT,
     Body TEXT NOT NULL,
+    StartDate TEXT NOT NULL,
+    SheduleType TEXT NOT NULL
+    EndDate TEXT NOT NULL,
+    IntervalDays INTEGER,
+    NextScheduledAt TEXT,
+    MaxOccurrences INTEGER,
+    Active BOOLEAN DEFAULT 1,
 );";
 $dbPathEvent = Env::BASE_PATH . "/api/Models/Database/eventsPageData.db";
 $dbPathProf = Env::BASE_PATH . "/api/Models/Database/profsPageData.db";
 $dbPathImages = Env::BASE_PATH . "/api/Models/Database/imagesData.db";
 $dbPathGallery = Env::BASE_PATH . "/api/Models/Database/gallery.db";
-$dbPathMem = Env::BASE_PATH . "/app/Models/Database/members.db";
 $dbPathTeam = Env::BASE_PATH . "/api/Models/Database/team.db";
+$dbPathMem = Env::BASE_PATH . "/app/Models/Database/members.db";
+$dbPathJob = Env::BASE_PATH . "/app/Models/Database/Job.db";
 
-$dataBase = new DatabaseManager($dbPathGallery);
+$dataBase = new DatabaseManager($dbPathJob);
 
 $dataBase->CreateAction($eventsTableQuery, "CreateEventsTable");
 $dataBase->CreateAction($galleryTableQuery, "CreateGalleryTable");
@@ -113,8 +98,6 @@ $dataBase->CreateAction($memberTableQuery, "CreateMemberTable");
 $dataBase->CreateAction($profsTableQuery, "CreateProfsTable");
 $dataBase->CreateAction($imagesTableQuery, "CreateImagesTable");
 $dataBase->CreateAction($jobTableQuery, "CreateJobTable");
-$dataBase->CreateAction($taskTableQuery, "CreateTaskTable");
-$dataBase->CreateAction($jobTaskTableQuery, "CreateJobTaskTable");
 
 var_dump($dataBase->getAllActions());
 
@@ -125,5 +108,3 @@ var_dump($dataBase->getAllActions());
 //$dataBase->ExecuteAction("CreateTeamTable");
 //$dataBase->ExecuteAction("CreateMemberTable");
 //$dataBase->ExecuteAction("CreateJobTable");
-//$dataBase->ExecuteAction("CreateTaskTable");
-//$dataBase->ExecuteAction("CreateJobTaskTable");
