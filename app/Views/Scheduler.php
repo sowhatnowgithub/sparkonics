@@ -102,29 +102,65 @@
   <!-- Add Job Form -->
   <form id="addForm" class="job-form" method="POST" action="/admin/jobs/add">
     <h3>Add Job</h3>
-    <label>Recipient Email: <input type="email" name="RecipientEmail" required></label>
-    <label>Sender Email: <input type="email" name="SenderEmail" required></label>
-    <label>Sender Email Password: <input type="password" name="SenderEmailPassword" required></label>
-    <label>Subject: <input type="text" name="Subject" required></label>
-    <label>CC: <input type="email" name="CC"></label>
-    <label>Body: <textarea name="Body" required></textarea></label>
+
+    <label>Recipient Email:
+      <input type="email" name="RecipientEmail" required>
+    </label>
+
+    <label>Sender Email:
+      <input type="email" name="SenderEmail" required>
+    </label>
+
+    <label>Sender Email Password:
+      <input type="password" name="SenderEmailPassword" required>
+    </label>
+
+    <label>Subject:
+      <input type="text" name="Subject" required>
+    </label>
+
+    <label>CC:
+      <input type="email" name="CC">
+    </label>
+
+    <label>Body:
+      <textarea name="Body" required></textarea>
+    </label>
+
     <label>Is Event Mail:
       <select name="IsEventMail" required>
         <option value="yes">Yes</option>
         <option value="no">No</option>
       </select>
     </label>
-    <label>Start Date: <input type="datetime-local" name="StartDate" required></label>
-    <label>End Date: <input type="datetime-local" name="EndDate" required></label>
-    <label>Interval Days: <input type="number" name="IntervalDays" min="0"></label>
-    <label>Next Scheduled At: <input type="datetime-local" name="NextScheduledAt"></label>
-    <label>Max Occurrences: <input type="number" name="MaxOccurrences" min="0"></label>
+
+    <label>Start Date:
+      <input type="datetime-local" name="StartDate" required>
+    </label>
+
+    <label>End Date:
+      <input type="datetime-local" name="EndDate" required>
+    </label>
+
+    <label>Interval Days:
+      <input type="number" name="IntervalDays" min="0" required placeholder="Rember whatever you will give here it will be multiplied by 84000 forseconds ">
+    </label>
+
+    <label>Next Scheduled At:
+      <!-- Set hidden value for NextScheduledAt -->
+      <input type="datetime-local" name="NextScheduledAt" value="" hidden>
+    </label>
+
+    <label>Max Occurrences:
+      <input type="number" name="MaxOccurrences" min="1" required>
+    </label>
+
     <label>Active:
       <select name="Active" required>
         <option value="1">Yes</option>
-        <option value="0">No</option>
       </select>
     </label>
+
     <button type="submit">Add Job</button>
   </form>
 
@@ -148,15 +184,8 @@
     <label>Start Date: <input type="datetime-local" name="StartDate"></label>
     <label>End Date: <input type="datetime-local" name="EndDate"></label>
     <label>Interval Days: <input type="number" name="IntervalDays" min="0"></label>
-    <label>Next Scheduled At: <input type="datetime-local" name="NextScheduledAt"></label>
+    <label>Next Scheduled At: <input type="datetime-local" name="NextScheduledAt" hidden></label>
     <label>Max Occurrences: <input type="number" name="MaxOccurrences" min="0"></label>
-    <label>Active:
-      <select name="Active">
-        <option value="">--</option>
-        <option value="1">Yes</option>
-        <option value="0">No</option>
-      </select>
-    </label>
     <button type="submit">Modify Job</button>
   </form>
 

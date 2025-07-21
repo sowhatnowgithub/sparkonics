@@ -77,7 +77,7 @@ class SchedulerController extends AdminController
      */
     public function DeleteJob($jobId): array
     {
-        return $this->model->DeleteJob($jobId);
+        return $this->model->DeleteJob($jobId["JobId"]);
     }
     /**
      * @param mixed $settings

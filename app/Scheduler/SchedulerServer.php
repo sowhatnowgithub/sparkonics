@@ -61,6 +61,9 @@ date_default_timezone_set("Asia/Kolkata");
 
 function mailer($mailerInfo) {}
 Timer::tick($sleep, function () {
+    $now = date("Y-m-d\TH:i");
+    $nowUnix = strtotime($now);
+    echo "Now: $now\n";
     try {
         $dbPath =
             "/Users/pavan/Desktop/Current_projects/sparkonics/app/Models/Database/Job.db";
@@ -71,7 +74,81 @@ Timer::tick($sleep, function () {
         $stmt->execute();
         $jobs = $stmt->fetchAll();
         foreach ($jobs as $job) {
-            echo $job["StartDate"] . "\n";
+            $executeDate = strtotime($job["NextScheduledAt"]);
+            $startDate = strtotime($job["StartDate"]);
+            $endDate = strtotime($job["EndDate"]);
+            $maxOccurances = strtotime($job["MaxOccurences"]);
+            switch ($job["Active"]) {
+                case 1:
+                    if ($nowUnix > $endDate) {
+                        $stmt = $db->prepare(
+                            "DELETE FROM Jobs WHERE JobId = {$job["JobId"]}",
+                        );
+                        $stmt->execute();
+                    } else {
+                        switch ($executeDate) {
+                            case false:
+                                $stmt = $db->prepare(
+                                    "UPDATE Jobs SET NextScheduledAt = {$job["StartDate"]} WHERE JobId = {$job["JobId"]}",
+                                );
+                                $stmt->execute();
+                                break;
+                            default:
+                                if ($nowUnix > $executeDate) {
+                                    if (
+                                        is_numeric($job["IntervalDays"]) &&
+                                        $job["IntervalDays"] > 0
+                                    ) {
+                                        $executeDate +=
+                                            (int) $job["IntervalDays"] * 86400;
+                                        $stmt = $db->prepare(
+                                            "UPDATE Jobs SET NextScheduledAt = {$executeDate} WHERE JobId = {$job["JobId"]}",
+                                        );
+                                        $stmt->execute();
+                                    } else {
+                                        $stmt = $db->prepare(
+                                            "UPDATE Jobs SET NextScheduledAt = {$job["EndDate"]} WHERE JobId = {$job["JobId"]}",
+                                        );
+                                        $stmt->execute();
+                                    }
+                                } elseif ($nowUnix == $executeDate) {
+                                    mailer($job);
+                                    if (is_numeric($job["IntervalDays"])) {
+                                        $executeDate +=
+                                            (int) $job["IntervalDays"] * 86400;
+                                    } else {
+                                        break;
+                                    }
+                                    $max = null;
+                                    if (is_numeric($job["MaxOccurences"])) {
+                                        $max = (int) $job["MaxOccurrences"] - 1;
+                                    } else {
+                                        break;
+                                    }
+                                    if ($max == 0) {
+                                        $stmt = $db->prepare(
+                                            "UPDATE Jobs SET Active = 0 WHERE JobId = {$job["JobId"]}",
+                                        );
+                                        $stmt->execute();
+                                    }
+                                    $stmt = $db->prepare(
+                                        "UPDATE Jobs SET MaxOccurences = {$max} WHERE JobId = {$job["JobId"]}",
+                                    );
+                                    $stmt->execute();
+                                }
+                        }
+                    }
+                    break;
+                case 0:
+                    if ($nowUnix > $endDate) {
+                        $stmt = $db->prepare(
+                            "DELETE FROM Jobs WHERE JobId = {$job["JobId"]}",
+                        );
+                        $stmt->execute();
+                    }
+            }
+            $stmt = null;
+            $db = null;
         }
     } catch (\PDOException $e) {
         echo "Failed to fetch";

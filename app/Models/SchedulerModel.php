@@ -37,6 +37,8 @@ class SchedulerModel
                 $stmt->bindValue($key, $value);
             }
             $stmt->execute();
+            echo "<a href='/admin/scheduler'>Go Back</a>";
+
             return ["Success" => "God"];
         } catch (\PDOException $e) {
             return ["Error" => "Failed to insert: " . $e->getMessage()];
@@ -69,6 +71,7 @@ class SchedulerModel
             $stmt->bindParam(":jobId", $jobId, \PDO::PARAM_INT);
             $stmt->execute();
             $stmt = null;
+            echo "<a href='/admin/scheduler'>Go Back</a>";
             return ["Success" => "god"];
         } catch (\PDOException $e) {
             return ["Error" => "Failed to fetch"];
@@ -82,6 +85,8 @@ class SchedulerModel
                 $stmt->bindValue($key, $value);
             }
             $stmt->execute();
+            echo "<a href='/admin/scheduler'>Go Back</a>";
+
             return ["Success" => "God"];
         } catch (\PDOException $e) {
             return ["Error" => "Update failed: " . $e->getMessage()];
