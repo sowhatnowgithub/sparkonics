@@ -13,11 +13,11 @@ class TeamModel
             $this->conn = new \PDO("sqlite:$dbPath");
             $this->conn->setAttribute(
                 \PDO::ATTR_ERRMODE,
-                \PDO::ERRMODE_EXCEPTION
+                \PDO::ERRMODE_EXCEPTION,
             );
             $this->conn->setAttribute(
                 \PDO::ATTR_DEFAULT_FETCH_MODE,
-                \PDO::FETCH_ASSOC
+                \PDO::FETCH_ASSOC,
             );
         } catch (\PDOException $e) {
             return ["Error" => "Failed to fetch"];
@@ -29,22 +29,31 @@ class TeamModel
     {
         return $this->conn->quote($query);
     }
-    public function AddMem($query): array
+    public function AddMem($query, $settings): array
     {
         try {
             $stmt = $this->conn->prepare($query);
+
+            $stmt->bindParam(":MemName", $settings["MemName"]);
+            $stmt->bindParam(":MemPosition", $settings["MemPosition"]);
+            $stmt->bindParam(":MemRole", $settings["MemRole"]);
+            $stmt->bindParam(":MemStartTime", $settings["MemStartTime"]);
+            $stmt->bindParam(":MemEndTime", $settings["MemEndTime"]);
+            $stmt->bindParam(":MemImageUrl", $settings["MemImageUrl"]);
+            $stmt->bindParam(":MemLinkedin", $settings["MemLinkedin"]);
+
             $stmt->execute();
-            $stmt = null;
             return ["Success" => "God"];
         } catch (\PDOException $e) {
-            return ["Error" => "Failed to fetch"];
+            return ["Error" => "Failed to insert: " . $e->getMessage()];
         }
     }
+
     public function FetchMem($memId): array
     {
         try {
             $stmt = $this->conn->prepare(
-                "SELECT * FROM Team WHERE MemId = :memId"
+                "SELECT * FROM Team WHERE MemId = :memId",
             );
             $stmt->bindParam(":memId", $memId, \PDO::PARAM_INT);
             $stmt->execute();
@@ -80,7 +89,7 @@ class TeamModel
     {
         try {
             $stmt = $this->conn->prepare(
-                "DELETE FROM Team WHERE MemId = :memId"
+                "DELETE FROM Team WHERE MemId = :memId",
             );
             $stmt->bindParam(":memId", $memId, \PDO::PARAM_INT);
             $stmt->execute();
@@ -90,15 +99,17 @@ class TeamModel
             return ["Error" => "Failed to fetch"];
         }
     }
-    public function ModifyMem($query)
+    public function ModifyMem($query, $params): array
     {
         try {
             $stmt = $this->conn->prepare($query);
+            foreach ($params as $key => $value) {
+                $stmt->bindValue($key, $value);
+            }
             $stmt->execute();
-            $stmt = null;
-            return ["Sucess" => "God"];
+            return ["Success" => "God"];
         } catch (\PDOException $e) {
-            return ["Error" => "Fetch failed"];
+            return ["Error" => "Update failed: " . $e->getMessage()];
         }
     }
 }

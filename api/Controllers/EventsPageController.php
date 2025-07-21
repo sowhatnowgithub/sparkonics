@@ -15,22 +15,29 @@ class EventsPageController
     //@param $eventValues
     public function AddEvent($eventValues): array
     {
-        $this->query = "	INSERT INTO Events (
-		    EventName,
-		    EventDescription,
-		    EventStartTime,
-		    EventEndTime,
-		    EventDomains,
-		    EventBanner,
-		    EventRegisterLink
-		) VALUES (";
-        $escapedValues = [];
-        foreach ($eventValues as $value) {
-            $escapedValues[] = $this->model->cleanQuery($value);
-        }
-        $this->query = $this->query . implode(",", $escapedValues) . ")";
-        return $this->model->AddEvent($this->query);
+        // Prepare the SQL with placeholders
+        $this->query = "INSERT INTO Events (
+            EventName,
+            EventDescription,
+            EventStartTime,
+            EventEndTime,
+            EventDomains,
+            EventBanner,
+            EventRegisterLink
+        ) VALUES (
+            :eventName,
+            :eventDescription,
+            :eventStartTime,
+            :eventEndTime,
+            :eventDomains,
+            :eventBanner,
+            :eventRegisterLink
+        )";
+
+        // Delegate to the model
+        return $this->model->AddEvent($this->query, $eventValues);
     }
+
     //@param $eventId
     public function FetchEvent($eventId): array
     {
@@ -46,25 +53,48 @@ class EventsPageController
     }
     public function ModifyEvent($settings): array
     {
-        $this->query = "UPDATE EVENTS SET ";
-        $clause = null;
-        $escapedValues = [];
-        var_dump($settings);
-        foreach ($settings as $setting => $value) {
-            if ($value != "") {
-                $settingTemp = $this->model->cleanQuery($setting);
-                $valueTemp = $this->model->cleanQuery($value);
-                if ($setting == "EventId") {
-                    $clause = $valueTemp;
-                } else {
-                    $escapedValues[] = "$settingTemp = $valueTemp";
-                }
+        // Allowed columns to update — whitelist keys for safety
+        $allowedColumns = [
+            "EventName",
+            "EventDescription",
+            "EventStartTime",
+            "EventEndTime",
+            "EventDomains",
+            "EventBanner",
+            "EventRegisterLink",
+        ];
+
+        $setClauses = [];
+        $params = [];
+
+        foreach ($settings as $column => $value) {
+            if ($column === "EventId") {
+                $eventId = $value;
+                continue;
+            }
+
+            if (in_array($column, $allowedColumns) && $value !== "") {
+                $setClauses[] = "$column = :$column";
+                $params[":$column"] = $value;
             }
         }
-        $this->query .=
-            implode(",", $escapedValues) . " WHERE EventId = $clause";
-        return $this->model->ModifyEvent($this->query);
+
+        if (empty($setClauses) || empty($eventId)) {
+            return [
+                "Error" =>
+                    "Invalid input: no columns to update or missing EventId",
+            ];
+        }
+
+        $this->query =
+            "UPDATE EVENTS SET " .
+            implode(", ", $setClauses) .
+            " WHERE EventId = :EventId";
+        $params[":EventId"] = $eventId;
+
+        return $this->model->ModifyEvent($this->query, $params);
     }
+
     //@return void
     public function __destruct()
     {

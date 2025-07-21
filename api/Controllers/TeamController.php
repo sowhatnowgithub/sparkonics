@@ -16,15 +16,25 @@ class TeamController
     {
         $this->query = "INSERT INTO Team (
             MemName,
-            MemPosition, MemRole, MemStartTime, MemEndTime,MemImageUrl, MemLinkedin
-        ) VALUES (";
-        $escapedValues = [];
-        foreach ($settings as $setting => $value) {
-            $escapedValues[] = $this->model->cleanQuery($value);
-        }
-        $this->query .= implode(",", $escapedValues) . ")";
-        return $this->model->AddMem($this->query);
+            MemPosition,
+            MemRole,
+            MemStartTime,
+            MemEndTime,
+            MemImageUrl,
+            MemLinkedin
+        ) VALUES (
+            :MemName,
+            :MemPosition,
+            :MemRole,
+            :MemStartTime,
+            :MemEndTime,
+            :MemImageUrl,
+            :MemLinkedin
+        )";
+
+        return $this->model->AddMem($this->query, $settings);
     }
+
     public function FetchAllMems(): array
     {
         return $this->model->FetchAllMems();
@@ -39,21 +49,44 @@ class TeamController
     }
     public function ModifyMem($settings): array
     {
-        $this->query = "UPDATE Team SET ";
-        $escapedValues = [];
-        $clause = null;
-        foreach ($settings as $setting => $value) {
-            if ($value != "") {
-                if ($setting == "MemId") {
-                    $clause = $this->model->cleanQuery($value);
-                } else {
-                    $setting = $this->model->cleanQuery($setting);
-                    $value = $this->model->cleanQuery($value);
-                    $escapedValues[] = "$setting = $value";
-                }
+        $allowedColumns = [
+            "MemName",
+            "MemPosition",
+            "MemRole",
+            "MemStartTime",
+            "MemEndTime",
+            "MemImageUrl",
+            "MemLinkedin",
+        ];
+
+        $setClauses = [];
+        $params = [];
+
+        foreach ($settings as $column => $value) {
+            if ($column === "MemId") {
+                $memId = $value;
+                continue;
+            }
+
+            if (in_array($column, $allowedColumns) && $value !== "") {
+                $setClauses[] = "$column = :$column";
+                $params[":$column"] = $value;
             }
         }
-        $this->query .= implode(",", $escapedValues) . " WHERE MemId = $clause";
-        return $this->model->ModifyMem($this->query);
+
+        if (empty($setClauses) || empty($memId)) {
+            return [
+                "Error" =>
+                    "Invalid input: no columns to update or missing MemId",
+            ];
+        }
+
+        $this->query =
+            "UPDATE Team SET " .
+            implode(", ", $setClauses) .
+            " WHERE MemId = :MemId";
+        $params[":MemId"] = $memId;
+
+        return $this->model->ModifyMem($this->query, $params);
     }
 }

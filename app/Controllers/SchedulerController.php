@@ -25,20 +25,46 @@ class SchedulerController extends AdminController
      */
     public function AddJob($settings): array
     {
-        $this->query = "INSERT INTO Jobs (
-            RecipientEmail, SenderEmail, SenderEmailPassword,
-            Subject, CC, Body, IsEventMail,
-            StartDate, EndDate, IntervalDays,
-            NextScheduledAt, MaxOccurrences, Active
-        ) VALUES (";
+        $allowedColumns = [
+            "RecipientEmail",
+            "SenderEmail",
+            "SenderEmailPassword",
+            "Subject",
+            "CC",
+            "Body",
+            "IsEventMail",
+            "StartDate",
+            "EndDate",
+            "IntervalDays",
+            "NextScheduledAt",
+            "MaxOccurrences",
+            "Active",
+        ];
 
-        $escapedValues = [];
-        foreach ($settings as $key => $value) {
-            $escapedValues[] = $this->model->cleanQuery($value);
+        $columns = [];
+        $placeholders = [];
+        $params = [];
+
+        foreach ($allowedColumns as $column) {
+            if (isset($settings[$column])) {
+                $columns[] = $column;
+                $placeholders[] = ":" . $column;
+                $params[":" . $column] = $settings[$column];
+            }
         }
 
-        $this->query .= implode(",", $escapedValues) . ")";
-        return $this->model->AddJob($this->query);
+        if (empty($columns)) {
+            return ["Error" => "No valid data to insert"];
+        }
+
+        $this->query =
+            "INSERT INTO Jobs (" .
+            implode(", ", $columns) .
+            ") VALUES (" .
+            implode(", ", $placeholders) .
+            ")";
+
+        return $this->model->AddJob($this->query, $params);
     }
 
     public function FetchAllJobs(): array
@@ -58,23 +84,47 @@ class SchedulerController extends AdminController
      */
     public function ModifyJob($settings): array
     {
-        $this->query = "UPDATE Jobs SET ";
-        $escapedValues = [];
-        $clause = null;
+        $allowedColumns = [
+            "RecipientEmail",
+            "SenderEmail",
+            "SenderEmailPassword",
+            "Subject",
+            "CC",
+            "Body",
+            "IsEventMail",
+            "StartDate",
+            "EndDate",
+            "IntervalDays",
+            "NextScheduledAt",
+            "MaxOccurrences",
+            "Active",
+        ];
 
-        foreach ($settings as $setting => $value) {
-            if ($value != "") {
-                if ($setting == "JobId") {
-                    $clause = $this->model->cleanQuery($value);
-                } else {
-                    $setting = $this->model->cleanQuery($setting);
-                    $value = $this->model->cleanQuery($value);
-                    $escapedValues[] = "$setting = $value";
-                }
+        $setClauses = [];
+        $params = [];
+
+        foreach ($settings as $column => $value) {
+            if ($column === "JobId") {
+                $jobId = $value;
+                continue;
+            }
+
+            if (in_array($column, $allowedColumns) && $value !== "") {
+                $setClauses[] = "$column = :$column";
+                $params[":$column"] = $value;
             }
         }
 
-        $this->query .= implode(",", $escapedValues) . " WHERE JobId = $clause";
-        return $this->model->ModifyJob($this->query);
+        if (empty($setClauses) || empty($jobId)) {
+            return ["Error" => "Missing data to update or JobId"];
+        }
+
+        $this->query =
+            "UPDATE Jobs SET " .
+            implode(", ", $setClauses) .
+            " WHERE JobId = :JobId";
+        $params[":JobId"] = $jobId;
+
+        return $this->model->ModifyJob($this->query, $params);
     }
 }

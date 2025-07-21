@@ -13,11 +13,11 @@ class ImagesModel
             $this->conn = new \PDO("sqlite:$dbPath");
             $this->conn->setAttribute(
                 \PDO::ATTR_ERRMODE,
-                \PDO::ERRMODE_EXCEPTION
+                \PDO::ERRMODE_EXCEPTION,
             );
             $this->conn->setAttribute(
                 \PDO::ATTR_DEFAULT_FETCH_MODE,
-                \PDO::FETCH_ASSOC
+                \PDO::FETCH_ASSOC,
             );
         } catch (\PDOException $e) {
             return ["Error" => "Failed to fetch"];
@@ -29,28 +29,49 @@ class ImagesModel
     {
         return $this->conn->quote($query);
     }
-    public function AddImage($query, $tmp_image_name, $destinationPath): array
-    {
+    public function AddImage(
+        $query,
+        $tmp_image_name,
+        $destinationPath,
+        $imageId,
+        $imageName,
+        $imageUrlPath,
+        $imageActualPath,
+    ): array {
         try {
             $stmt = $this->conn->prepare($query);
+
+            $stmt->bindParam(":ImageId", $imageId);
+            $stmt->bindParam(":ImageName", $imageName);
+            $stmt->bindParam(":ImageUrlPath", $imageUrlPath);
+            $stmt->bindParam(":ImageActualPath", $imageActualPath);
+
             $stmt->execute();
-            $stmt = null;
+
             if (isset($tmp_image_name)) {
                 if (move_uploaded_file($tmp_image_name, $destinationPath)) {
                     return ["Success" => "God"];
                 } else {
-                    return ["Error" => "Please Check the unique id"];
+                    return [
+                        "Error" =>
+                            "Failed to move uploaded file — please check the unique ID and permissions",
+                    ];
                 }
             }
+
+            return ["Success" => "God"];
         } catch (\PDOException $e) {
-            return ["Error" => "Failed to put, maybe unique id"];
+            return [
+                "Error" => "Failed to insert image record: " . $e->getMessage(),
+            ];
         }
     }
+
     public function FetchImage($imageId): array
     {
         try {
             $stmt = $this->conn->prepare(
-                "SELECT ImageActualPath FROM Images WHERE ImageId = :imageId"
+                "SELECT ImageActualPath FROM Images WHERE ImageId = :imageId",
             );
             $stmt->bindParam(":imageId", $imageId, \PDO::PARAM_INT);
             $stmt->execute();
@@ -100,7 +121,7 @@ class ImagesModel
             if (file_exists($imagePath)) {
                 system("rm -f " . escapeshellarg($imagePath));
                 $stmt = $this->conn->prepare(
-                    "DELETE FROM Images WHERE ImageId = :imageId"
+                    "DELETE FROM Images WHERE ImageId = :imageId",
                 );
                 $stmt->bindParam(":imageId", $imageId, \PDO::PARAM_INT);
                 $stmt->execute();

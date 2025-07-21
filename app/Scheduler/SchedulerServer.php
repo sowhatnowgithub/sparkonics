@@ -28,6 +28,25 @@ DaysBeforeDeadLine, Days Integer
 SendDate, DATE: DD-MM-YYYY
 IntervalAfterSendDate, Indays
 
+finally using the following DB
+
+$jobTableQuery = "CREATE TABLE Jobs (
+    JobId INTEGER PRIMARY KEY,
+    RecipientEmail TEXT NOT NULL,
+    SenderEmail TEXT NOT NULL,
+    SenderEmailPassword TEXT NOT NULL,
+    Subject TEXT NOT NULL,
+    CC TEXT,
+    Body TEXT NOT NULL,
+    IsEventMail TEXT NOT NULL,
+    StartDate TEXT NOT NULL,
+    EndDate TEXT NOT NULL,
+    IntervalDays INTEGER,
+    NextScheduledAt TEXT,
+    MaxOccurrences INTEGER,
+    Active BOOLEAN DEFAULT 1
+)";
+
 
 */
 use Openswoole\Timer;
@@ -39,6 +58,8 @@ $sleep = 3000;
 date_default_timezone_set("Asia/Kolkata");
 
 // make the members automated mailing based on the members db, we have mailing three weeks before two weeks before one week before befoer registraiton and on the day,
+
+function mailer($mailerInfo) {}
 Timer::tick($sleep, function () {
     try {
         $dbPath =

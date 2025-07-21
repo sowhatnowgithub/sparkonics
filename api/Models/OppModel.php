@@ -29,17 +29,35 @@ class OppModel
     {
         return $this->conn->quote($query);
     }
-    public function AddOpp($query): array
+    public function AddOpp($query, $settings): array
     {
         try {
             $stmt = $this->conn->prepare($query);
+
+            // Bind all values securely
+            $stmt->bindParam(":OppName", $settings["OppName"]);
+            $stmt->bindParam(":OppDesc", $settings["OppDesc"]);
+            $stmt->bindParam(":OppLink", $settings["OppLink"]);
+            $stmt->bindParam(":OppDomain", $settings["OppDomain"]);
+            $stmt->bindParam(":OppValidFrom", $settings["OppValidFrom"]);
+            $stmt->bindParam(":OppValidEnd", $settings["OppValidEnd"]);
+            $stmt->bindParam(":OppCreatedAt", $settings["OppCreatedAt"]);
+            $stmt->bindParam(":OppEligibility", $settings["OppEligibility"]);
+            $stmt->bindParam(":OppOrganiser", $settings["OppOrganiser"]);
+            $stmt->bindParam(
+                ":OppApplicationProcedure",
+                $settings["OppApplicationProcedure"],
+            );
+            $stmt->bindParam(":OppLocation", $settings["OppLocation"]);
+            $stmt->bindParam(":OppType", $settings["OppType"]);
+
             $stmt->execute();
-            $stmt = null;
             return ["Success" => "God"];
         } catch (\PDOException $e) {
-            return ["Error" => "Failed to add"];
+            return ["Error" => "Failed to add: " . $e->getMessage()];
         }
     }
+
     public function FetchOpp($oppId): array
     {
         try {
@@ -89,18 +107,20 @@ class OppModel
             return ["Error" => "Failed to fetch"];
         }
     }
-    public function ModifyOpp($query)
+    public function ModifyOpp($query, $params): array
     {
         try {
             $stmt = $this->conn->prepare($query);
+
+            foreach ($params as $placeholder => $value) {
+                $stmt->bindValue($placeholder, $value);
+            }
+
             $stmt->execute();
-            $stmt = null;
-            return ["Sucess" => "God"];
+
+            return ["Success" => "God"];
         } catch (\PDOException $e) {
-            return [
-                "Error" => "Fetch
-    failed",
-            ];
+            return ["Error" => "Update failed: " . $e->getMessage()];
         }
     }
 }

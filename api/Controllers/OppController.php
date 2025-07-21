@@ -29,17 +29,24 @@ class OppController
             OppApplicationProcedure,
             OppLocation,
             OppType
-        ) VALUES (";
+        ) VALUES (
+            :OppName,
+            :OppDesc,
+            :OppLink,
+            :OppDomain,
+            :OppValidFrom,
+            :OppValidEnd,
+            :OppCreatedAt,
+            :OppEligibility,
+            :OppOrganiser,
+            :OppApplicationProcedure,
+            :OppLocation,
+            :OppType
+        )";
 
-        $escapedValues = [];
-        foreach ($settings as $value) {
-            $escapedValues[] = $this->model->cleanQuery($value);
-        }
-
-        $this->query .= implode(",", $escapedValues) . ")";
-
-        return $this->model->AddOpp($this->query);
+        return $this->model->AddOpp($this->query, $settings);
     }
+
     public function FetchAllOpp(): array
     {
         return $this->model->FetchAllOpp();
@@ -54,21 +61,49 @@ class OppController
     }
     public function ModifyOpp($settings): array
     {
-        $this->query = "UPDATE Opp SET ";
-        $escapedValues = [];
-        $clause = null;
-        foreach ($settings as $setting => $value) {
-            if ($value != "") {
-                if ($setting == "OppId") {
-                    $clause = $this->model->cleanQuery($value);
-                } else {
-                    $setting = $this->model->cleanQuery($setting);
-                    $value = $this->model->cleanQuery($value);
-                    $escapedValues[] = "$setting = $value";
-                }
+        $allowedColumns = [
+            "OppName",
+            "OppDesc",
+            "OppLink",
+            "OppDomain",
+            "OppValidFrom",
+            "OppValidEnd",
+            "OppCreatedAt",
+            "OppEligibility",
+            "OppOrganiser",
+            "OppApplicationProcedure",
+            "OppLocation",
+            "OppType",
+        ];
+
+        $setClauses = [];
+        $params = [];
+
+        foreach ($settings as $column => $value) {
+            if ($column === "OppId") {
+                $oppId = $value;
+                continue;
+            }
+
+            if (in_array($column, $allowedColumns) && $value !== "") {
+                $setClauses[] = "$column = :$column";
+                $params[":$column"] = $value;
             }
         }
-        $this->query .= implode(",", $escapedValues) . " WHERE OppId = $clause";
-        return $this->model->ModifyOpp($this->query);
+
+        if (empty($setClauses) || empty($oppId)) {
+            return [
+                "Error" =>
+                    "Invalid input: no columns to update or missing OppId",
+            ];
+        }
+
+        $this->query =
+            "UPDATE Opp SET " .
+            implode(", ", $setClauses) .
+            " WHERE OppId = :OppId";
+        $params[":OppId"] = $oppId;
+
+        return $this->model->ModifyOpp($this->query, $params);
     }
 }

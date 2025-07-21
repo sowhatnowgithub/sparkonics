@@ -15,15 +15,28 @@ class GalleryController
     public function AddGallery($settings): array
     {
         $this->query = "INSERT INTO Gallery (
-           GalleryName, GalleryDate, GalleryDescription,GalleryImageBanner, GalleryDomain,GalleryParticipants,GalleryImagesUrl,GalleryImageDescription
-        ) VALUES (";
-        $escapedValues = [];
-        foreach ($settings as $setting => $value) {
-            $escapedValues[] = $this->model->cleanQuery($value);
-        }
-        $this->query .= implode(",", $escapedValues) . ")";
-        return $this->model->AddGallery($this->query);
+            GalleryName,
+            GalleryDate,
+            GalleryDescription,
+            GalleryImageBanner,
+            GalleryDomain,
+            GalleryParticipants,
+            GalleryImagesUrl,
+            GalleryImageDescription
+        ) VALUES (
+            :GalleryName,
+            :GalleryDate,
+            :GalleryDescription,
+            :GalleryImageBanner,
+            :GalleryDomain,
+            :GalleryParticipants,
+            :GalleryImagesUrl,
+            :GalleryImageDescription
+        )";
+
+        return $this->model->AddGallery($this->query, $settings);
     }
+
     public function FetchAllGallery(): array
     {
         return $this->model->FetchAllGallery();
@@ -38,22 +51,45 @@ class GalleryController
     }
     public function ModifyGallery($settings): array
     {
-        $this->query = "UPDATE Gallery SET ";
-        $escapedValues = [];
-        $clause = null;
-        foreach ($settings as $setting => $value) {
-            if ($value != "") {
-                if ($setting == "GalleryId") {
-                    $clause = $this->model->cleanQuery($value);
-                } else {
-                    $setting = $this->model->cleanQuery($setting);
-                    $value = $this->model->cleanQuery($value);
-                    $escapedValues[] = "$setting = $value";
-                }
+        $allowedColumns = [
+            "GalleryName",
+            "GalleryDate",
+            "GalleryDescription",
+            "GalleryImageBanner",
+            "GalleryDomain",
+            "GalleryParticipants",
+            "GalleryImagesUrl",
+            "GalleryImageDescription",
+        ];
+
+        $setClauses = [];
+        $params = [];
+
+        foreach ($settings as $column => $value) {
+            if ($column === "GalleryId") {
+                $galleryId = $value;
+                continue;
+            }
+
+            if (in_array($column, $allowedColumns) && $value !== "") {
+                $setClauses[] = "$column = :$column";
+                $params[":$column"] = $value;
             }
         }
-        $this->query .=
-            implode(",", $escapedValues) . " WHERE GalleryId = $clause";
-        return $this->model->ModifyGallery($this->query);
+
+        if (empty($setClauses) || empty($galleryId)) {
+            return [
+                "Error" =>
+                    "Invalid input: no columns to update or missing GalleryId",
+            ];
+        }
+
+        $this->query =
+            "UPDATE Gallery SET " .
+            implode(", ", $setClauses) .
+            " WHERE GalleryId = :GalleryId";
+        $params[":GalleryId"] = $galleryId;
+
+        return $this->model->ModifyGallery($this->query, $params);
     }
 }

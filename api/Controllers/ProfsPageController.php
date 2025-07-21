@@ -16,16 +16,23 @@ class ProfsPageController
     {
         $this->query = "INSERT INTO Profs (
             ProfName,
-            ProfPosition, ProfImage ,ProfContact, ProfDomain,
+            ProfPosition,
+            ProfImage,
+            ProfContact,
+            ProfDomain,
             ProfCurrentProjects
-        ) VALUES (";
-        $escapedValues = [];
-        foreach ($settings as $setting => $value) {
-            $escapedValues[] = $this->model->cleanQuery($value);
-        }
-        $this->query .= implode(",", $escapedValues) . ")";
-        return $this->model->AddProf($this->query);
+        ) VALUES (
+            :ProfName,
+            :ProfPosition,
+            :ProfImage,
+            :ProfContact,
+            :ProfDomain,
+            :ProfCurrentProjects
+        )";
+
+        return $this->model->AddProf($this->query, $settings);
     }
+
     public function FetchAllProfs(): array
     {
         return $this->model->FetchAllProfs();
@@ -40,22 +47,43 @@ class ProfsPageController
     }
     public function ModifyProf($settings): array
     {
-        $this->query = "UPDATE Profs SET ";
-        $escapedValues = [];
-        $clause = null;
-        foreach ($settings as $setting => $value) {
-            if ($value != "") {
-                if ($setting == "ProfId") {
-                    $clause = $this->model->cleanQuery($value);
-                } else {
-                    $setting = $this->model->cleanQuery($setting);
-                    $value = $this->model->cleanQuery($value);
-                    $escapedValues[] = "$setting = $value";
-                }
+        $allowedColumns = [
+            "ProfName",
+            "ProfPosition",
+            "ProfImage",
+            "ProfContact",
+            "ProfDomain",
+            "ProfCurrentProjects",
+        ];
+
+        $setClauses = [];
+        $params = [];
+
+        foreach ($settings as $column => $value) {
+            if ($column === "ProfId") {
+                $profId = $value;
+                continue;
+            }
+
+            if (in_array($column, $allowedColumns) && $value !== "") {
+                $setClauses[] = "$column = :$column";
+                $params[":$column"] = $value;
             }
         }
-        $this->query .=
-            implode(",", $escapedValues) . " WHERE ProfId = $clause";
-        return $this->model->ModifyProf($this->query);
+
+        if (empty($setClauses) || empty($profId)) {
+            return [
+                "Error" =>
+                    "Invalid input: no columns to update or missing ProfId",
+            ];
+        }
+
+        $this->query =
+            "UPDATE Profs SET " .
+            implode(", ", $setClauses) .
+            " WHERE ProfId = :ProfId";
+        $params[":ProfId"] = $profId;
+
+        return $this->model->ModifyProf($this->query, $params);
     }
 }

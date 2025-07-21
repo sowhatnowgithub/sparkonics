@@ -13,11 +13,11 @@ class GalleryModel
             $this->conn = new \PDO("sqlite:$dbPath");
             $this->conn->setAttribute(
                 \PDO::ATTR_ERRMODE,
-                \PDO::ERRMODE_EXCEPTION
+                \PDO::ERRMODE_EXCEPTION,
             );
             $this->conn->setAttribute(
                 \PDO::ATTR_DEFAULT_FETCH_MODE,
-                \PDO::FETCH_ASSOC
+                \PDO::FETCH_ASSOC,
             );
         } catch (\PDOException $e) {
             return ["Error" => "Failed to fetch"];
@@ -29,22 +29,48 @@ class GalleryModel
     {
         return $this->conn->quote($query);
     }
-    public function AddGallery($query): array
+    public function AddGallery($query, $settings): array
     {
         try {
             $stmt = $this->conn->prepare($query);
+
+            // Bind parameters securely
+            $stmt->bindParam(":GalleryName", $settings["GalleryName"]);
+            $stmt->bindParam(":GalleryDate", $settings["GalleryDate"]);
+            $stmt->bindParam(
+                ":GalleryDescription",
+                $settings["GalleryDescription"],
+            );
+            $stmt->bindParam(
+                ":GalleryImageBanner",
+                $settings["GalleryImageBanner"],
+            );
+            $stmt->bindParam(":GalleryDomain", $settings["GalleryDomain"]);
+            $stmt->bindParam(
+                ":GalleryParticipants",
+                $settings["GalleryParticipants"],
+            );
+            $stmt->bindParam(
+                ":GalleryImagesUrl",
+                $settings["GalleryImagesUrl"],
+            );
+            $stmt->bindParam(
+                ":GalleryImageDescription",
+                $settings["GalleryImageDescription"],
+            );
+
             $stmt->execute();
-            $stmt = null;
             return ["Success" => "God"];
         } catch (\PDOException $e) {
-            return ["Error" => "Failed to fetch"];
+            return ["Error" => "Failed to insert: " . $e->getMessage()];
         }
     }
+
     public function FetchGallery($galleryId): array
     {
         try {
             $stmt = $this->conn->prepare(
-                "SELECT * FROM Gallery WHERE GalleryId = :galleryId"
+                "SELECT * FROM Gallery WHERE GalleryId = :galleryId",
             );
             $stmt->bindParam(":galleryId", $galleryId, \PDO::PARAM_INT);
             $stmt->execute();
@@ -80,7 +106,7 @@ class GalleryModel
     {
         try {
             $stmt = $this->conn->prepare(
-                "DELETE FROM Gallery WHERE GalleryId = :galleryId"
+                "DELETE FROM Gallery WHERE GalleryId = :galleryId",
             );
             $stmt->bindParam(":galleryId", $galleryId, \PDO::PARAM_INT);
             $stmt->execute();
@@ -90,15 +116,17 @@ class GalleryModel
             return ["Error" => "Failed to fetch"];
         }
     }
-    public function ModifyGallery($query)
+    public function ModifyGallery($query, $params): array
     {
         try {
             $stmt = $this->conn->prepare($query);
+            foreach ($params as $key => $value) {
+                $stmt->bindValue($key, $value);
+            }
             $stmt->execute();
-            $stmt = null;
-            return ["Sucess" => "God"];
+            return ["Success" => "God"];
         } catch (\PDOException $e) {
-            return ["Error" => "Fetch failed"];
+            return ["Error" => "Update failed: " . $e->getMessage()];
         }
     }
 }

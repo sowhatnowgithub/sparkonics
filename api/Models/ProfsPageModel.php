@@ -29,17 +29,29 @@ class ProfsPageModel
     {
         return $this->conn->quote($query);
     }
-    public function AddProf($query): array
+    public function AddProf($query, $settings): array
     {
         try {
             $stmt = $this->conn->prepare($query);
+
+            // Bind securely using bindParam
+            $stmt->bindParam(":ProfName", $settings["ProfName"]);
+            $stmt->bindParam(":ProfPosition", $settings["ProfPosition"]);
+            $stmt->bindParam(":ProfImage", $settings["ProfImage"]);
+            $stmt->bindParam(":ProfContact", $settings["ProfContact"]);
+            $stmt->bindParam(":ProfDomain", $settings["ProfDomain"]);
+            $stmt->bindParam(
+                ":ProfCurrentProjects",
+                $settings["ProfCurrentProjects"],
+            );
+
             $stmt->execute();
-            $stmt = null;
             return ["Success" => "God"];
         } catch (\PDOException $e) {
-            return ["Error" => "Failed to fetch"];
+            return ["Error" => "Failed to insert: " . $e->getMessage()];
         }
     }
+
     public function FetchProf($profId): array
     {
         try {
@@ -90,15 +102,17 @@ class ProfsPageModel
             return ["Error" => "Failed to fetch"];
         }
     }
-    public function ModifyProf($query)
+    public function ModifyProf($query, $params): array
     {
         try {
             $stmt = $this->conn->prepare($query);
+            foreach ($params as $key => $value) {
+                $stmt->bindValue($key, $value);
+            }
             $stmt->execute();
-            $stmt = null;
-            return ["Sucess" => "God"];
+            return ["Success" => "God"];
         } catch (\PDOException $e) {
-            return ["Error" => "Fetch failed"];
+            return ["Error" => "Update failed: " . $e->getMessage()];
         }
     }
 }

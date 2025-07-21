@@ -29,15 +29,17 @@ class SchedulerModel
     {
         return $this->conn->quote($query);
     }
-    public function AddJob($query): array
+    public function AddJob($query, $params): array
     {
         try {
             $stmt = $this->conn->prepare($query);
+            foreach ($params as $key => $value) {
+                $stmt->bindValue($key, $value);
+            }
             $stmt->execute();
-            $stmt = null;
             return ["Success" => "God"];
         } catch (\PDOException $e) {
-            return ["Error" => "Failed to fetch"];
+            return ["Error" => "Failed to insert: " . $e->getMessage()];
         }
     }
 
@@ -72,15 +74,17 @@ class SchedulerModel
             return ["Error" => "Failed to fetch"];
         }
     }
-    public function ModifyJob($query)
+    public function ModifyJob($query, $params): array
     {
         try {
             $stmt = $this->conn->prepare($query);
+            foreach ($params as $key => $value) {
+                $stmt->bindValue($key, $value);
+            }
             $stmt->execute();
-            $stmt = null;
-            return ["Sucess" => "God"];
+            return ["Success" => "God"];
         } catch (\PDOException $e) {
-            return ["Error" => "Fetch failed"];
+            return ["Error" => "Update failed: " . $e->getMessage()];
         }
     }
 }

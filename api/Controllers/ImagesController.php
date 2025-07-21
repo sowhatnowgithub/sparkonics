@@ -14,25 +14,35 @@ class ImagesController
 
     public function AddImage($settings): array
     {
-        $this->query = "	INSERT INTO Images (
-            ImageId, ImageName, ImageUrlPath, ImageActualPath
-		) VALUES (";
-        $escapedValues = [];
         $type = explode("/", $settings["files"]["type"]);
         $imageId = trim($settings["post"]["ImageId"]);
         $imageActualName = "$imageId.{$type[1]}";
-        $escapedValues[] = $imageId;
-        $escapedValues[] = $this->model->cleanQuery($settings["files"]["name"]);
-        $escapedValues[] = $this->model->cleanQuery("/api/images/$imageId");
-        $escapedValues[] = $this->model->cleanQuery($imageActualName);
-        $this->query = $this->query . implode(",", $escapedValues) . ")";
-        $destinationPath = Env::API_IMAGES_PATH . "/" . "$imageId.{$type[1]}";
+
+        $this->query = "INSERT INTO Images (
+            ImageId,
+            ImageName,
+            ImageUrlPath,
+            ImageActualPath
+        ) VALUES (
+            :ImageId,
+            :ImageName,
+            :ImageUrlPath,
+            :ImageActualPath
+        )";
+
+        $destinationPath = Env::API_IMAGES_PATH . "/" . $imageActualName;
+
         return $this->model->AddImage(
             $this->query,
             $settings["files"]["tmp_name"],
-            $destinationPath
+            $destinationPath,
+            $imageId,
+            $settings["files"]["name"],
+            "/api/images/$imageId",
+            $imageActualName,
         );
     }
+
     public function FetchAllImages(): array
     {
         return $this->model->FetchAllImages();

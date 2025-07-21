@@ -14,11 +14,11 @@ class EventsPageModel
             $this->conn = new \PDO("sqlite:$dbPath");
             $this->conn->setAttribute(
                 \PDO::ATTR_ERRMODE,
-                \PDO::ERRMODE_EXCEPTION
+                \PDO::ERRMODE_EXCEPTION,
             );
             $this->conn->setAttribute(
                 \PDO::ATTR_DEFAULT_FETCH_MODE,
-                \PDO::FETCH_ASSOC
+                \PDO::FETCH_ASSOC,
             );
             //echo "Connection to the database is successfull \n";
         } catch (\PDOException $e) {
@@ -35,16 +35,30 @@ class EventsPageModel
         return $this->conn->quote($query);
     }
     // @param $query
-    public function AddEvent($query): array
+    public function AddEvent($query, $eventValues): array
     {
-        $this->query = $query;
         try {
-            $stmt = $this->conn->prepare($this->query);
+            $stmt = $this->conn->prepare($query);
+
+            // Bind parameters individually (safe against SQL injection)
+            $stmt->bindParam(":eventName", $eventValues["EventName"]);
+            $stmt->bindParam(
+                ":eventDescription",
+                $eventValues["EventDescription"],
+            );
+            $stmt->bindParam(":eventStartTime", $eventValues["EventStartTime"]);
+            $stmt->bindParam(":eventEndTime", $eventValues["EventEndTime"]);
+            $stmt->bindParam(":eventDomains", $eventValues["EventDomains"]);
+            $stmt->bindParam(":eventBanner", $eventValues["EventBanner"]);
+            $stmt->bindParam(
+                ":eventRegisterLink",
+                $eventValues["EventRegisterLink"],
+            );
+
             $stmt->execute();
-            $stmt = null;
             return ["Success" => "God"];
         } catch (\PDOException $e) {
-            return ["Error" => "Failed to fetch"];
+            return ["Error" => "Failed to insert"];
         }
     }
     //@param $eventId
@@ -53,7 +67,7 @@ class EventsPageModel
     {
         try {
             $stmt = $this->conn->prepare(
-                "SELECT * FROM Events WHERE EventId = :eventId"
+                "SELECT * FROM Events WHERE EventId = :eventId",
             );
             $stmt->bindParam(":eventId", $eventId, \PDO::PARAM_INT);
             $stmt->execute();
@@ -91,7 +105,7 @@ class EventsPageModel
     {
         try {
             $stmt = $this->conn->prepare(
-                "DELETE FROM Events WHERE EventId = :eventId"
+                "DELETE FROM Events WHERE EventId = :eventId",
             );
             $stmt->bindParam(":eventId", $eventId, \PDO::PARAM_INT);
             $stmt->execute();
@@ -102,15 +116,17 @@ class EventsPageModel
             //  echo "Exception at Event Fetch : $e\n";
         }
     }
-    public function ModifyEvent($query)
+    public function ModifyEvent($query, $params): array
     {
         try {
             $stmt = $this->conn->prepare($query);
+            foreach ($params as $placeholder => $value) {
+                $stmt->bindValue($placeholder, $value);
+            }
             $stmt->execute();
-            $stmt = null;
-            return ["Sucess" => "God"];
+            return ["Success" => "God"];
         } catch (\PDOException $e) {
-            return ["Error" => "Fetch failed"];
+            return ["Error" => "Update failed: " . $e->getMessage()];
         }
     }
 }
