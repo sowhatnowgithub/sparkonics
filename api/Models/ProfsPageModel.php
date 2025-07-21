@@ -9,15 +9,15 @@ class ProfsPageModel
     public function __construct()
     {
         try {
-            $dbPath = Env::BASE_PATH . "/api/Models/Database/ProfsPageData.db";
+            $dbPath = Env::BASE_PATH . "/api/Models/Database/profsPageData.db";
             $this->conn = new \PDO("sqlite:$dbPath");
             $this->conn->setAttribute(
                 \PDO::ATTR_ERRMODE,
-                \PDO::ERRMODE_EXCEPTION
+                \PDO::ERRMODE_EXCEPTION,
             );
             $this->conn->setAttribute(
                 \PDO::ATTR_DEFAULT_FETCH_MODE,
-                \PDO::FETCH_ASSOC
+                \PDO::FETCH_ASSOC,
             );
         } catch (\PDOException $e) {
             return ["Error" => "Failed to fetch"];
@@ -44,7 +44,7 @@ class ProfsPageModel
     {
         try {
             $stmt = $this->conn->prepare(
-                "SELECT * FROM Profs WHERE ProfId = :profId"
+                "SELECT * FROM Profs WHERE ProfId = :profId",
             );
             $stmt->bindParam(":profId", $profId, \PDO::PARAM_INT);
             $stmt->execute();
@@ -80,7 +80,7 @@ class ProfsPageModel
     {
         try {
             $stmt = $this->conn->prepare(
-                "DELETE FROM Profs WHERE ProfId = :profId"
+                "DELETE FROM Profs WHERE ProfId = :profId",
             );
             $stmt->bindParam(":profId", $profId, \PDO::PARAM_INT);
             $stmt->execute();
