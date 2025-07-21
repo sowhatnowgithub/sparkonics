@@ -41,6 +41,9 @@ const Navbar = () => {
         <a href="/oa" className="option">
           OA
         </a>
+        <a href="/opp" className="option">
+          Oppurtunities
+        </a>
         <NavLink to="/dev" className="option">
           DevX
         </NavLink>
@@ -93,6 +96,9 @@ const Navbar = () => {
           </a>
           <a href="/oa" className="option">
             OA
+          </a>
+          <a href="/opp" className="option">
+            Oppurtunities
           </a>
           <NavLink to="/dev" className="option">
             DevX

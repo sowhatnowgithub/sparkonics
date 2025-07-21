@@ -170,6 +170,7 @@
     <button onclick="handleNavClick('Images')">Images</button>
     <button onclick="handleNavClick('Gallery')">Gallery</button>
     <button onclick="handleNavClick('Team')">Team</button>
+    <button onclick="handleNavClick('Opp')">Oppurtunity</button>
 
   </div>
 

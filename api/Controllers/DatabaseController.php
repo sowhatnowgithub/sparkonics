@@ -82,15 +82,32 @@ $jobTableQuery = "CREATE TABLE Jobs (
     MaxOccurrences INTEGER,
     Active BOOLEAN DEFAULT 1
 )";
+$oppTableQuery = "CREATE TABLE Opp (
+    OppId INTEGER PRIMARY KEY,
+    OppName TEXT NOT NULL,
+    OppDesc TEXT NOT NULL,
+    OppLink TEXT NOT NULL,
+    OppDomain TEXT NOT NULL,
+    OppValidFrom TEXT NOT NULL,
+    OppValidEnd TEXT NOT NULL,
+    OppCreatedAt TEXT NOT NULL,
+    OppEligibility TEXT NOT NULL,
+    OppOrganiser TEXT NOT NULL,
+    OppApplicationProcedure TEXT NOT NULL,
+    OppLocation TEXT NOT NULL,
+    OppType TEXT NOT NULL
+)";
 $dbPathEvent = Env::BASE_PATH . "/api/Models/Database/eventsPageData.db";
 $dbPathProf = Env::BASE_PATH . "/api/Models/Database/profsPageData.db";
 $dbPathImages = Env::BASE_PATH . "/api/Models/Database/imagesData.db";
 $dbPathGallery = Env::BASE_PATH . "/api/Models/Database/gallery.db";
 $dbPathTeam = Env::BASE_PATH . "/api/Models/Database/team.db";
+$dbPathOpp = Env::BASE_PATH . "/api/Models/Database/opp.db";
+
 $dbPathMem = Env::BASE_PATH . "/app/Models/Database/members.db";
 $dbPathJob = Env::BASE_PATH . "/app/Models/Database/Job.db";
 
-$dataBase = new DatabaseManager($dbPathJob);
+$dataBase = new DatabaseManager($dbPathOpp);
 
 $dataBase->CreateAction($eventsTableQuery, "CreateEventsTable");
 $dataBase->CreateAction($galleryTableQuery, "CreateGalleryTable");
@@ -99,6 +116,7 @@ $dataBase->CreateAction($memberTableQuery, "CreateMemberTable");
 $dataBase->CreateAction($profsTableQuery, "CreateProfsTable");
 $dataBase->CreateAction($imagesTableQuery, "CreateImagesTable");
 $dataBase->CreateAction($jobTableQuery, "CreateJobTable");
+$dataBase->CreateAction($oppTableQuery, "CreateOppTable");
 
 var_dump($dataBase->getAllActions());
 
@@ -109,3 +127,4 @@ var_dump($dataBase->getAllActions());
 //$dataBase->ExecuteAction("CreateTeamTable");
 //$dataBase->ExecuteAction("CreateMemberTable");
 //$dataBase->ExecuteAction("CreateJobTable");
+$dataBase->ExecuteAction("CreateOppTable");

@@ -38,6 +38,7 @@ $sleep = 3000;
 //It will be like a timer which will sleep for about 30minutes but for testing i will take 3seconds,
 date_default_timezone_set("Asia/Kolkata");
 
+// make the members automated mailing based on the members db, we have mailing three weeks before two weeks before one week before befoer registraiton and on the day,
 Timer::tick($sleep, function () {
     try {
         $dbPath =

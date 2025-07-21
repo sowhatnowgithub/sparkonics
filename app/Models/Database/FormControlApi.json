@@ -328,5 +328,104 @@
       "enctype": "application/x-www-form-urlencoded",
       "FormData": {}
     }
+  },
+  "Opp": {
+    "Add": {
+      "request_method": "POST",
+      "action_url": "/api/opp/add",
+      "enctype": "application/x-www-form-urlencoded",
+      "FormData": {
+        "OppName": [
+          "required",
+          "text",
+          "Enter Opportunity Name like 'Research Fellowship'"
+        ],
+        "OppDesc": [
+          "required",
+          "textarea",
+          "Detailed description of the opportunity"
+        ],
+        "OppLink": [
+          "required",
+          "text",
+          "Link to the official page or application form"
+        ],
+        "OppDomain": ["required", "text", "E.g., VLSI, Digital Design, PCB"],
+        "OppValidFrom": ["required", "date", "Start date in YYYY-MM-DD format"],
+        "OppValidEnd": ["required", "date", "End date in YYYY-MM-DD format"],
+        "OppCreatedAt": [
+          "required",
+          "date",
+          "Date the opportunity was added (YYYY-MM-DD)"
+        ],
+        "OppEligibility": [
+          "required",
+          "textarea",
+          "Who can apply (e.g., UG students, final year only)"
+        ],
+        "OppOrganiser": [
+          "required",
+          "text",
+          "Name of the organizing body (e.g., IIT Patna, Google)"
+        ],
+        "OppApplicationProcedure": [
+          "required",
+          "textarea",
+          "Steps to apply for the opportunity"
+        ],
+        "OppLocation": ["required", "text", "Location or Remote if applicable"],
+        "OppType": [
+          "required",
+          "text",
+          "Category like Internship, Event, Scholarship, Grant"
+        ]
+      }
+    },
+    "Modify": {
+      "request_method": "POST",
+      "action_url": "/api/opp/modify",
+      "enctype": "application/x-www-form-urlencoded",
+      "FormData": {
+        "OppId": ["required", "number", "ID of the opportunity to modify"],
+        "OppName": ["", "text", "Enter Opportunity Name like 'AI Fellowship'"],
+        "OppDesc": ["", "textarea", "Detailed description of the opportunity"],
+        "OppLink": [
+          "",
+          "text",
+          "Link to the official page or application form"
+        ],
+        "OppDomain": ["", "text", "E.g., ML, AI, IoT, Cybersecurity"],
+        "OppValidFrom": ["", "date", "Start date in YYYY-MM-DD format"],
+        "OppValidEnd": ["", "date", "End date in YYYY-MM-DD format"],
+        "OppCreatedAt": ["", "date", "Date the opportunity was added"],
+        "OppEligibility": ["", "textarea", "Who can apply"],
+        "OppOrganiser": ["", "text", "Organizing body"],
+        "OppApplicationProcedure": ["", "textarea", "Steps to apply"],
+        "OppLocation": ["", "text", "Location or 'Remote'"],
+        "OppType": ["", "text", "Internship, Event, etc."]
+      }
+    },
+    "Delete": {
+      "request_method": "GET",
+      "action_url": "/api/opp/delete/",
+      "enctype": "application/x-www-form-urlencoded",
+      "FormData": {
+        "OppId": ["required", "number", "Enter Opportunity ID to delete"]
+      }
+    },
+    "Fetch": {
+      "request_method": "GET",
+      "action_url": "/api/opp/",
+      "enctype": "application/x-www-form-urlencoded",
+      "FormData": {
+        "OppId": ["required", "number", "Enter Opportunity ID to fetch"]
+      }
+    },
+    "FetchAll": {
+      "request_method": "GET",
+      "action_url": "/api/opp",
+      "enctype": "application/x-www-form-urlencoded",
+      "FormData": {}
+    }
   }
 }
