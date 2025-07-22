@@ -31,7 +31,7 @@ sudo apt install php8.4-fpm
 sudo systemctl enable php8.4-fpm
 sudo systemctl start php8.4-fpm
 
-Now change the sparkonics conf file root directories to fit this 
+Now change the sparkonics conf file root directories to fit this
 and also fpm
 Disable apache, since it uses 80, if not change the port based on server
 
@@ -39,8 +39,11 @@ And also the folder have to be given access to www-data
 
 sudo chown -R kali:www-data /home/kali/sparkonics
 sudo chmod -R g+rX /home/kali/sparkonics
-And similarly all the folders 
+And similarly all the folders
 
-Now with this this, and proper nginx root directory, and proxy_pass 
+If using ngrok don't forget there a thing called mode-content, meaning if we request from https we have to get https, hence its best to make self signed certs and do this, and also we have redirect the ngrok http https://localhost:443
+Why, cause ngrok, will be in infinte loop if we give port 80, cause nginx tries to resove to 443 internally, and ngrok wouldn't know that, so yes, this is the way
+
+
+Now with this this, and proper nginx root directory, and proxy_pass
 We can finally say we have set up the folder
-

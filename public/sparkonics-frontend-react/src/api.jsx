@@ -1,6 +1,6 @@
 // api.jsx
 
-const BASE_URL = "http://localhost"; // Replace with your actual backend URL
+const BASE_URL = window.location.origin; // Replace with your actual backend URL
 
 const BackendAPI = {
   get: async (url) => {

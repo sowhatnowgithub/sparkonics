@@ -86,7 +86,7 @@ const EventsLanding = () => {
           {ongoingEvents.map((event) => (
             <div className="event">
               <Image
-                src={`http://localhost${event.EventBanner}`}
+                src={`${window.location.origin}${event.EventBanner}`}
                 alt={`Banner for ${event.EventName}`}
                 className={"event-banner"}
               />
