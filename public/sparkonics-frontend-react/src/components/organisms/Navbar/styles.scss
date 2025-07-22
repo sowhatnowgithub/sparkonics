@@ -1,204 +1,235 @@
 @use "src/styles/colors" as colors;
+/* Reset */
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+/* Navbar */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 60px;
+  background-color: #222;
+  color: white;
+  display: flex;
+  align-items: center;
+  padding: 0 2rem;
+  z-index: 1000;
+}
+
+/* Container below navbar */
+.iframe-container {
+  position: fixed;
+  top: 60px;  /* height of navbar */
+  left: 0; right: 0; bottom: 0;
+  overflow: hidden;
+}
+
+/* iframe fills container */
+.iframe-container iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+}
 
 
 nav {
-    background: colors.$bg-dark;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  padding: 0 2rem;
+  background: colors.$bg-dark;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+
+  .icon {
+    font-weight: bolder;
+    font-family: "Chakra Petch", serif;
+    color: colors.$text;
+    font-size: 1.75rem;
+  }
+
+  .options-desktop {
+    gap: 1rem;
     display: flex;
-    justify-content: space-between;
+
+    .option {
+      color: colors.$text;
+      font-family: "Chakra Petch", serif;
+      transition: color 250ms linear;
+
+      &:hover {
+        color: colors.$blue;
+      }
+
+      &.active {
+        color: colors.$blue;
+      }
+    }
+  }
+
+  .hamburger {
+    width: 2rem;
+    height: 2rem;
+    position: relative;
+    display: none;
     align-items: center;
-    padding: 1rem 2rem;
 
+    .icon-left {
+      transition-duration: 0.25s;
+      height: 2px;
+      width: 1rem;
+      background-color: colors.$text;
 
-    position: absolute;
-    top: 0rem;
-    left: 0rem;
-    right: 0;
-    margin-top: 1rem;
-    margin-left: 2rem;
-    margin-right: 2rem;
+      &:before {
+        transform: translateY(-12px);
+        transition-duration: 0.5s;
+        width: 1rem;
+        height: 2px;
+        background-color: colors.$text;
+        content: "";
+        display: block;
+      }
 
-    z-index: 10;
-    box-sizing: border-box;
-
-    .icon {
-        font-weight: bolder;
-        font-family: "Chakra Petch", serif;
-        color: colors.$text;
-        font-size: 1.75rem;
+      &:after {
+        transform: translateY(8px);
+        transition-duration: 0.5s;
+        width: 1rem;
+        height: 2px;
+        background-color: colors.$text;
+        content: "";
+        display: block;
+      }
     }
 
-    .options-desktop {
+    .icon-right {
+      transition-duration: 0.25s;
+      height: 2px;
+      width: 1rem;
+      background-color: colors.$text;
+
+      &:before {
+        transform: translateY(-12px);
+        transition-duration: 0.5s;
+        width: 1rem;
+        height: 2px;
+        background-color: colors.$text;
+        content: "";
+        display: block;
+      }
+
+      &:after {
+        transform: translateY(8px);
+        transition-duration: 0.5s;
+        width: 1rem;
+        height: 2px;
+        background-color: colors.$text;
+        content: "";
+        display: block;
+      }
+    }
+
+    &.hamburger-toggled {
+      .icon-left {
+        background: transparent;
+
+        &:before {
+          transform: rotateZ(45deg) scaleX(1.4) translate(-4px, -4px);
+        }
+
+        &:after {
+          transform: rotateZ(-45deg) scaleX(1.4) translate(-4px, 4px);
+        }
+      }
+
+      .icon-right {
+        background: transparent;
+
+        &:before {
+          transform: rotateZ(-45deg) scaleX(1.4) translate(4px, -4px);
+        }
+
+        &:after {
+          transform: rotateZ(45deg) scaleX(1.4) translate(4px, 4px);
+        }
+      }
+    }
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  .options-mobile-wrapper {
+    width: 100vw;
+    height: 100vh;  // fixed height, changed from 100dvh to 100vh
+    position: fixed;  // fixed to cover screen
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.25);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 250ms linear;
+    z-index: 9; // just below navbar
+
+    .options-mobile {
+      height: 100%;
+      width: 15rem;
+      max-width: 100vw;
+      padding: 1rem 2rem;
+      background-color: colors.$bg-dark;
+      transition: all 250ms linear;
+      transform: translateX(-100%);
+
+      .icon {
+        margin-bottom: 3rem;
+        padding-bottom: 0.25rem;
+        border-bottom: 2px solid colors.$border;
+      }
+
+      .options {
         gap: 1rem;
 
         .option {
-            color: colors.$text;
-            font-family: "Chakra Petch", serif;
-            transition: color 250ms linear;
-
-            &:hover {
-                color: colors.$blue;
-            }
-
-            &.active {
-                color: colors.$blue;
-            }
+          padding: 1rem 2rem;
+          text-align: center;
+          font-size: 1.25rem;
+          color: colors.$text;
         }
+      }
     }
 
+    &.options-mobile-shown {
+      opacity: 1;
+      visibility: visible;
 
-    .hamburger {
-        width: 2rem;
-        height: 2rem;
-        position: relative;
-        display: none;
-        align-items: center;
-
-        .icon-left {
-            transition-duration: 0.25s;
-            height: 2px;
-            width: 1rem;
-            background-color: colors.$text;
-
-            &:before {
-                transform: translateY(-12px);
-                transition-duration: 0.5s;
-                width: 1rem;
-                height: 2px;
-                background-color: colors.$text;
-                content: "";
-                display: block;
-            }
-
-            &:after {
-                transform: translateY(8px);
-                transition-duration: 0.5s;
-                width: 1rem;
-                height: 2px;
-                background-color: colors.$text;
-                content: "";
-                display: block;
-            }
-        }
-
-        .icon-right {
-            transition-duration: 0.25s;
-            height: 2px;
-            width: 1rem;
-            background-color: colors.$text;
-
-            &:before {
-                transform: translateY(-12px);
-                transition-duration: 0.5s;
-                width: 1rem;
-                height: 2px;
-                background-color: colors.$text;
-                content: "";
-                display: block;
-            }
-
-            &:after {
-                transform: translateY(8px);
-                transition-duration: 0.5s;
-                width: 1rem;
-                height: 2px;
-                background-color: colors.$text;
-                content: "";
-                display: block;
-            }
-        }
-
-        &.hamburger-toggled {
-            .icon-left {
-                background: transparent;
-
-                &:before {
-                    transform: rotateZ(45deg) scaleX(1.4) translate(-4px, -4px);
-                }
-
-                &:after {
-                    transform: rotateZ(-45deg) scaleX(1.4) translate(-4px, 4px);
-                }
-            }
-
-            .icon-right {
-                background: transparent;
-
-                &:before {
-                    transform: rotateZ(-45deg) scaleX(1.4) translate(4px, -4px);
-                }
-
-                &:after {
-                    transform: rotateZ(45deg) scaleX(1.4) translate(4px, 4px);
-                }
-            }
-        }
-
-        &:hover {
-            cursor: pointer;
-        }
+      .options-mobile {
+        transform: translateX(0);
+      }
     }
-    .options-mobile-wrapper {
-        width: 100vw;
-        height: 100dvh;
-        position: absolute;
-        top: -.5rem;
-        left: -1rem;
-        background-color: rgba(0, 0, 0, 0.25);
-        opacity: 0;
-        visibility: hidden;
-        transition: all 250ms linear;
-
-        .options-mobile {
-            height: 100%;
-            width: 15rem;
-            max-width: 100vw;
-            padding: 1rem 2rem;
-            background-color: colors.$bg-dark;
-            transition: all 250ms linear;
-            transform: translateX(-100%);
-
-            .icon {
-                margin-bottom: 3rem;
-                padding-bottom: .25rem;
-                border-bottom: 2px solid colors.$border;
-            }
-
-            .options {
-                gap: 1rem;
-
-                .option {
-                    padding: 1rem 2rem;
-                    text-align: center;
-                    font-size: 1.25rem;
-                    color: colors.$text;
-                }
-            }
-        }
-
-
-        &.options-mobile-shown {
-            opacity: 1;
-            visibility: visible;
-
-            .options-mobile {
-                transform: translateX(0);
-            }
-        }
-    }
+  }
 }
 
+
+
 @media screen and (max-width: 768px) {
-    nav {
-        margin-top: .5rem;
-        margin-left: 1rem;
-        margin-right: 1rem;
+  nav {
+    padding: 0 1rem;
+  }
 
-    }
-
-    .options-desktop {
-        display: none !important;
-    }
-    .hamburger {
-        display: flex !important;
-    }
+  .options-desktop {
+    display: none !important;
+  }
+  .hamburger {
+    display: flex !important;
+  }
 }

@@ -195,43 +195,6 @@
                 text-shadow: 0 0 20px rgba(144, 252, 253, 0.5);
             }
 
-            /* Back to Login Button */
-            .back-to-login-btn {
-                position: absolute;
-                top: 2rem;
-                right: 2rem;
-                padding: 0.8rem 1.8rem;
-                border-radius: 25px;
-                font-size: 1.1rem;
-                font-weight: 600;
-                text-decoration: none;
-                color: var(--primary);
-                background: linear-gradient(
-                    135deg,
-                    var(--secondary),
-                    var(--tertiary)
-                );
-                box-shadow:
-                    0 0 5px var(--secondary),
-                    0 0 10px var(--secondary),
-                    0 0 15px var(--secondary),
-                    0 0 20px var(--secondary);
-                transition: all 0.3s ease-in-out;
-                z-index: 10;
-            }
-
-            .back-to-login-btn:hover {
-                box-shadow:
-                    0 0 10px var(--secondary),
-                    0 0 20px var(--secondary),
-                    0 0 30px var(--secondary),
-                    0 0 40px var(--secondary),
-                    0 0 50px var(--secondary),
-                    0 0 60px var(--secondary),
-                    0 0 70px var(--secondary);
-                transform: scale(1.05);
-            }
-
             .team-grid {
                 display: grid;
                 grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -504,13 +467,6 @@
                     grid-template-columns: 1fr;
                     gap: 1.5rem;
                 }
-
-                .back-to-login-btn {
-                    top: 1rem;
-                    right: 1rem;
-                    padding: 0.6rem 1.2rem;
-                    font-size: 0.9rem;
-                }
             }
         </style>
     </head>
@@ -520,10 +476,6 @@
         <div id="reload-notification" class="reload-notification"></div>
 
         <main id="main-content">
-            <a href="/index.html" class="back-to-login-btn"
-                >Back to Main Page</a
-            >
-
             <header>
                 <h1>Our Team</h1>
             </header>

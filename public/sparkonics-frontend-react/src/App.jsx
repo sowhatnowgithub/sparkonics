@@ -1,10 +1,10 @@
 import { useEffect } from "react";
 import Lenis from "lenis";
+import VanillaPageWrapper from "./VanillaPageWrapper";
 
 import { Navbar } from "./components/organisms/index.jsx";
 import { Route, Routes } from "react-router";
 import {
-  Teams,
   EventsLanding,
   EventsModify,
   Landing,
@@ -40,10 +40,22 @@ function App() {
           <Route path={"events"}>
             <Route index element={<EventsLanding />} />
           </Route>
-
-          <Route path={"admin"}>
-            <Route path={"events"} element={<EventsModify />} />
-          </Route>
+          <Route
+            path="/gallery"
+            element={<VanillaPageWrapper src="http://localhost/gallery" />}
+          />
+          <Route
+            path="/profs"
+            element={<VanillaPageWrapper src="http://localhost/profs" />}
+          />
+          <Route
+            path="/teams"
+            element={<VanillaPageWrapper src="http://localhost/teams" />}
+          />
+          <Route
+            path="/opp"
+            element={<VanillaPageWrapper src="http://localhost/opp" />}
+          />
         </Routes>
       </div>
     </>
