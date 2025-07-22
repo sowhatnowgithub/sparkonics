@@ -31,30 +31,31 @@ function App() {
     };
   }, []);
 
+  const baseurl = window.location.origin;
+  //const baseurl = "http://localhost";
   return (
     <>
       <Navbar />
-
       <div className="main">
         <Routes>
-          <Route path={"events"}>
+          <Route path="events">
             <Route index element={<EventsLanding />} />
           </Route>
           <Route
             path="/gallery"
-            element={<VanillaPageWrapper src="http://localhost/gallery" />}
+            element={<VanillaPageWrapper src={`${baseurl}/gallery`} />}
           />
           <Route
             path="/profs"
-            element={<VanillaPageWrapper src="http://localhost/profs" />}
+            element={<VanillaPageWrapper src={`${baseurl}/profs`} />}
           />
           <Route
             path="/teams"
-            element={<VanillaPageWrapper src="http://localhost/teams" />}
+            element={<VanillaPageWrapper src={`${baseurl}/teams`} />}
           />
           <Route
             path="/opp"
-            element={<VanillaPageWrapper src="http://localhost/opp" />}
+            element={<VanillaPageWrapper src={`${baseurl}/opp`} />}
           />
         </Routes>
       </div>

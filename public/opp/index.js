@@ -716,7 +716,7 @@ export function renderSparkonicsOpportunities(containerId) {
         loadingMsg.innerHTML = "🔄 Fetching opportunities from API...";
         grid.appendChild(loadingMsg);
 
-        const response = await fetch("http://localhost/api/opp");
+        const response = await fetch("/api/opp");
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
