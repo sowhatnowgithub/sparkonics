@@ -49,17 +49,104 @@ $jobTableQuery = "CREATE TABLE Jobs (
 
 
 */
+require_once __DIR__ . "/../../vendor/autoload.php";
+
 use Openswoole\Timer;
 use Swoole\Event;
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 
-$sleep = 3000;
+$sleep = 60 * 1000;
 //this is in milli seconds, i am thinking
 //It will be like a timer which will sleep for about 30minutes but for testing i will take 3seconds,
 date_default_timezone_set("Asia/Kolkata");
 
-// make the members automated mailing based on the members db, we have mailing three weeks before two weeks before one week before befoer registraiton and on the day,
+function resheduleTheJob($executeDate, $job, $db)
+{
+    mailer($job);
+    $max = 3;
+    if (is_numeric($job["MaxOccurrences"])) {
+        $max = (int) $job["MaxOccurrences"] - 1;
+    }
+    if ($max == 0) {
+        $stmt = $db->prepare(
+            "UPDATE Jobs SET MaxOccurrences = :max ,Active = 0 WHERE JobId = :id",
+        );
+        $stmt->execute([
+            ":max" => $max,
+            ":id" => $job["JobId"],
+        ]);
+    }
+    if (is_numeric($job["IntervalDays"]) && $job["IntervalDays"] > 0) {
+        $executeDate += (int) ((float) $job["IntervalDays"] * 86400);
+        $executeDateNotUnix = date("Y-m-d\TH:i", $executeDate);
+        $stmt = $db->prepare(
+            "UPDATE Jobs SET MaxOccurrences = :max, NextScheduledAt = :next WHERE JobId = :id",
+        );
+        $stmt->execute([
+            ":max" => $max,
+            ":next" => $executeDateNotUnix,
+            ":id" => $job["JobId"],
+        ]);
+    } else {
+        $stmt = $db->prepare(
+            "UPDATE Jobs SET MaxOccurrences = :max, NextScheduledAt = :next WHERE JobId = :id",
+        );
+        $stmt->execute([
+            ":next" => $job["EndDate"],
+            ":id" => $job["JobId"],
+        ]);
+    }
+}
+function mailer($mailerInfo)
+{
+    $mail = new PHPMailer(true);
 
-function mailer($mailerInfo) {}
+    try {
+        $mail->isSMTP();
+        $mail->Host = "smtp-mail.outlook.com";
+        $mail->SMTPAuth = true;
+        $mail->SMTPSecure = "tls";
+        $mail->Port = 587;
+
+        $mail->Username = $mailerInfo["SenderEmail"];
+        $mail->Password = $mailerInfo["SenderEmailPassword"];
+
+        $mail->setFrom($mailerInfo["SenderEmail"], "Sparkonics Mailer");
+        $mail->addAddress($mailerInfo["RecipientEmail"]);
+
+        if (!empty($mailerInfo["CC"])) {
+            $ccAddresses = explode(",", $mailerInfo["CC"]);
+            foreach ($ccAddresses as $cc) {
+                $mail->addCC(trim($cc));
+            }
+        }
+
+        $logoPath = __DIR__ . "/sparkonics_cover.jpeg";
+        $mail->addEmbeddedImage($logoPath, "sparkonics_logo");
+
+        $footerHTML = <<<HTML
+            <hr style="margin-top:20px;"/>
+            <div style="text-align: center; font-size: 13px; color: #555;">
+                <img src="cid:sparkonics_logo" alt="Sparkonics Logo" width="100" style="margin-bottom: 10px;"><br>
+                <strong>Sparkonics</strong><br>
+                Society of Electrical Engineers<br>
+                Indian Institute of Technology Patna
+            </div>
+        HTML;
+
+        $mail->isHTML(true);
+        $mail->Subject = $mailerInfo["Subject"];
+        $mail->Body = $mailerInfo["Body"] . $footerHTML;
+
+        $mail->send();
+        echo "Email sent to {$mailerInfo["RecipientEmail"]}\n";
+        $mail = null;
+    } catch (Exception $e) {
+        echo "Mailer Error: {$mail->ErrorInfo}\n";
+    }
+}
+
 Timer::tick($sleep, function () {
     $now = date("Y-m-d\TH:i");
     $nowUnix = strtotime($now);
@@ -77,64 +164,33 @@ Timer::tick($sleep, function () {
             $executeDate = strtotime($job["NextScheduledAt"]);
             $startDate = strtotime($job["StartDate"]);
             $endDate = strtotime($job["EndDate"]);
-            $maxOccurances = strtotime($job["MaxOccurences"]);
+            $maxOccurances = $job["MaxOccurrences"];
             switch ($job["Active"]) {
                 case 1:
                     if ($nowUnix > $endDate) {
                         $stmt = $db->prepare(
-                            "DELETE FROM Jobs WHERE JobId = {$job["JobId"]}",
+                            "DELETE FROM Jobs WHERE JobId = :id",
                         );
-                        $stmt->execute();
+                        $stmt->execute([":id" => $job["JobId"]]);
                     } else {
                         switch ($executeDate) {
                             case false:
                                 $stmt = $db->prepare(
-                                    "UPDATE Jobs SET NextScheduledAt = {$job["StartDate"]} WHERE JobId = {$job["JobId"]}",
+                                    "UPDATE Jobs SET NextScheduledAt = '{$job["StartDate"]}' WHERE JobId = {$job["JobId"]}",
                                 );
                                 $stmt->execute();
+
+                                if ($nowUnix >= strtotime($job["StartDate"])) {
+                                    resheduleTheJob(
+                                        strtotime($job["StartDate"]),
+                                        $job,
+                                        $db,
+                                    );
+                                }
                                 break;
                             default:
-                                if ($nowUnix > $executeDate) {
-                                    if (
-                                        is_numeric($job["IntervalDays"]) &&
-                                        $job["IntervalDays"] > 0
-                                    ) {
-                                        $executeDate +=
-                                            (int) $job["IntervalDays"] * 86400;
-                                        $stmt = $db->prepare(
-                                            "UPDATE Jobs SET NextScheduledAt = {$executeDate} WHERE JobId = {$job["JobId"]}",
-                                        );
-                                        $stmt->execute();
-                                    } else {
-                                        $stmt = $db->prepare(
-                                            "UPDATE Jobs SET NextScheduledAt = {$job["EndDate"]} WHERE JobId = {$job["JobId"]}",
-                                        );
-                                        $stmt->execute();
-                                    }
-                                } elseif ($nowUnix == $executeDate) {
-                                    mailer($job);
-                                    if (is_numeric($job["IntervalDays"])) {
-                                        $executeDate +=
-                                            (int) $job["IntervalDays"] * 86400;
-                                    } else {
-                                        break;
-                                    }
-                                    $max = null;
-                                    if (is_numeric($job["MaxOccurences"])) {
-                                        $max = (int) $job["MaxOccurrences"] - 1;
-                                    } else {
-                                        break;
-                                    }
-                                    if ($max == 0) {
-                                        $stmt = $db->prepare(
-                                            "UPDATE Jobs SET Active = 0 WHERE JobId = {$job["JobId"]}",
-                                        );
-                                        $stmt->execute();
-                                    }
-                                    $stmt = $db->prepare(
-                                        "UPDATE Jobs SET MaxOccurences = {$max} WHERE JobId = {$job["JobId"]}",
-                                    );
-                                    $stmt->execute();
+                                if ($nowUnix >= $executeDate) {
+                                    resheduleTheJob($executeDate, $job, $db);
                                 }
                         }
                     }
@@ -142,14 +198,14 @@ Timer::tick($sleep, function () {
                 case 0:
                     if ($nowUnix > $endDate) {
                         $stmt = $db->prepare(
-                            "DELETE FROM Jobs WHERE JobId = {$job["JobId"]}",
+                            "DELETE FROM Jobs WHERE JobId = :id",
                         );
-                        $stmt->execute();
+                        $stmt->execute([":id" => $job["JobId"]]);
                     }
             }
-            $stmt = null;
-            $db = null;
         }
+        $stmt = null;
+        $db = null;
     } catch (\PDOException $e) {
         echo "Failed to fetch";
         var_dump($e);

@@ -143,7 +143,7 @@
     </label>
 
     <label>Interval Days:
-      <input type="number" name="IntervalDays" min="0" required placeholder="Rember whatever you will give here it will be multiplied by 84000 forseconds ">
+      <input type="number" step="0.0001" name="IntervalDays" min="0" required placeholder="Rember whatever you will give here it will be multiplied by 84000 forseconds ">
     </label>
 
     <label>Next Scheduled At:
@@ -185,7 +185,13 @@
     <label>End Date: <input type="datetime-local" name="EndDate"></label>
     <label>Interval Days: <input type="number" name="IntervalDays" min="0"></label>
     <label>Next Scheduled At: <input type="datetime-local" name="NextScheduledAt" hidden></label>
-    <label>Max Occurrences: <input type="number" name="MaxOccurrences" min="0"></label>
+    <label>Max Occurrences: <input type="number" step="0.0001" name="MaxOccurrences" min="0"></label>
+
+    <label>Active:
+      <select name="Active" required>
+        <option value="1">Yes</option>
+      </select>
+    </label>
     <button type="submit">Modify Job</button>
   </form>
 
