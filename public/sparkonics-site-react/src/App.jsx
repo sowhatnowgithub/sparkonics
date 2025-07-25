@@ -286,13 +286,7 @@ function FuturisticNavbar() {
       >
         <ul className="flex items-center gap-6 text-cyan-300 font-medium">
           <li>
-            <a href="/">
-              <img
-                alt="Sparkonics Logo"
-                class="h-10 object-contain drop-shadow-[0_0_8px_rgba(144,252,253,0.7)]"
-                src="/images/sparkonics_shiny.png"
-              ></img>
-            </a>
+            <a href="/">Home</a>
           </li>
           <li>
             <a href="/about" className="hover:text-yellow-300">
@@ -332,16 +326,6 @@ function FuturisticNavbar() {
           <li>
             <a href="/teams" className="hover:text-yellow-300">
               Team
-            </a>
-          </li>
-          <li>
-            <a
-              href="/admin"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-yellow-300"
-            >
-              Admin
             </a>
           </li>
         </ul>

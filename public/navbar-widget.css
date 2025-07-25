@@ -619,3 +619,19 @@ canvas {
 .dropdown {
     position: relative;
 }
+
+/* In styles.css or within <style> tag */
+#sparkonics-logo {
+    height: 10px; /* default height, you can change this value later */
+    width: auto; /* Keeps aspect ratio */
+    object-fit: contain; /* Ensures the image doesn't stretch */
+    box-shadow: 0 0 8px rgba(144, 252, 253, 0.7); /* Custom drop shadow */
+    z-index: 2; /* Example z-index */
+}
+
+/* You can also add custom media queries if you want it responsive */
+@media (max-width: 600px) {
+    #sparkonics-logo {
+        height: 30px; /* Smaller logo for mobile */
+    }
+}

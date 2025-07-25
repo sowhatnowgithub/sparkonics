@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>About Us</title>
+
+        <script src="../navbar-widget.iife.js"></script>
+
+        <link rel="stylesheet" href="../navbar-widget.css" />
+    </head>
+    <body style="margin: 0; padding: 0">
+        <script type="module">
+            import { showAtomicPreloader } from "/preloader/preloader.js";
+
+            const preloader = showAtomicPreloader({
+                timeout: 3000,
+                loadingText: "Loading About Us Page",
+                subtitle: "Preparing your experience...",
+                showProgress: true,
+                onComplete: () => {
+                    console.log("App ready!");
+                },
+            });
+        </script>
+        <script type="module">
+            import { showAtomicPreloader } from "/preloader/preloader_bg.js";
+
+            showAtomicPreloader({
+                onComplete: () => {
+                    console.log("Preloader animation finished. App is ready!");
+                    // You can now initialize your app here
+                },
+                blockSize: 65, // optional, default is 65px
+                revealDelay: 1, // optional, default is 1ms (very fast)
+            });
+        </script>
+
+        <div
+            id="sparkonics-navbar-widget"
+            style="
+                position: relative;
+                width: 100%;
+                height: auto;
+                z-index: 9999;
+                overflow-x: auto;
+                font-family:
+                    &quot;Inter&quot;, &quot;Space Grotesk&quot;, sans-serif;
+                background: linear-gradient(
+                    135deg,
+                    rgba(144, 252, 253, 0.08),
+                    rgba(0, 0, 0, 0.7)
+                );
+                border: 1px solid rgba(246, 231, 82, 0.3);
+                box-shadow: 0 0 18px rgba(144, 252, 253, 0.18);
+                padding: 0.5rem 1.2rem;
+                border-radius: 1.25rem;
+            "
+        >
+            <!-- Injected navbar HTML here -->
+            <div id="navbar-overlay">
+                <div id="react-navbar"></div>
+            </div>
+        </div>
+        <script>
+            injectNavbar();
+        </script>
+        <script type="module">
+            import { initSparkonicsBackground } from "/background/index.js";
+            const cleanup = initSparkonicsBackground();
+        </script>
+    </body>
+</html>
