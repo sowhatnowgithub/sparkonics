@@ -1,5 +1,5 @@
 import React from "react";
-
+import "./container.css";
 const VanillaPageWrapper = ({ src }) => {
   return (
     <>

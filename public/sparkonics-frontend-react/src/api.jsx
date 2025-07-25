@@ -1,7 +1,6 @@
 // api.jsx
 
 const BASE_URL = window.location.origin; // Replace with your actual backend URL
-
 const BackendAPI = {
   get: async (url) => {
     const response = await fetch(`${BASE_URL}${url}`);

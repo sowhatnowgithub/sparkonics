@@ -1,0 +1,30 @@
+html,
+body,
+#root {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: var(--modern-font);
+}
+
+#navbar {
+    font-size: 1rem;
+    font-weight: 500;
+    background: rgba(0, 10, 20, 0.6);
+    border-radius: 1rem;
+    border: 1px solid rgba(144, 252, 253, 0.3);
+    box-shadow: 0 0 12px rgba(144, 252, 253, 0.2);
+}
+.iframe-container {
+    position: relative;
+    width: 100%;
+    height: 100vh; /* Full screen */
+    overflow: hidden;
+}
+
+.iframe-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+}

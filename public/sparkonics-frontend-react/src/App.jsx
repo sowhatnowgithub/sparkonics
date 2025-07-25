@@ -4,11 +4,7 @@ import VanillaPageWrapper from "./VanillaPageWrapper";
 
 import { Navbar } from "./components/organisms/index.jsx";
 import { Route, Routes } from "react-router";
-import {
-  EventsLanding,
-  EventsModify,
-  Landing,
-} from "./components/pages/index.jsx";
+import { Events, Landing } from "./components/pages/index.jsx";
 
 function App() {
   useEffect(() => {
@@ -32,14 +28,22 @@ function App() {
   }, []);
 
   const baseurl = window.location.origin;
-  //const baseurl = "http://localhost";
+
   return (
     <>
-      <Navbar />
-      <div className="main">
+      {/* Navbar Overlay */}
+      <div id="navbar-overlay">
+        <Navbar />
+      </div>
+
+      {/* Main Content Below */}
+      <div className="main-content">
         <Routes>
-          <Route path="events">
-            <Route index element={<EventsLanding />} />
+          <Route path="/">
+            <Route index element={<Landing />} />
+          </Route>
+          <Route path="/events">
+            <Route index element={<Events />} />
           </Route>
           <Route
             path="/gallery"

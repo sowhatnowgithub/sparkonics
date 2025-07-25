@@ -1,11 +1,11 @@
 import "./styles.scss";
 import { useEffect, useState } from "react";
-import { ProgressBar } from "../../../molecules/index.jsx";
-import { Button, FlexBox, Image, RelativeTime } from "../../../atoms/index.jsx";
+import { ProgressBar } from "../../molecules/index.jsx";
+import { Button, FlexBox, Image, RelativeTime } from "../../atoms/index.jsx";
 import clsx from "clsx";
-import BackendAPI from "../../../../api.jsx";
+import BackendAPI from "../../../api.jsx";
 
-const EventsLanding = () => {
+const Events = () => {
   const [events, setEvents] = useState([]);
   const [slideNumber, setSlideNumber] = useState(0);
   const [upcomingEvents, setUpcomingEvents] = useState([]);
@@ -168,4 +168,4 @@ const EventsLanding = () => {
   );
 };
 
-export default EventsLanding;
+export default Events;
