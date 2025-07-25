@@ -151,153 +151,6 @@
                     opacity: 0;
                 }
             }
-
-            .preloader {
-                position: fixed;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                background: linear-gradient(
-                    135deg,
-                    #000818 0%,
-                    #001122 50%,
-                    #000510 100%
-                );
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                flex-direction: column;
-                z-index: 9999;
-                transition:
-                    opacity 0.8s ease,
-                    visibility 0.8s ease;
-            }
-
-            .preloader.hidden {
-                opacity: 0;
-                visibility: hidden;
-            }
-
-            .preloader-content {
-                text-align: center;
-                position: relative;
-            }
-
-            .spark-loader {
-                width: 120px;
-                height: 120px;
-                position: relative;
-                margin-bottom: 32px;
-            }
-
-            .spark-ring {
-                position: absolute;
-                width: 100%;
-                height: 100%;
-                border: 2px solid transparent;
-                border-radius: 50%;
-                animation: sparkRotate 2s linear infinite;
-            }
-
-            .spark-ring:nth-child(1) {
-                border-top: 2px solid #00f0ff;
-                border-right: 2px solid rgba(0, 240, 255, 0.3);
-                animation-duration: 2s;
-            }
-
-            .spark-ring:nth-child(2) {
-                border-bottom: 2px solid #ffd300;
-                border-left: 2px solid rgba(255, 211, 0, 0.3);
-                animation-duration: 1.5s;
-                animation-direction: reverse;
-            }
-
-            .spark-core {
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                width: 40px;
-                height: 40px;
-                background: radial-gradient(
-                    circle,
-                    #ffd300 20%,
-                    transparent 70%
-                );
-                border-radius: 50%;
-                animation: sparkPulse 1.5s ease-in-out infinite;
-            }
-
-            @keyframes sparkRotate {
-                0% {
-                    transform: rotate(0deg);
-                }
-                100% {
-                    transform: rotate(360deg);
-                }
-            }
-
-            @keyframes sparkPulse {
-                0%,
-                100% {
-                    transform: translate(-50%, -50%) scale(1);
-                    box-shadow: 0 0 20px rgba(255, 211, 0, 0.5);
-                }
-                50% {
-                    transform: translate(-50%, -50%) scale(1.2);
-                    box-shadow: 0 0 30px rgba(255, 211, 0, 0.8);
-                }
-            }
-
-            .loading-text {
-                color: #ffd300;
-                font-family: "Space Grotesk", sans-serif;
-                font-size: 1.2rem;
-                font-weight: 600;
-                margin-bottom: 12px;
-                animation: textGlow 2s ease-in-out infinite;
-            }
-
-            .loading-subtitle {
-                color: rgba(0, 240, 255, 0.8);
-                font-size: 0.9rem;
-                font-weight: 400;
-            }
-
-            .error-message {
-                background: rgba(255, 100, 100, 0.1);
-                border: 1px solid rgba(255, 100, 100, 0.3);
-                color: #ff6464;
-                padding: 16px;
-                border-radius: 8px;
-                text-align: center;
-                margin: 20px 0;
-                font-size: 0.9rem;
-            }
-
-            .loading-message {
-                background: rgba(0, 240, 255, 0.1);
-                border: 1px solid rgba(0, 240, 255, 0.3);
-                color: #00f0ff;
-                padding: 16px;
-                border-radius: 8px;
-                text-align: center;
-                margin: 20px 0;
-                font-size: 0.9rem;
-            }
-
-            @keyframes textGlow {
-                0%,
-                100% {
-                    text-shadow: 0 0 10px rgba(255, 211, 0, 0.5);
-                }
-                50% {
-                    text-shadow:
-                        0 0 20px rgba(255, 211, 0, 0.8),
-                        0 0 30px rgba(0, 240, 255, 0.3);
-                }
-            }
         </style>
 
         <script src="../navbar-widget.iife.js"></script>
@@ -306,17 +159,31 @@
         <link rel="stylesheet" href="../navbar-widget.css" />
     </head>
     <body>
-        <div class="preloader" id="preloader">
-            <div class="preloader-content">
-                <div class="spark-loader">
-                    <div class="spark-ring"></div>
-                    <div class="spark-ring"></div>
-                    <div class="spark-core"></div>
-                </div>
-                <div class="loading-text">Initializing Sparkonics</div>
-                <div class="loading-subtitle">Loading Projects...</div>
-            </div>
-        </div>
+        <script type="module">
+            import { showAtomicPreloader } from "/preloader/preloader.js";
+
+            const preloader = showAtomicPreloader({
+                timeout: 3000,
+                loadingText: "Loading Projects Under taken by the Sparkonics",
+                subtitle: "Preparing your experience...",
+                showProgress: true,
+                onComplete: () => {
+                    console.log("App ready!");
+                },
+            });
+        </script>
+        <script type="module">
+            import { showAtomicPreloader } from "/preloader/preloader_bg.js";
+
+            showAtomicPreloader({
+                onComplete: () => {
+                    console.log("Preloader animation finished. App is ready!");
+                    // You can now initialize your app here
+                },
+                blockSize: 65, // optional, default is 65px
+                revealDelay: 1, // optional, default is 1ms (very fast)
+            });
+        </script>
         <!-- Hero Section with Grid Motion -->
         <div
             id="sparkonics-navbar-widget"
@@ -347,6 +214,10 @@
 
         <script>
             injectNavbar();
+        </script>
+        <script type="module">
+            import { initSparkonicsBackground } from "/background/index.js";
+            const cleanup = initSparkonicsBackground();
         </script>
         <div class="hero">
             <div class="grid-motion-container">
@@ -673,17 +544,5 @@
         </div>
 
         <script src="script.js"></script>
-        <script>
-            window.addEventListener("load", function () {
-                const preloader = document.getElementById("preloader");
-
-                // Ensure it shows for at least 3 seconds
-                setTimeout(() => {
-                    if (preloader) {
-                        preloader.classList.add("hidden");
-                    }
-                }, 1000); // 3000 milliseconds = 3 seconds
-            });
-        </script>
     </body>
 </html>

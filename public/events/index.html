@@ -15,6 +15,31 @@
     </head>
     <body style="margin: 0; padding: 0">
         <!-- The widget will render into this container -->
+        <script type="module">
+            import { showAtomicPreloader } from "/preloader/preloader.js";
+
+            const preloader = showAtomicPreloader({
+                timeout: 3000,
+                loadingText: "Loading Events",
+                subtitle: "Preparing your experience...",
+                showProgress: true,
+                onComplete: () => {
+                    console.log("App ready!");
+                },
+            });
+        </script>
+        <script type="module">
+            import { showAtomicPreloader } from "/preloader/preloader_bg.js";
+
+            showAtomicPreloader({
+                onComplete: () => {
+                    console.log("Preloader animation finished. App is ready!");
+                    // You can now initialize your app here
+                },
+                blockSize: 65, // optional, default is 65px
+                revealDelay: 1, // optional, default is 1ms (very fast)
+            });
+        </script>
 
         <div
             id="sparkonics-navbar-widget"
@@ -45,6 +70,11 @@
         <script>
             injectNavbar();
         </script>
+        <script type="module">
+            import { initSparkonicsBackground } from "/background/index.js";
+            const cleanup = initSparkonicsBackground();
+        </script>
+
         <div class="widget-container">
             <div id="events-widget"></div>
         </div>

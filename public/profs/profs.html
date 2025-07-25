@@ -565,6 +565,10 @@
         <script>
             injectNavbar();
         </script>
+        <script type="module">
+            import { initSparkonicsBackground } from "/background/index.js";
+            const cleanup = initSparkonicsBackground();
+        </script>
         <main id="main-content">
             <header>
                 <h1>OUR FACULTIES</h1>
