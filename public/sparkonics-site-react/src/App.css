@@ -1,0 +1,80 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Space+Grotesk:wght@400;500;700&display=swap');
+
+:root {
+  --modern-font: 'Inter', 'Space Grotesk', Arial, sans-serif;
+}
+
+body, html {
+  font-family: var(--modern-font);
+}
+
+.font-modern {
+  font-family: var(--modern-font);
+}
+
+#navbar {
+  font-family: var(--modern-font);
+  font-weight: 500;
+  font-size: 1.05rem;
+  letter-spacing: 0.01em;
+  line-height: 1.1;
+  border-radius: 1.25rem;
+  padding: 0.5rem 1.2rem;
+  box-shadow: 0 0 18px rgba(144,252,253,0.18);
+  background: linear-gradient(135deg, rgba(144,252,253,0.08) 0%, rgba(0,0,0,0.7) 100%);
+  border: 1px solid rgba(246,231,82,0.3);
+}
+
+#navbar a {
+  font-family: inherit;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  transition: color 0.2s;
+}
+
+#navbar a:hover {
+  color: rgb(144,252,253);
+}
+
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.logo {
+  height: 6em;
+  padding: 0.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}

@@ -1,0 +1,275 @@
+<!doctype html>
+<html>
+    <head>
+        <title>My App</title>
+        <style>
+            /* CSS Variables for consistent theming */
+            :root {
+                --primary: rgb(1, 6, 15); /* Dark blue/black */
+                --secondary: rgb(144, 252, 253); /* Cyan/light blue */
+                --tertiary: rgb(246, 231, 82); /* Yellow/Golden */
+                --grid-line-color: rgba(
+                    144,
+                    252,
+                    253,
+                    0.1
+                ); /* Subtle cyan for grid */
+            }
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                font-family:
+                    system-ui,
+                    -apple-system,
+                    BlinkMacSystemFont,
+                    "Segoe UI",
+                    Roboto,
+                    Oxygen,
+                    Ubuntu,
+                    Cantarell,
+                    "Open Sans",
+                    "Helvetica Neue",
+                    sans-serif;
+                background-color: var(--primary);
+                color: var(--secondary);
+                overflow-x: hidden;
+                position: relative;
+                background-image:
+                    repeating-linear-gradient(
+                        0deg,
+                        var(--grid-line-color) 0px,
+                        transparent 1px,
+                        transparent 49px,
+                        var(--grid-line-color) 50px
+                    ),
+                    repeating-linear-gradient(
+                        90deg,
+                        var(--grid-line-color) 0px,
+                        transparent 1px,
+                        transparent 49px,
+                        var(--grid-line-color) 50px
+                    );
+                background-size: 50px 50px;
+                background-position: center center;
+
+                &::-webkit-scrollbar {
+                    display: none;
+                }
+
+                -ms-overflow-style: none;
+                scrollbar-width: none;
+            }
+
+            /* --- PRELOADER ANIMATION STYLES --- */
+            #preloader {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+                display: flex;
+                flex-wrap: wrap;
+                z-index: 1000;
+                background-color: var(--primary);
+                transition:
+                    transform 1s ease-in-out,
+                    opacity 1s ease-in-out;
+            }
+
+            .block {
+                background-color: var(--primary);
+                opacity: 0;
+                transform: scale(0.5);
+                transition: all 0.4s ease;
+                border: 1px solid rgba(144, 252, 253, 0.1);
+                background-image: url("data:image/svg+xml,%3Csvg width='50' height='50' viewBox='0 0 50 50' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='25' cy='25' r='10' fill='%2390fcfd'/%3E%3Ctext x='25' y='27' font-family='Arial' font-size='20' fill='%23000000' text-anchor='middle' alignment-baseline='middle'%3E-%3C/text%3E%3C/svg%3E");
+                background-repeat: no-repeat;
+                background-position: center;
+                background-size: 30px 30px;
+            }
+
+            .block.is-visible {
+                opacity: 1;
+                transform: scale(1);
+                background-color: rgba(144, 252, 253, 0.1);
+            }
+
+            .block.unified-pattern {
+                background-image: url("data:image/svg+xml,%3Csvg width='50' height='50' viewBox='0 0 50 50' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='25' cy='25' r='12' fill='%23f6e752'/%3E%3Ctext x='25' y='27' font-family='Arial' font-size='20' fill='%23000000' text-anchor='middle' alignment-baseline='middle'%3E+%3C/text%3E%3C/svg%3E");
+                background-color: rgba(246, 231, 82, 0.2);
+            }
+        </style>
+    </head>
+    <body>
+        <!-- Your app content -->
+        <div id="app">
+            <h1>My Application</h1>
+        </div>
+
+        <!-- Optional: Container for non-fullscreen mode -->
+        <div id="preloader"></div>
+        <div class="background-bubbles"></div>
+
+        <script type="module">
+            import { showAtomicPreloader } from "./preloader.js";
+
+            // Show preloader immediately
+            const preloader = showAtomicPreloader({
+                timeout: 3000,
+                loadingText: "Loading Sparkonics",
+                subtitle: "Preparing your experience...",
+                showProgress: true,
+                onComplete: () => {
+                    console.log("App ready!");
+                    // Initialize your app here
+                },
+            });
+        </script>
+        <script>
+            (function () {
+                const preloader = document.getElementById("preloader");
+                const mainContent = document.getElementById("main-content");
+                const reloadNotification = document.getElementById(
+                    "reload-notification",
+                );
+                const teamContent = document.getElementById("team-content");
+                const backgroundBubblesContainer = document.querySelector(
+                    ".background-bubbles",
+                );
+
+                const JSON_FILE_PATH = "/api/team";
+                const MEMBERS_PER_CHUNK = 4;
+                const BUBBLE_COUNT = 100;
+
+                let teamData = [];
+                let lastModified = null;
+                let isLoading = false;
+
+                const goldenDiamondCursorSVG = `data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyIDBMNiAxMiAxMiAyNCAxOCAxMiAxMiAwWiIgc3Ryb2tlPSIjRkZGRkZGIiBzdHJva2Utd2lkdGg9IjEuNSIgZmlsbD0iI0ZGRDMwMCIvPgo8L3N2Zz4=`;
+
+                const wait = (ms) =>
+                    new Promise((resolve) => setTimeout(resolve, ms));
+
+                function showNotification(message, duration = 3000) {
+                    reloadNotification.textContent = message;
+                    reloadNotification.classList.add("show");
+                    setTimeout(() => {
+                        reloadNotification.classList.remove("show");
+                    }, duration);
+                }
+
+                function createBackgroundBubbles() {
+                    for (let i = 0; i < BUBBLE_COUNT; i++) {
+                        const bubble = document.createElement("div");
+                        bubble.classList.add("bubble");
+                        const size = Math.random() * 80 + 40;
+                        bubble.style.width = `${size}px`;
+                        bubble.style.height = `${size}px`;
+                        // Increased range for more random movement
+                        bubble.style.setProperty(
+                            "--start-x",
+                            `${Math.random() * 400 - 200}`,
+                        ); // -200 to 200 vw
+                        bubble.style.setProperty(
+                            "--start-y",
+                            `${Math.random() * 400 - 200}`,
+                        ); // -200 to 200 vh
+                        bubble.style.setProperty(
+                            "--move-x",
+                            `${Math.random() * 400 - 200}`,
+                        ); // -200 to 200 vw movement
+                        bubble.style.setProperty(
+                            "--move-y",
+                            `${Math.random() * 400 - 200}`,
+                        ); // -200 to 200 vh movement
+                        bubble.style.animationDelay = `${Math.random() * 15}s`; /* Slightly longer delay range for variety */
+                        bubble.style.setProperty(
+                            "--scale",
+                            `${Math.random() * 0.7 + 0.8}`,
+                        ); /* Larger scale range */
+                        backgroundBubblesContainer.appendChild(bubble);
+                    }
+                }
+                const blockSize = 50; // Size of blocks for preloader animation
+                const revealDelay = 8; // Delay for preloader block reveal
+
+                function shuffle(array) {
+                    for (let i = array.length - 1; i > 0; i--) {
+                        const j = Math.floor(Math.random() * (i + 1));
+                        [array[i], array[j]] = [array[j], array[i]];
+                    }
+                }
+
+                function createBlockGrid() {
+                    const screenWidth = window.innerWidth;
+                    const screenHeight = window.innerHeight;
+                    const cols = Math.ceil(screenWidth / blockSize);
+                    const rows = Math.ceil(screenHeight / blockSize);
+
+                    const blocks = [];
+
+                    for (let row = 0; row < rows; row++) {
+                        for (let col = 0; col < cols; col++) {
+                            const block = document.createElement("div");
+                            block.classList.add("block");
+                            block.style.width = `${blockSize}px`;
+                            block.style.height = `${blockSize}px`;
+                            block.style.position = "absolute";
+                            block.style.left = `${col * blockSize}px`;
+                            block.style.top = `${row * blockSize}px`;
+
+                            preloader.appendChild(block);
+                            blocks.push(block);
+                        }
+                    }
+                    return blocks;
+                }
+
+                async function runAnimation() {
+                    const blocks = createBlockGrid();
+
+                    // Phase 1: Random reveal of blocks with electron symbol
+                    shuffle(blocks);
+                    for (const block of blocks) {
+                        block.classList.add("is-visible");
+                        await wait(revealDelay);
+                    }
+
+                    await wait(1000); // Hold electron phase for a moment
+
+                    // Phase 2: Unify all blocks with proton symbol
+                    for (const block of blocks) {
+                        block.classList.add("unified-pattern"); // This will change background-image to proton
+                        await wait(2);
+                    }
+
+                    await wait(800); // Hold proton phase for a moment
+
+                    // Phase 3: Preloader exit animation
+                    preloader.style.transform = "translateY(-100%)";
+                    preloader.style.opacity = "0";
+
+                    mainContent.classList.add("is-visible");
+                    document.body.style.overflow = "auto"; // Allow page scrolling after preloader
+
+                    await wait(1000);
+                    preloader.remove(); // Remove preloader from DOM
+                }
+                // --- End Preloader Animation Logic ---
+                wait;
+                document.addEventListener("DOMContentLoaded", () => {
+                    document.body.style.cursor = `url("${goldenDiamondCursorSVG}") 12 12, auto`;
+                    createBackgroundBubbles();
+                    runAnimation(); // This now triggers the block animation
+                });
+
+                // No canvas resizing listener needed for block animation
+                // window.addEventListener('resize', () => { ... });
+            })();
+        </script>
+    </body>
+</html>

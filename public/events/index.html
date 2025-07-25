@@ -2,15 +2,20 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Sparkonics Opportunities</title>
+        <title>Events Widget</title>
+
+        <!-- Optional: Include your widget's CSS if it exists -->
+        <link rel="stylesheet" href="./events-widget.css" />
+        <script src="./events-widget.iife.js"></script>
 
         <script src="../navbar-widget.iife.js"></script>
 
         <!-- Optional: if your widget has styles -->
         <link rel="stylesheet" href="../navbar-widget.css" />
     </head>
-    <body style="margin: 0; background: black">
+    <body style="margin: 0; padding: 0">
+        <!-- The widget will render into this container -->
+
         <div
             id="sparkonics-navbar-widget"
             style="
@@ -37,18 +42,14 @@
                 <div id="react-navbar"></div>
             </div>
         </div>
-
         <script>
             injectNavbar();
         </script>
-        <main>
-            <div id="opportunityGridContainer"></div>
-        </main>
-
-        <script type="module" src="./index.js"></script>
-        <script type="module">
-            import { renderSparkonicsOpportunities } from "./index.js";
-            renderSparkonicsOpportunities("opportunityGridContainer");
+        <div class="widget-container">
+            <div id="events-widget"></div>
+        </div>
+        <script>
+            window.injectEventsWidget("events-widget");
         </script>
     </body>
 </html>

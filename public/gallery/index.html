@@ -299,6 +299,11 @@
                 }
             }
         </style>
+
+        <script src="../navbar-widget.iife.js"></script>
+
+        <!-- Optional: if your widget has styles -->
+        <link rel="stylesheet" href="../navbar-widget.css" />
     </head>
     <body>
         <div class="preloader" id="preloader">
@@ -313,6 +318,36 @@
             </div>
         </div>
         <!-- Hero Section with Grid Motion -->
+        <div
+            id="sparkonics-navbar-widget"
+            style="
+                position: relative;
+                width: 100%;
+                height: auto;
+                z-index: 9999;
+                overflow-x: auto;
+                font-family:
+                    &quot;Inter&quot;, &quot;Space Grotesk&quot;, sans-serif;
+                background: linear-gradient(
+                    135deg,
+                    rgba(144, 252, 253, 0.08),
+                    rgba(0, 0, 0, 0.7)
+                );
+                border: 1px solid rgba(246, 231, 82, 0.3);
+                box-shadow: 0 0 18px rgba(144, 252, 253, 0.18);
+                padding: 0.5rem 1.2rem;
+                border-radius: 1.25rem;
+            "
+        >
+            <!-- Injected navbar HTML here -->
+            <div id="navbar-overlay">
+                <div id="react-navbar"></div>
+            </div>
+        </div>
+
+        <script>
+            injectNavbar();
+        </script>
         <div class="hero">
             <div class="grid-motion-container">
                 <div class="grid-motion-background">

@@ -185,11 +185,11 @@
 
   <script>
     let currentSection = "";
-    const baseUrl = "<?php echo Sowhatnow\Env::API_BASE_URL; ?>";
+    const baseUrl = `${window.location.origin}`;
     function handleNavClick(section) {
       currentSection = section;
       document.getElementById("subbar").style.display = "flex";
-      const endpoint = `${baseUrl}/api/${section.toLowerCase()}`;
+      const endpoint = `/api/${section.toLowerCase()}`;
 
       fetch(endpoint, {
         method: "GET", // or "POST", depending on your use case
@@ -264,8 +264,9 @@
        formData.append("section", currentSection);
        formData.append("action", action);
 
-       const hostAddress = "<?php echo Sowhatnow\Env::HOST_ADDRESS; ?>";
+       const hostAddress = `${window.location.origin}`;
 
+       console.log(hostAddress);
        fetch(`${hostAddress}/admin/getform`, {
          method: 'POST',
          body: formData,

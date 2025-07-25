@@ -66,17 +66,6 @@
                 scrollbar-width: none;
             }
 
-            #dynamic-background-canvas {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                pointer-events: none;
-                z-index: -2;
-                background-color: transparent;
-            }
-
             /* --- PRELOADER ANIMATION STYLES (Video) --- */
             #preloader {
                 position: fixed;
@@ -105,13 +94,17 @@
 
             /* --- MAIN CONTENT STYLES --- */
             main {
+                z-index: 10;
+                position: relative;
+                width: 100%;
+                height: 100vh; /* Full screen */
+                overflow: hidden;
                 padding: 2rem;
                 max-width: 1400px;
                 margin: 0 auto;
                 opacity: 0;
                 transition: opacity 0.8s ease-in-out;
                 transition-delay: 0.5s;
-                position: relative;
             }
 
             main.is-visible {
@@ -525,6 +518,11 @@
                 }
             }
         </style>
+
+        <script src="../navbar-widget.iife.js"></script>
+
+        <!-- Optional: if your widget has styles -->
+        <link rel="stylesheet" href="../navbar-widget.css" />
     </head>
     <body>
         <div id="preloader">
@@ -537,7 +535,36 @@
         </div>
         <canvas id="dynamic-background-canvas"></canvas>
         <div id="reload-notification" class="reload-notification"></div>
+        <div
+            id="sparkonics-navbar-widget"
+            style="
+                position: relative;
+                width: 100%;
+                height: auto;
+                z-index: 9999;
+                overflow-x: auto;
+                font-family:
+                    &quot;Inter&quot;, &quot;Space Grotesk&quot;, sans-serif;
+                background: linear-gradient(
+                    135deg,
+                    rgba(144, 252, 253, 0.08),
+                    rgba(0, 0, 0, 0.7)
+                );
+                border: 1px solid rgba(246, 231, 82, 0.3);
+                box-shadow: 0 0 18px rgba(144, 252, 253, 0.18);
+                padding: 0.5rem 1.2rem;
+                border-radius: 1.25rem;
+            "
+        >
+            <!-- Injected navbar HTML here -->
+            <div id="navbar-overlay">
+                <div id="react-navbar"></div>
+            </div>
+        </div>
 
+        <script>
+            injectNavbar();
+        </script>
         <main id="main-content">
             <header>
                 <h1>OUR FACULTIES</h1>
