@@ -5,22 +5,24 @@
         <title>Events Widget</title>
 
         <!-- Optional: Include your widget's CSS if it exists -->
-        <link rel="stylesheet" href="./events-widget.css" />
+
         <script src="./events-widget.iife.js"></script>
 
         <script src="../navbar-widget.iife.js"></script>
 
-        <!-- Optional: if your widget has styles -->
         <link rel="stylesheet" href="../navbar-widget.css" />
+
+        <link rel="stylesheet" href="mystyle.css" />
+
+        <!-- Optional: if your widget has styles -->
     </head>
     <body style="margin: 0; padding: 0">
-        <!-- The widget will render into this container -->
         <script type="module">
             import { showAtomicPreloader } from "/preloader/preloader.js";
 
             const preloader = showAtomicPreloader({
                 timeout: 3000,
-                loadingText: "Loading Events",
+                loadingText: "Loading About Us Page",
                 subtitle: "Preparing your experience...",
                 showProgress: true,
                 onComplete: () => {
@@ -74,7 +76,6 @@
             import { initSparkonicsBackground } from "/background/index.js";
             const cleanup = initSparkonicsBackground();
         </script>
-
         <div class="widget-container">
             <div id="events-widget"></div>
         </div>

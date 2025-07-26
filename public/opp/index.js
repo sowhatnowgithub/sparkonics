@@ -468,5 +468,5 @@ export function renderSparkonicsOpportunities(containerId) {
       container.style.opacity = "1";
       preloader.remove();
     }, 800);
-  }, 2500);
+  }, 3000);
 }
