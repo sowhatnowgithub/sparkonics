@@ -582,6 +582,19 @@
         </style>
     </head>
     <body>
+        <script type="module">
+            import { showAtomicPreloader } from "/preloader/preloader.js";
+
+            const preloader = showAtomicPreloader({
+                timeout: 3000,
+                loadingText: "Loading Projects Page",
+                subtitle: "Preparing your experience...",
+                showProgress: true,
+                onComplete: () => {
+                    console.log("App ready!");
+                },
+            });
+        </script>
         <script src="/sparkonics-navbar.js"></script>
 
         <script type="module">
