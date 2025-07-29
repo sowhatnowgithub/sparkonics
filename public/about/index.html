@@ -2,19 +2,78 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
-        <title>About Us</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>About Page</title>
+        <style>
+            :root {
+                --foreground: rgb(246, 231, 82); /* light text (tertiary) */
+                --primary: rgb(144, 252, 253); /* cyan (secondary) */
 
-        <script src="../navbar-widget.iife.js"></script>
+                --muted-foreground: rgba(
+                    246,
+                    231,
+                    82,
+                    0.6
+                ); /* faded tertiary */
+                --border: rgba(144, 252, 253, 0.3);
 
-        <link rel="stylesheet" href="../navbar-widget.css" />
+                --gradient-card: linear-gradient(
+                    145deg,
+                    rgb(1, 6, 15),
+                    rgb(2, 12, 30)
+                );
+            }
+
+            /* Footer */
+            .footer {
+                background: var(--gradient-card);
+                border-top: 1px solid var(--border);
+                padding: 48px 16px;
+            }
+
+            .footer-container {
+                max-width: 1536px;
+                margin: 0 auto;
+                text-align: center;
+            }
+
+            .footer-title {
+                font-size: 2rem;
+                font-weight: 700;
+                color: var(--foreground);
+                margin-bottom: 16px;
+            }
+
+            .footer-description {
+                color: var(--muted-foreground);
+                margin-bottom: 24px;
+            }
+
+            .footer-links {
+                display: flex;
+                justify-content: center;
+                gap: 24px;
+                color: var(--muted-foreground);
+            }
+
+            .footer-link {
+                cursor: pointer;
+                transition: color 0.3s ease;
+            }
+
+            .footer-link:hover {
+                color: var(--primary);
+            }
+        </style>
+        <link rel="stylesheet" href="style.css" />
     </head>
-    <body style="margin: 0; padding: 0">
+    <body>
         <script type="module">
             import { showAtomicPreloader } from "/preloader/preloader.js";
 
             const preloader = showAtomicPreloader({
                 timeout: 3000,
-                loadingText: "Loading About Us Page",
+                loadingText: "Loading Projects Page",
                 subtitle: "Preparing your experience...",
                 showProgress: true,
                 onComplete: () => {
@@ -22,51 +81,429 @@
                 },
             });
         </script>
-        <script type="module">
-            import { showAtomicPreloader } from "/preloader/preloader_bg.js";
 
-            showAtomicPreloader({
-                onComplete: () => {
-                    console.log("Preloader animation finished. App is ready!");
-                    // You can now initialize your app here
-                },
-                blockSize: 65, // optional, default is 65px
-                revealDelay: 1, // optional, default is 1ms (very fast)
-            });
-        </script>
+        <script src="/sparkonics-navbar.js"></script>
 
-        <div
-            id="sparkonics-navbar-widget"
-            style="
-                position: relative;
-                width: 100%;
-                height: auto;
-                z-index: 9999;
-                overflow-x: auto;
-                font-family:
-                    &quot;Inter&quot;, &quot;Space Grotesk&quot;, sans-serif;
-                background: linear-gradient(
-                    135deg,
-                    rgba(144, 252, 253, 0.08),
-                    rgba(0, 0, 0, 0.7)
-                );
-                border: 1px solid rgba(246, 231, 82, 0.3);
-                box-shadow: 0 0 18px rgba(144, 252, 253, 0.18);
-                padding: 0.5rem 1.2rem;
-                border-radius: 1.25rem;
-            "
-        >
-            <!-- Injected navbar HTML here -->
-            <div id="navbar-overlay">
-                <div id="react-navbar"></div>
-            </div>
-        </div>
-        <script>
-            injectNavbar();
-        </script>
         <script type="module">
             import { initSparkonicsBackground } from "/background/index.js";
             const cleanup = initSparkonicsBackground();
         </script>
+        <div class="scroll-indicator" id="scrollIndicator"></div>
+
+        <!-- Animated Background Canvas -->
+        <canvas id="canvas"></canvas>
+
+        <!-- Header -->
+        <header>
+            <canvas id="headerCanvas"></canvas>
+            <div class="container">
+                <h1>About Us</h1>
+                <p class="subtitle">
+                    <strong style="color: rgb(144, 252, 253)">
+                        Building the future with cutting-edge technology</strong
+                    >
+                </p>
+            </div>
+        </header>
+
+        <!-- About Us Section -->
+        <section id="about" class="container">
+            <h2 class="section-title">A little About Sparkonics</h2>
+            <div class="content-section">
+                <p>
+                    Welcome to
+                    <strong style="color: rgb(144, 252, 253)">Sparconics</strong
+                    >, the premier electrical club of
+                    <strong style="color: rgb(144, 252, 253)">IIT Patna</strong
+                    >. We are a dynamic community of passionate electrical
+                    engineering students and enthusiasts who are dedicated to
+                    pushing the boundaries of innovation and technology.
+                </p>
+                <p>
+                    At Sparconics, we believe in the power of collaboration and
+                    hands-on learning. Our team comprises brilliant minds who
+                    are constantly exploring cutting-edge technologies in
+                    electrical engineering, electronics, robotics, and power
+                    systems. From developing sustainable energy solutions to
+                    creating intelligent automation systems, we strive to make a
+                    meaningful impact on society through our technical
+                    expertise.
+                </p>
+                <p>
+                    Our club serves as a platform for students to transform
+                    theoretical knowledge into practical applications. We
+                    organize workshops, seminars, and technical competitions
+                    that challenge our members to think creatively and solve
+                    real-world problems. Through various projects ranging from
+                    IoT implementations to renewable energy systems, we foster
+                    an environment of continuous learning and innovation.
+                </p>
+                <p>
+                    Join us on our journey as we illuminate the future with our
+                    electrical engineering prowess and continue to spark
+                    innovation in the field of technology at IIT Patna.
+                </p>
+                <div class="tech-tags">
+                    <span class="tech-tag">Electrical Engineering</span>
+                    <span class="tech-tag">Electronics</span>
+                    <span class="tech-tag">Robotics</span>
+                    <span class="tech-tag">Power Systems</span>
+                    <span class="tech-tag">IoT</span>
+                    <span class="tech-tag">Renewable Energy</span>
+                    <span class="tech-tag">Automation</span>
+                    <span class="tech-tag">Circuit Design</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dev Team Section -->
+        <section id="team" class="container">
+            <h2 class="section-title">Our Development Team</h2>
+            <div class="team-grid">
+                <div class="pc-card-wrapper">
+                    <section class="pc-card">
+                        <div class="pc-inside">
+                            <div class="pc-shine"></div>
+                            <div class="pc-glare"></div>
+                            <div class="pc-content pc-avatar-content">
+                                <img
+                                    class="avatar"
+                                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=600&fit=crop&crop=face"
+                                    alt="Alex Johnson avatar"
+                                    loading="lazy"
+                                />
+                                <div class="pc-user-info">
+                                    <div class="pc-user-details">
+                                        <div class="pc-mini-avatar">
+                                            <img
+                                                src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
+                                                alt="Alex Johnson mini avatar"
+                                                loading="lazy"
+                                            />
+                                        </div>
+                                        <div class="pc-user-text">
+                                            <div class="pc-handle">
+                                                @alexjohnson
+                                            </div>
+                                            <div class="pc-status">Online</div>
+                                        </div>
+                                    </div>
+                                    <button
+                                        class="pc-contact-btn"
+                                        onclick="window.open('https://linkedin.com/in/alexjohnson', '_blank')"
+                                        type="button"
+                                    >
+                                        LinkedIn
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="pc-content">
+                                <div class="pc-details">
+                                    <h3>Alex Johnson</h3>
+                                    <p>Frontend Lead</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <div class="pc-card-wrapper">
+                    <section class="pc-card">
+                        <div class="pc-inside">
+                            <div class="pc-shine"></div>
+                            <div class="pc-glare"></div>
+                            <div class="pc-content pc-avatar-content">
+                                <img
+                                    class="avatar"
+                                    src="https://images.unsplash.com/photo-1494790108755-2616b332c5a1?w=400&h=600&fit=crop&crop=face"
+                                    alt="Priya Sharma avatar"
+                                    loading="lazy"
+                                />
+                                <div class="pc-user-info">
+                                    <div class="pc-user-details">
+                                        <div class="pc-mini-avatar">
+                                            <img
+                                                src="https://images.unsplash.com/photo-1494790108755-2616b332c5a1?w=150&h=150&fit=crop&crop=face"
+                                                alt="Priya Sharma mini avatar"
+                                                loading="lazy"
+                                            />
+                                        </div>
+                                        <div class="pc-user-text">
+                                            <div class="pc-handle">
+                                                @priyasharma
+                                            </div>
+                                            <div class="pc-status">Online</div>
+                                        </div>
+                                    </div>
+                                    <button
+                                        class="pc-contact-btn"
+                                        onclick="window.open('https://linkedin.com/in/priyasharma', '_blank')"
+                                        type="button"
+                                    >
+                                        LinkedIn
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="pc-content">
+                                <div class="pc-details">
+                                    <h3>Priya Sharma</h3>
+                                    <p>Backend Developer</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <div class="pc-card-wrapper">
+                    <section class="pc-card">
+                        <div class="pc-inside">
+                            <div class="pc-shine"></div>
+                            <div class="pc-glare"></div>
+                            <div class="pc-content pc-avatar-content">
+                                <img
+                                    class="avatar"
+                                    src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=600&fit=crop&crop=face"
+                                    alt="Marcus Chen avatar"
+                                    loading="lazy"
+                                />
+                                <div class="pc-user-info">
+                                    <div class="pc-user-details">
+                                        <div class="pc-mini-avatar">
+                                            <img
+                                                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face"
+                                                alt="Marcus Chen mini avatar"
+                                                loading="lazy"
+                                            />
+                                        </div>
+                                        <div class="pc-user-text">
+                                            <div class="pc-handle">
+                                                @marcuschen
+                                            </div>
+                                            <div class="pc-status">Online</div>
+                                        </div>
+                                    </div>
+                                    <button
+                                        class="pc-contact-btn"
+                                        onclick="window.open('https://linkedin.com/in/marcuschen', '_blank')"
+                                        type="button"
+                                    >
+                                        LinkedIn
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="pc-content">
+                                <div class="pc-details">
+                                    <h3>Marcus Chen</h3>
+                                    <p>UI/UX Designer</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <div class="pc-card-wrapper">
+                    <section class="pc-card">
+                        <div class="pc-inside">
+                            <div class="pc-shine"></div>
+                            <div class="pc-glare"></div>
+                            <div class="pc-content pc-avatar-content">
+                                <img
+                                    class="avatar"
+                                    src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=600&fit=crop&crop=face"
+                                    alt="Sofia Rodriguez avatar"
+                                    loading="lazy"
+                                />
+                                <div class="pc-user-info">
+                                    <div class="pc-user-details">
+                                        <div class="pc-mini-avatar">
+                                            <img
+                                                src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face"
+                                                alt="Sofia Rodriguez mini avatar"
+                                                loading="lazy"
+                                            />
+                                        </div>
+                                        <div class="pc-user-text">
+                                            <div class="pc-handle">
+                                                @sofiarodriguez
+                                            </div>
+                                            <div class="pc-status">Online</div>
+                                        </div>
+                                    </div>
+                                    <button
+                                        class="pc-contact-btn"
+                                        onclick="window.open('https://linkedin.com/in/sofiarodriguez', '_blank')"
+                                        type="button"
+                                    >
+                                        LinkedIn
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="pc-content">
+                                <div class="pc-details">
+                                    <h3>Sofia Rodriguez</h3>
+                                    <p>Full-Stack Developer</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <div class="pc-card-wrapper">
+                    <section class="pc-card">
+                        <div class="pc-inside">
+                            <div class="pc-shine"></div>
+                            <div class="pc-glare"></div>
+                            <div class="pc-content pc-avatar-content">
+                                <img
+                                    class="avatar"
+                                    src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=600&fit=crop&crop=face"
+                                    alt="David Kumar avatar"
+                                    loading="lazy"
+                                />
+                                <div class="pc-user-info">
+                                    <div class="pc-user-details">
+                                        <div class="pc-mini-avatar">
+                                            <img
+                                                src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=face"
+                                                alt="David Kumar mini avatar"
+                                                loading="lazy"
+                                            />
+                                        </div>
+                                        <div class="pc-user-text">
+                                            <div class="pc-handle">
+                                                @davidkumar
+                                            </div>
+                                            <div class="pc-status">Online</div>
+                                        </div>
+                                    </div>
+                                    <button
+                                        class="pc-contact-btn"
+                                        onclick="window.open('https://linkedin.com/in/davidkumar', '_blank')"
+                                        type="button"
+                                    >
+                                        LinkedIn
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="pc-content">
+                                <div class="pc-details">
+                                    <h3>David Kumar</h3>
+                                    <p>DevOps Engineer</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </section>
+
+        <!-- Frontend Development Section -->
+        <section id="frontend" class="container">
+            <div class="content-section">
+                <h2 style="color: rgb(144, 252, 253)">Frontend Development</h2>
+                <p>
+                    Our frontend development process focuses on creating
+                    exceptional user experiences through modern web technologies
+                    and best practices. We leverage the power of HTML5 semantic
+                    markup to ensure accessibility and search engine
+                    optimization, while utilizing the latest CSS3 features
+                    including flexbox, grid layouts, and custom properties for
+                    maintainable styling systems.
+                </p>
+
+                <p>
+                    JavaScript ES6+ forms the backbone of our interactive
+                    applications, enabling us to build dynamic, responsive
+                    interfaces that adapt seamlessly across all devices. We
+                    implement modern architectural patterns such as
+                    component-based design and state management to ensure
+                    scalable and maintainable codebases that can evolve with
+                    changing requirements.
+                </p>
+
+                <p>
+                    Performance optimization is at the core of our development
+                    philosophy. We utilize advanced techniques such as lazy
+                    loading, code splitting, and progressive enhancement to
+                    deliver lightning-fast user experiences. Our commitment to
+                    web standards and progressive web app technologies ensures
+                    that our applications work reliably across all browsers and
+                    platforms.
+                </p>
+
+                <div class="tech-tags">
+                    <span class="tech-tag">HTML5</span>
+                    <span class="tech-tag">CSS3</span>
+                    <span class="tech-tag">JavaScript ES6+</span>
+                    <span class="tech-tag">Responsive Design</span>
+                    <span class="tech-tag">PWA</span>
+                    <span class="tech-tag">Web APIs</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Backend Development Section -->
+        <section id="backend" class="container">
+            <div class="content-section">
+                <h2 style="color: rgb(144, 252, 253)">Backend Development</h2>
+                <p>
+                    Our backend architecture is built on robust, scalable
+                    foundations using Node.js and Express.js to create
+                    high-performance server-side applications. We design RESTful
+                    APIs and GraphQL endpoints that provide seamless data
+                    communication between frontend applications and database
+                    systems, ensuring optimal performance and developer
+                    experience.
+                </p>
+
+                <p>
+                    Database design and management are crucial aspects of our
+                    backend development process. We work with both SQL databases
+                    like PostgreSQL for complex relational data and NoSQL
+                    solutions like MongoDB for flexible, document-based storage.
+                    Our database architectures are optimized for scalability,
+                    implementing proper indexing, caching strategies, and query
+                    optimization techniques.
+                </p>
+
+                <p>
+                    Security and reliability are paramount in our backend
+                    systems. We implement comprehensive authentication and
+                    authorization systems, data validation, rate limiting, and
+                    monitoring solutions. Our microservices architecture
+                    approach enables independent scaling and deployment of
+                    different system components, ensuring high availability and
+                    fault tolerance across our infrastructure.
+                </p>
+
+                <div class="tech-tags">
+                    <span class="tech-tag">Node.js</span>
+                    <span class="tech-tag">Express.js</span>
+                    <span class="tech-tag">PostgreSQL</span>
+                    <span class="tech-tag">MongoDB</span>
+                    <span class="tech-tag">REST APIs</span>
+                    <span class="tech-tag">GraphQL</span>
+                    <span class="tech-tag">Microservices</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+
+        <script src="script.js"></script>
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-container">
+                <h3 class="footer-title">Sparkonics</h3>
+                <p class="footer-description">
+                    Capturing innovation, one event at a time.
+                </p>
+                <div class="footer-links">
+                    <span class="footer-link">About</span>
+                    <span class="footer-link">Contact</span>
+                    <span class="footer-link">Privacy</span>
+                </div>
+            </div>
+        </footer>
     </body>
 </html>

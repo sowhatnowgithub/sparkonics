@@ -42,7 +42,7 @@ export function showAtomicPreloader({
     }
 
     .block.is-visible {
-      opacity: 1;
+      opacity: 0.2;
       transform: scale(1);
       background-color: rgba(144, 252, 253, 0.1);
     }

@@ -9,11 +9,74 @@
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
         />
         <link rel="stylesheet" href="../navbar-widget.css" />
+
+        <style>
+            :root {
+                --foreground: rgb(246, 231, 82); /* light text (tertiary) */
+                --primary: rgb(144, 252, 253); /* cyan (secondary) */
+
+                --muted-foreground: rgba(
+                    246,
+                    231,
+                    82,
+                    0.6
+                ); /* faded tertiary */
+                --border: rgba(144, 252, 253, 0.3);
+
+                --gradient-card: linear-gradient(
+                    145deg,
+                    rgb(1, 6, 15),
+                    rgb(2, 12, 30)
+                );
+            }
+
+            /* Footer */
+            .footer {
+                background: var(--gradient-card);
+                border-top: 1px solid var(--border);
+                padding: 48px 16px;
+            }
+
+            .footer-container {
+                max-width: 1536px;
+                margin: 0 auto;
+                text-align: center;
+            }
+
+            .footer-title {
+                font-size: 2rem;
+                font-weight: 700;
+                color: var(--foreground);
+                margin-bottom: 16px;
+            }
+
+            .footer-description {
+                color: var(--muted-foreground);
+                margin-bottom: 24px;
+            }
+
+            .footer-links {
+                display: flex;
+                justify-content: center;
+                gap: 24px;
+                color: var(--muted-foreground);
+            }
+
+            .footer-link {
+                cursor: pointer;
+                transition: color 0.3s ease;
+            }
+
+            .footer-link:hover {
+                color: var(--primary);
+            }
+        </style>
         <style>
             :root {
                 --primary: rgb(1, 6, 15);
-                --secondary: rgb(144, 252, 253);
-                --tertiary: rgb(246, 231, 82);
+                --secondary: #ffd300;
+
+                --tertiary: rgb(144, 252, 253);
             }
             * {
                 margin: 0;
@@ -57,7 +120,6 @@
                 font-weight: 700;
                 margin-bottom: 1rem;
                 color: var(--secondary);
-                text-shadow: 0 0 20px rgba(144, 252, 253, 0.5);
             }
 
             .team-grid {
@@ -105,20 +167,11 @@
                 position: relative;
                 z-index: 2;
                 overflow: hidden;
-                clip-path: polygon(
-                    50% 0%,
-                    100% 25%,
-                    100% 75%,
-                    50% 100%,
-                    0% 75%,
-                    0% 25%
-                );
                 background-color: var(--primary);
                 display: flex;
                 justify-content: center;
                 align-items: center;
                 transition: all 0.4s ease;
-                box-shadow: 0 0 20px rgba(144, 252, 253, 0.4);
             }
 
             .team-member-img-container img {
@@ -131,7 +184,6 @@
             }
 
             .team-member:hover .team-member-img-container {
-                box-shadow: 0 0 30px rgba(246, 231, 82, 0.6);
                 transform: scale(1.1);
             }
 
@@ -220,67 +272,6 @@
                 }
             }
         </style>
-        <style>
-            :root {
-                --foreground: rgb(246, 231, 82); /* light text (tertiary) */
-                --primary: rgb(144, 252, 253); /* cyan (secondary) */
-
-                --muted-foreground: rgba(
-                    246,
-                    231,
-                    82,
-                    0.6
-                ); /* faded tertiary */
-                --border: rgba(144, 252, 253, 0.3);
-
-                --gradient-card: linear-gradient(
-                    145deg,
-                    rgb(1, 6, 15),
-                    rgb(2, 12, 30)
-                );
-            }
-
-            /* Footer */
-            .footer {
-                background: var(--gradient-card);
-                border-top: 1px solid var(--border);
-                padding: 48px 16px;
-            }
-
-            .footer-container {
-                max-width: 1536px;
-                margin: 0 auto;
-                text-align: center;
-            }
-
-            .footer-title {
-                font-size: 2rem;
-                font-weight: 700;
-                color: var(--foreground);
-                margin-bottom: 16px;
-            }
-
-            .footer-description {
-                color: var(--muted-foreground);
-                margin-bottom: 24px;
-            }
-
-            .footer-links {
-                display: flex;
-                justify-content: center;
-                gap: 24px;
-                color: var(--muted-foreground);
-            }
-
-            .footer-link {
-                cursor: pointer;
-                transition: color 0.3s ease;
-            }
-
-            .footer-link:hover {
-                color: var(--primary);
-            }
-        </style>
     </head>
     <body>
         <script type="module">
@@ -296,51 +287,15 @@
                 },
             });
         </script>
-        <script type="module">
-            import { showAtomicPreloader } from "/preloader/preloader_bg.js";
 
-            showAtomicPreloader({
-                onComplete: () => {
-                    console.log("Preloader animation finished. App is ready!");
-                    // You can now initialize your app here
-                },
-                blockSize: 65, // optional, default is 65px
-                revealDelay: 1, // optional, default is 1ms (very fast)
-            });
-        </script>
-        <div
-            id="sparkonics-navbar-widget"
-            style="
-                position: relative;
-                width: 100%;
-                z-index: 9999;
-                overflow-x: auto;
-                font-family:
-                    &quot;Inter&quot;, &quot;Space Grotesk&quot;, sans-serif;
-                background: linear-gradient(
-                    135deg,
-                    rgba(144, 252, 253, 0.08),
-                    rgba(0, 0, 0, 0.7)
-                );
-                border: 1px solid rgba(246, 231, 82, 0.3);
-                box-shadow: 0 0 18px rgba(144, 252, 253, 0.18);
-                padding: 0.5rem 1.2rem;
-                border-radius: 1.25rem;
-            "
-        >
-            <div id="navbar-overlay">
-                <div id="react-navbar"></div>
-            </div>
-        </div>
+        <script src="/sparkonics-navbar.js"></script>
 
-        <script src="../navbar-widget.iife.js"></script>
-        <script>
-            injectNavbar();
-        </script>
         <script type="module">
             import { initSparkonicsBackground } from "/background/index.js";
             const cleanup = initSparkonicsBackground();
         </script>
+        <br />
+        <br />
 
         <main id="main-content">
             <header>
@@ -351,18 +306,6 @@
             </div>
         </main>
 
-        <footer class="footer">
-            <div class="footer-container">
-                <h3 class="footer-title">Sparkonics</h3>
-                <p class="footer-description">
-                    Capturing innovation, one event at a time.
-                </p>
-                <div class="footer-links">
-                    <span class="footer-link">About</span>
-                    <span class="footer-link">Contact</span>
-                    <span class="footer-link">Privacy</span>
-                </div>
-            </div>
         <script>
             const JSON_FILE_PATH = "/api/team";
             const MEMBERS_PER_CHUNK = 4;
@@ -500,5 +443,18 @@
                 loadTeamData();
             });
         </script>
+        <footer class="footer">
+            <div class="footer-container">
+                <h3 class="footer-title">Sparkonics</h3>
+                <p class="footer-description">
+                    Capturing innovation, one event at a time.
+                </p>
+                <div class="footer-links">
+                    <span class="footer-link">About</span>
+                    <span class="footer-link">Contact</span>
+                    <span class="footer-link">Privacy</span>
+                </div>
+            </div>
+        </footer>
     </body>
 </html>

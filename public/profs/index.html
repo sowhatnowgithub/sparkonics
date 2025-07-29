@@ -10,10 +10,9 @@
         />
         <style>
             :root {
-                --primary: rgb(1, 6, 15); /* Dark blue/black */
-                --secondary: rgb(144, 252, 253); /* Electric Blue */
-                --tertiary: rgb(246, 173, 82); /* Orange/Golden */
-                --yellow-color: rgb(255, 255, 0); /* Pure Yellow */
+                --primary: rgb(1, 6, 15);
+                --secondary: #ffd300;
+                --tertiary: rgb(144, 252, 253);
                 --grid-line-color: rgba(144, 252, 253, 0.1);
             }
 
@@ -30,17 +29,10 @@
                     BlinkMacSystemFont,
                     "Segoe UI",
                     Roboto,
-                    Oxygen,
-                    Ubuntu,
-                    Cantarell,
-                    "Open Sans",
-                    "Helvetica Neue",
                     sans-serif;
                 background-color: var(--primary);
                 color: var(--secondary);
-                overflow-x: hidden;
-                position: relative;
-
+                min-height: 100vh;
                 background-image:
                     repeating-linear-gradient(
                         0deg,
@@ -57,58 +49,12 @@
                         var(--grid-line-color) 50px
                     );
                 background-size: 50px 50px;
-                background-position: center center;
-
-                &::-webkit-scrollbar {
-                    display: none;
-                }
-                -ms-overflow-style: none;
-                scrollbar-width: none;
             }
 
-            /* --- PRELOADER ANIMATION STYLES (Video) --- */
-            #preloader {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100vw;
-                height: 100vh;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                background-color: var(--primary);
-                z-index: 1000;
-                transition: opacity 1s ease-in-out;
-                overflow: hidden;
-            }
-
-            #preloader video {
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-                position: absolute;
-                top: 0;
-                left: 0;
-                z-index: 1;
-            }
-
-            /* --- MAIN CONTENT STYLES --- */
             main {
-                z-index: 10;
-                position: relative;
-                width: 100%;
-                height: 100vh; /* Full screen */
-                overflow: hidden;
                 padding: 2rem;
                 max-width: 1400px;
                 margin: 0 auto;
-                opacity: 0;
-                transition: opacity 0.8s ease-in-out;
-                transition-delay: 0.5s;
-            }
-
-            main.is-visible {
-                opacity: 1;
             }
 
             header {
@@ -121,7 +67,6 @@
                 font-weight: 700;
                 margin-bottom: 0.5rem;
                 color: var(--secondary);
-                text-shadow: 0 0 20px rgba(144, 252, 253, 0.5);
             }
 
             header h2 {
@@ -131,11 +76,28 @@
                 margin-bottom: 2rem;
             }
 
+            .debug-info {
+                background: rgba(255, 0, 0, 0.1);
+                border: 1px solid rgba(255, 0, 0, 0.3);
+                padding: 1rem;
+                margin: 1rem 0;
+                border-radius: 8px;
+                color: #ff6b6b;
+            }
+
             .faculty-grid {
                 display: grid;
                 grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
                 gap: 3rem;
                 margin-bottom: 4rem;
+            }
+
+            /* Ensure grid items don't overflow on very small screens */
+            @media (max-width: 500px) {
+                .faculty-grid {
+                    grid-template-columns: 1fr;
+                    gap: 1rem;
+                }
             }
 
             .faculty-member {
@@ -145,95 +107,28 @@
                 padding: 3rem 2rem;
                 border-radius: 16px;
                 transition: all 0.4s ease;
-                opacity: 0;
-                transform: translateY(80px) scale(0.9);
-                position: relative;
-                overflow: hidden;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: flex-start;
                 box-shadow: 0 0 10px rgba(144, 252, 253, 0.3);
-                perspective: 1000px;
-                color: var(--secondary);
                 cursor: pointer;
             }
 
-            .faculty-member::before {
-                content: "";
-                position: absolute;
-                top: -50%;
-                left: -50%;
-                width: 200%;
-                height: 200%;
-                background: radial-gradient(
-                    circle,
-                    rgba(144, 252, 253, 0.1) 0%,
-                    transparent 70%
-                );
-                opacity: 0;
-                transition: opacity 0.4s ease;
-            }
-
-            .faculty-member:hover::before {
-                opacity: 1;
-            }
-
-            .faculty-member.reveal-image {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-
             .faculty-member:hover {
-                transform: translateY(-10px) scale(1.02) rotateY(5deg);
-                box-shadow:
-                    0 0 20px rgba(144, 252, 253, 0.5),
-                    0 0 40px rgba(144, 252, 253, 0.3);
                 border-color: var(--secondary);
+                transform: translateY(-5px);
             }
 
-            /* Image Container */
             .faculty-img-container {
                 width: 220px;
                 height: 220px;
-                margin-bottom: 1.5rem;
-                position: relative;
-                z-index: 2;
-                overflow: hidden;
+                margin: 0 auto 1.5rem;
                 border-radius: 50%;
-                background-color: var(--primary);
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                transition: all 0.4s ease;
-                box-shadow: 0 0 15px rgba(144, 252, 253, 0.4);
+                overflow: hidden;
+                border: 3px solid var(--secondary);
             }
 
             .faculty-img-container img {
-                width: calc(100% - 6px);
-                height: calc(100% - 6px);
+                width: 100%;
+                height: 100%;
                 object-fit: cover;
-                border-radius: 50%;
-                border: 3px solid var(--secondary);
-                transition: border-color 0.4s ease;
-            }
-
-            .faculty-member:hover .faculty-img-container {
-                box-shadow: 0 0 25px rgba(246, 173, 82, 0.6);
-                transform: scale(1.1);
-            }
-
-            .faculty-member:hover .faculty-img-container img {
-                border-color: var(--tertiary);
-            }
-
-            .faculty-info {
-                height: auto;
-                padding-bottom: 1rem;
-                display: flex;
-                flex-direction: column;
-                justify-content: flex-start;
-                align-items: center;
             }
 
             .faculty-info h3 {
@@ -258,137 +153,6 @@
 
             .faculty-info .domain strong {
                 color: var(--tertiary);
-            }
-
-            .faculty-details-popup {
-                display: none;
-            }
-
-            #faculty-modal {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100vw;
-                height: 100vh;
-                background: rgba(1, 6, 15, 0.95);
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                z-index: 1001;
-                opacity: 0;
-                visibility: hidden;
-                transition:
-                    opacity 0.3s ease,
-                    visibility 0.3s ease;
-                backdrop-filter: blur(5px);
-            }
-
-            #faculty-modal.visible {
-                opacity: 1;
-                visibility: visible;
-            }
-
-            .modal-content {
-                background: rgba(1, 6, 15, 0.9);
-                border: 2px solid var(--secondary);
-                border-radius: 16px;
-                padding: 3rem;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                max-width: 800px;
-                width: 90%;
-                box-shadow: 0 0 30px rgba(144, 252, 253, 0.7);
-                position: relative;
-                transform: scale(0.9);
-                transition: transform 0.3s ease;
-                max-height: 90vh;
-                overflow-y: auto;
-            }
-
-            #faculty-modal.visible .modal-content {
-                transform: scale(1);
-            }
-
-            .modal-content .faculty-img-container {
-                width: 250px;
-                height: 250px;
-                margin-bottom: 2rem;
-                box-shadow: 0 0 25px rgba(246, 173, 82, 0.8);
-            }
-
-            .modal-content .faculty-img-container img {
-                border-color: var(--tertiary);
-            }
-
-            .modal-content h3 {
-                font-size: 2.5rem;
-                color: var(--secondary);
-                margin-bottom: 1rem;
-            }
-
-            .modal-content .position {
-                font-size: 1.8rem;
-                color: var(--tertiary);
-                margin-bottom: 1rem;
-            }
-
-            .modal-content .domain {
-                font-size: 1.4rem;
-                color: var(--secondary);
-                margin-bottom: 2rem;
-            }
-
-            .modal-content .projects {
-                font-size: 1.2rem;
-                line-height: 1.6;
-                margin-bottom: 2rem;
-                padding: 0 1rem;
-            }
-
-            .modal-content .projects i {
-                margin-right: 10px;
-                color: var(--secondary);
-            }
-
-            .modal-content .linkedin-link {
-                width: 60px;
-                height: 60px;
-                font-size: 2.5rem;
-                background-color: var(--secondary);
-                color: var(--primary);
-                box-shadow: 0 0 15px rgba(144, 252, 253, 0.7);
-                border-radius: 50%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                transition: all 0.3s ease;
-                text-decoration: none;
-            }
-
-            .modal-content .linkedin-link:hover {
-                background-color: var(--tertiary);
-                box-shadow: 0 0 25px rgba(246, 173, 82, 0.9);
-                transform: scale(1.1);
-            }
-
-            .modal-close-btn {
-                position: absolute;
-                top: 1rem;
-                right: 1.5rem;
-                background: none;
-                border: none;
-                font-size: 2rem;
-                color: var(--tertiary);
-                cursor: pointer;
-                transition:
-                    color 0.3s ease,
-                    transform 0.3s ease;
-            }
-
-            .modal-close-btn:hover {
-                color: var(--secondary);
-                transform: rotate(90deg);
             }
 
             .loading {
@@ -429,138 +193,138 @@
                 border: 1px solid rgba(255, 107, 107, 0.3);
             }
 
-            .reload-notification {
+            /* Modal Styles */
+            #faculty-modal {
                 position: fixed;
-                top: 20px;
-                right: 20px;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+                background: rgba(1, 6, 15, 0.95);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 1001;
+                opacity: 0;
+                visibility: hidden;
+                transition:
+                    opacity 0.3s ease,
+                    visibility 0.3s ease;
+                backdrop-filter: blur(5px);
+            }
+
+            #faculty-modal.visible {
+                opacity: 1;
+                visibility: visible;
+            }
+
+            .modal-content {
                 background: rgba(1, 6, 15, 0.9);
+                border: 2px solid var(--secondary);
+                border-radius: 16px;
+                padding: 3rem;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                max-width: 800px;
+                width: 90%;
+                box-shadow: 0 0 30px rgba(144, 252, 253, 0.7);
+                position: relative;
+                max-height: 90vh;
+                overflow-y: auto;
+            }
+
+            .modal-content .faculty-img-container {
+                width: 250px;
+                height: 250px;
+                margin-bottom: 2rem;
+            }
+
+            .modal-content h3 {
+                font-size: 2.5rem;
+                color: var(--secondary);
+                margin-bottom: 1rem;
+            }
+
+            .modal-content .position {
+                font-size: 1.8rem;
                 color: var(--tertiary);
-                padding: 1rem 2rem;
-                border-radius: 8px;
-                z-index: 2000;
-                transform: translateX(100%);
-                transition: transform 0.3s ease;
-                font-weight: 600;
-                box-shadow: 0 4px 15px rgba(1, 6, 15, 0.3);
+                margin-bottom: 1rem;
             }
 
-            .reload-notification.show {
-                transform: translateX(0);
+            .modal-content .domain {
+                font-size: 1.4rem;
+                color: var(--secondary);
+                margin-bottom: 2rem;
             }
 
-            /* Responsive Design */
-            @media (max-width: 1200px) {
-                .faculty-grid {
-                    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-                }
+            .modal-content .projects {
+                font-size: 1.2rem;
+                line-height: 1.6;
+                margin-bottom: 2rem;
+                padding: 0 1rem;
+                text-align: center;
             }
 
-            @media (max-width: 900px) {
-                .faculty-grid {
-                    grid-template-columns: 1fr;
-                    gap: 2rem;
-                }
-                .faculty-img-container {
-                    width: 180px;
-                    height: 180px;
-                }
-                .faculty-info h3 {
-                    font-size: 1.6rem;
-                }
-                .faculty-info .position {
-                    font-size: 1.2rem;
-                }
-                .faculty-info .domain {
-                    font-size: 1rem;
-                }
-                /* Modal adjustments for smaller screens */
-                .modal-content {
-                    padding: 2rem;
-                    width: 95%;
-                }
-                .modal-content .faculty-img-container {
-                    width: 180px;
-                    height: 180px;
-                }
-                .modal-content h3 {
-                    font-size: 2rem;
-                }
-                .modal-content .position {
-                    font-size: 1.5rem;
-                }
-                .modal-content .domain {
-                    font-size: 1.2rem;
-                }
-                .modal-content .projects {
-                    font-size: 1rem;
-                }
-                .modal-content .linkedin-link {
-                    width: 50px;
-                    height: 50px;
-                    font-size: 2rem;
-                }
-                .modal-close-btn {
-                    font-size: 1.8rem;
-                    right: 1rem;
-                }
+            .modal-content .linkedin-link {
+                width: 60px;
+                height: 60px;
+                font-size: 2.5rem;
+                background-color: var(--secondary);
+                color: var(--primary);
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: all 0.3s ease;
+                text-decoration: none;
             }
 
-            @media (max-width: 768px) {
-                header h1 {
-                    font-size: 2.8rem;
-                }
-                header h2 {
-                    font-size: 1.5rem;
-                }
-
-                .modal-content {
-                    padding: 1.5rem;
-                }
+            .modal-content .linkedin-link:hover {
+                background-color: var(--tertiary);
+                transform: scale(1.1);
             }
-        </style>
 
-        <style>
-            :root {
-                --foreground: rgb(246, 231, 82); /* light text (tertiary) */
-                --primary: rgb(144, 252, 253); /* cyan (secondary) */
+            .modal-close-btn {
+                position: absolute;
+                top: 1rem;
+                right: 1.5rem;
+                background: none;
+                border: none;
+                font-size: 2rem;
+                color: var(--tertiary);
+                cursor: pointer;
+                transition:
+                    color 0.3s ease,
+                    transform 0.3s ease;
+            }
 
-                --muted-foreground: rgba(
-                    246,
-                    231,
-                    82,
-                    0.6
-                ); /* faded tertiary */
-                --border: rgba(144, 252, 253, 0.3);
-
-                --gradient-card: linear-gradient(
-                    145deg,
-                    rgb(1, 6, 15),
-                    rgb(2, 12, 30)
-                );
+            .modal-close-btn:hover {
+                color: var(--secondary);
+                transform: rotate(90deg);
             }
 
             /* Footer */
             .footer {
-                background: var(--gradient-card);
-                border-top: 1px solid var(--border);
+                background: linear-gradient(
+                    145deg,
+                    rgb(1, 6, 15),
+                    rgb(2, 12, 30)
+                );
+                border-top: 1px solid rgba(144, 252, 253, 0.3);
                 padding: 48px 16px;
-            }
-
-            .footer-container {
-                max-width: 1536px;
-                margin: 0 auto;
                 text-align: center;
             }
 
             .footer-title {
                 font-size: 2rem;
                 font-weight: 700;
-                color: var(--foreground);
+                color: var(--secondary);
                 margin-bottom: 16px;
             }
 
             .footer-description {
-                color: var(--muted-foreground);
+                color: rgba(246, 231, 82, 0.6);
                 margin-bottom: 24px;
             }
 
@@ -568,7 +332,7 @@
                 display: flex;
                 justify-content: center;
                 gap: 24px;
-                color: var(--muted-foreground);
+                color: rgba(246, 231, 82, 0.6);
             }
 
             .footer-link {
@@ -577,60 +341,256 @@
             }
 
             .footer-link:hover {
-                color: var(--primary);
+                color: var(--tertiary);
+            }
+
+            /* Mobile Responsive */
+            @media (max-width: 1200px) {
+                .faculty-grid {
+                    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+                    gap: 2.5rem;
+                }
+            }
+
+            @media (max-width: 900px) {
+                main {
+                    padding: 1rem;
+                }
+
+                .faculty-grid {
+                    grid-template-columns: 1fr;
+                    gap: 2rem;
+                }
+
+                header {
+                    margin-bottom: 2rem;
+                }
+
+                header h1 {
+                    font-size: 2.8rem;
+                }
+
+                header h2 {
+                    font-size: 1.5rem;
+                }
+
+                .faculty-member {
+                    padding: 2rem 1.5rem;
+                }
+
+                .faculty-img-container {
+                    width: 180px;
+                    height: 180px;
+                }
+
+                .faculty-info h3 {
+                    font-size: 1.6rem;
+                }
+
+                .faculty-info .position {
+                    font-size: 1.2rem;
+                }
+
+                .faculty-info .domain {
+                    font-size: 1rem;
+                }
+
+                /* Modal mobile adjustments */
+                .modal-content {
+                    padding: 2rem;
+                    width: 95%;
+                    margin: 1rem;
+                }
+
+                .modal-content .faculty-img-container {
+                    width: 200px;
+                    height: 200px;
+                    margin-bottom: 1.5rem;
+                }
+
+                .modal-content h3 {
+                    font-size: 2rem;
+                }
+
+                .modal-content .position {
+                    font-size: 1.5rem;
+                }
+
+                .modal-content .domain {
+                    font-size: 1.2rem;
+                }
+
+                .modal-content .projects {
+                    font-size: 1rem;
+                    padding: 0;
+                }
+
+                .modal-content .linkedin-link {
+                    width: 50px;
+                    height: 50px;
+                    font-size: 2rem;
+                }
+
+                .modal-close-btn {
+                    font-size: 1.8rem;
+                    right: 1rem;
+                    top: 0.5rem;
+                }
+            }
+
+            @media (max-width: 768px) {
+                body {
+                    background-size: 25px 25px;
+                }
+
+                main {
+                    padding: 0.5rem;
+                }
+
+                header h1 {
+                    font-size: 2.2rem;
+                }
+
+                header h2 {
+                    font-size: 1.2rem;
+                }
+
+                .faculty-grid {
+                    gap: 1.5rem;
+                }
+
+                .faculty-member {
+                    padding: 1.5rem 1rem;
+                }
+
+                .faculty-img-container {
+                    width: 150px;
+                    height: 150px;
+                }
+
+                .faculty-info h3 {
+                    font-size: 1.4rem;
+                }
+
+                .faculty-info .position {
+                    font-size: 1.1rem;
+                }
+
+                .faculty-info .domain {
+                    font-size: 0.9rem;
+                }
+
+                /* Mobile modal */
+                .modal-content {
+                    padding: 1.5rem;
+                    width: 98%;
+                    margin: 0.5rem;
+                    max-height: 95vh;
+                }
+
+                .modal-content .faculty-img-container {
+                    width: 150px;
+                    height: 150px;
+                    margin-bottom: 1rem;
+                }
+
+                .modal-content h3 {
+                    font-size: 1.6rem;
+                }
+
+                .modal-content .position {
+                    font-size: 1.2rem;
+                }
+
+                .modal-content .domain {
+                    font-size: 1rem;
+                    margin-bottom: 1rem;
+                }
+
+                .modal-content .projects {
+                    font-size: 0.9rem;
+                    margin-bottom: 1rem;
+                }
+
+                .footer {
+                    padding: 24px 16px;
+                }
+
+                .footer-title {
+                    font-size: 1.5rem;
+                }
+
+                .footer-links {
+                    flex-direction: column;
+                    gap: 12px;
+                }
+            }
+
+            @media (max-width: 480px) {
+                header h1 {
+                    font-size: 1.8rem;
+                }
+
+                header h2 {
+                    font-size: 1rem;
+                }
+
+                .faculty-img-container {
+                    width: 120px;
+                    height: 120px;
+                }
+
+                .faculty-info h3 {
+                    font-size: 1.2rem;
+                }
+
+                .faculty-info .position {
+                    font-size: 1rem;
+                }
+
+                .faculty-info .domain {
+                    font-size: 0.8rem;
+                }
+
+                .modal-content .faculty-img-container {
+                    width: 120px;
+                    height: 120px;
+                }
+
+                .modal-content h3 {
+                    font-size: 1.4rem;
+                }
+
+                .modal-content .position {
+                    font-size: 1.1rem;
+                }
+
+                .modal-content .domain {
+                    font-size: 0.9rem;
+                }
+
+                .modal-content .projects {
+                    font-size: 0.8rem;
+                }
+
+                .modal-content .linkedin-link {
+                    width: 40px;
+                    height: 40px;
+                    font-size: 1.5rem;
+                }
             }
         </style>
-        <script src="../navbar-widget.iife.js"></script>
-
-        <!-- Optional: if your widget has styles -->
-        <link rel="stylesheet" href="../navbar-widget.css" />
     </head>
     <body>
-        <div id="preloader">
-            <video
-                id="preloader-video"
-                src="/images/animation.webm"
-                preload="auto"
-                muted
-            ></video>
-        </div>
-        <canvas id="dynamic-background-canvas"></canvas>
-        <div id="reload-notification" class="reload-notification"></div>
-        <div
-            id="sparkonics-navbar-widget"
-            style="
-                position: relative;
-                width: 100%;
-                height: auto;
-                z-index: 9999;
-                overflow-x: auto;
-                font-family:
-                    &quot;Inter&quot;, &quot;Space Grotesk&quot;, sans-serif;
-                background: linear-gradient(
-                    135deg,
-                    rgba(144, 252, 253, 0.08),
-                    rgba(0, 0, 0, 0.7)
-                );
-                border: 1px solid rgba(246, 231, 82, 0.3);
-                box-shadow: 0 0 18px rgba(144, 252, 253, 0.18);
-                padding: 0.5rem 1.2rem;
-                border-radius: 1.25rem;
-            "
-        >
-            <!-- Injected navbar HTML here -->
-            <div id="navbar-overlay">
-                <div id="react-navbar"></div>
-            </div>
-        </div>
+        <script src="/sparkonics-navbar.js"></script>
 
-        <script>
-            injectNavbar();
-        </script>
         <script type="module">
             import { initSparkonicsBackground } from "/background/index.js";
             const cleanup = initSparkonicsBackground();
         </script>
-        <main id="main-content">
+        <br /><br />
+        <br />
+        <main>
             <header>
                 <h1>OUR FACULTIES</h1>
                 <h2>DEPARTMENT OF ELECTRICAL ENGINEERING</h2>
@@ -641,6 +601,7 @@
             </div>
         </main>
 
+        <!-- Modal -->
         <div id="faculty-modal">
             <div class="modal-content">
                 <button class="modal-close-btn">&times;</button>
@@ -652,7 +613,7 @@
                 <div class="domain" id="modal-prof-domain"></div>
                 <p class="projects">
                     <i class="fas fa-code-branch"></i>
-                    <strong id="modal-prof-projects-label">Projects:</strong>
+                    <strong>Projects:</strong>
                     <span id="modal-prof-projects"></span>
                 </p>
                 <a
@@ -660,7 +621,6 @@
                     href="#"
                     target="_blank"
                     class="linkedin-link"
-                    aria-label="LinkedIn Profile"
                 >
                     <i class="fab fa-linkedin"></i>
                 </a>
@@ -683,27 +643,15 @@
         </footer>
 
         <script>
-            (function () {
-                const preloader = document.getElementById("preloader");
-                const preloaderVideo =
-                    document.getElementById("preloader-video");
-
-                const dynamicBackgroundCanvas = document.getElementById(
-                    "dynamic-background-canvas",
-                );
-                const ctxBackground = dynamicBackgroundCanvas.getContext("2d");
-
-                const mainContent = document.getElementById("main-content");
-                const reloadNotification = document.getElementById(
-                    "reload-notification",
-                );
+            // Simplified JavaScript without animations
+            document.addEventListener("DOMContentLoaded", function () {
                 const facultyContent =
                     document.getElementById("faculty-content");
-
-                // Modal
                 const facultyModal = document.getElementById("faculty-modal");
                 const modalCloseBtn =
                     facultyModal.querySelector(".modal-close-btn");
+
+                // Modal elements
                 const modalProfImage =
                     document.getElementById("modal-prof-image");
                 const modalProfName =
@@ -720,287 +668,13 @@
                     "modal-prof-linkedin",
                 );
 
-                const JSON_FILE_PATH = "/api/profs";
-                const PARTICLE_COUNT_BACKGROUND = 150;
-
-                let facultyData = [];
-                let lastModified = null;
-
-                const goldenDiamondCursorSVG = `data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyIDBMNiAxMiAxMiAyNCAxOCAxMiAxMiAwWiIgc3Ryb2tlPSIjRkZGRkZGIiBzdHJva2Utd2lkdGg9IjEuNSIgZmlsbD0iI0ZGRDMwMCIvPgo8L2Nzdmc+`;
-
-                const wait = (ms) =>
-                    new Promise((resolve) => setTimeout(resolve, ms));
-
-                function showNotification(message, duration = 3000) {
-                    reloadNotification.textContent = message;
-                    reloadNotification.classList.add("show");
-                    setTimeout(() => {
-                        reloadNotification.classList.remove("show");
-                    }, duration);
-                }
-
-                // ---Starts
-                class Particle {
-                    constructor(canvasWidth, canvasHeight, colors) {
-                        this.x = Math.random() * canvasWidth;
-                        this.y = Math.random() * canvasHeight;
-                        this.radius = Math.random() * 2 + 1;
-                        this.dx = (Math.random() - 0.5) * 0.5;
-                        this.dy = (Math.random() - 0.5) * 0.5;
-                        this.color =
-                            Math.random() < 0.7
-                                ? colors.secondary
-                                : colors.tertiary;
-                        this.opacity = Math.random() * 0.5 + 0.3;
-                    }
-
-                    update(canvasWidth, canvasHeight) {
-                        this.x += this.dx;
-                        this.y += this.dy;
-
-                        if (
-                            this.x + this.radius > canvasWidth ||
-                            this.x - this.radius < 0
-                        ) {
-                            this.dx = -this.dx;
-                        }
-                        if (
-                            this.y + this.radius > canvasHeight ||
-                            this.y - this.radius < 0
-                        ) {
-                            this.dy = -this.dy;
-                        }
-                    }
-
-                    draw(ctx) {
-                        ctx.beginPath();
-                        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                        const rgb = rgbStringToRgb(this.color);
-                        ctx.fillStyle = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${this.opacity})`;
-                        ctx.fill();
-                    }
-                }
-
-                let backgroundParticles = [];
-                let backgroundAnimationFrameId;
-
-                function initParticlesBackground() {
-                    dynamicBackgroundCanvas.width = window.innerWidth;
-                    dynamicBackgroundCanvas.height = window.innerHeight;
-                    backgroundParticles = [];
-                    const colors = {
-                        secondary: getComputedStyle(document.documentElement)
-                            .getPropertyValue("--secondary")
-                            .trim(),
-                        tertiary: getComputedStyle(document.documentElement)
-                            .getPropertyValue("--tertiary")
-                            .trim(),
-                    };
-                    for (let i = 0; i < PARTICLE_COUNT_BACKGROUND; i++) {
-                        backgroundParticles.push(
-                            new Particle(
-                                dynamicBackgroundCanvas.width,
-                                dynamicBackgroundCanvas.height,
-                                colors,
-                            ),
-                        );
-                    }
-                }
-
-                function animateParticlesBackground() {
-                    ctxBackground.clearRect(
-                        0,
-                        0,
-                        dynamicBackgroundCanvas.width,
-                        dynamicBackgroundCanvas.height,
-                    );
-                    backgroundParticles.forEach((particle) => {
-                        particle.update(
-                            dynamicBackgroundCanvas.width,
-                            dynamicBackgroundCanvas.height,
-                        );
-                        particle.draw(ctxBackground);
-                    });
-                    backgroundAnimationFrameId = requestAnimationFrame(
-                        animateParticlesBackground,
-                    );
-                }
-                // --- END
-
-                // --- PRELOADER VIDEO LOGIC ---
-                function runPreloaderVideo() {
-                    if (preloaderVideo) {
-                        preloaderVideo
-                            .play()
-                            .catch((e) =>
-                                console.log(
-                                    "Preloader video play prevented:",
-                                    e,
-                                ),
-                            );
-                        preloaderVideo.onended = () => {
-                            preloader.style.opacity = "0";
-                            mainContent.classList.add("is-visible");
-                            document.body.style.overflow = "auto";
-                            setTimeout(() => {
-                                preloader.remove();
-                            }, 1000);
-                        };
-                    } else {
-                        preloader.style.opacity = "0";
-                        mainContent.classList.add("is-visible");
-                        document.body.style.overflow = "auto";
-                        setTimeout(() => {
-                            preloader.remove();
-                        }, 1000);
-                    }
-                }
-                // --- END PRELOADER VIDEO LOGIC ---
-                function rgbStringToRgb(rgbString) {
-                    const parts = rgbString.match(/\d+/g).map(Number);
-                    return { r: parts[0], g: parts[1], b: parts[2] };
-                }
-
-                function renderFacultyMembers() {
-                    facultyContent.innerHTML = "";
-                    let html = `<div class="faculty-grid">`;
-
-                    facultyData.forEach((prof) => {
-                        const initials = prof.ProfName.split(" ")
-                            .map((n) => n[0])
-                            .join("")
-                            .toUpperCase();
-                        const primaryColorClean = primaryColor
-                            .replace("rgb(", "")
-                            .replace(")", "");
-                        const tertiaryColorClean = tertiaryColor
-                            .replace("rgb(", "")
-                            .replace(")", "");
-                        const placeholderUrl = `https://placehold.co/220x220/${primaryColorClean}/${tertiaryColorClean}?text=${initials}`;
-
-                        console.log(prof);
-                        const profImageUrl = prof.ProfImage;
-                        const baseURL = `${window.location.origin}`;
-                        html += `
-                                <div class="faculty-member"
-                                     data-prof-name="${prof.ProfName}"
-                                     data-prof-position="${prof.ProfPosition}"
-                                     data-prof-domain="${prof.ProfDomain}"
-                                     data-prof-projects="${prof.ProfCurrentProjects}"
-                                     data-prof-linkedin="${prof.ProfLinkedIn}"
-                                     data-prof-image="${profImageUrl}">
-                                    <div class="faculty-img-container">
-                                        <img src="${baseURL}${profImageUrl}" alt="${prof.ProfName}"
-                                            onerror="this.src='${placeholderUrl}'">
-                                    </div>
-                                    <div class="faculty-info">
-                                        <h3>${prof.ProfName}</h3>
-                                        <div class="position">${prof.ProfPosition}</div>
-                                        <div class="domain"><strong>Domain:</strong> ${prof.ProfDomain}</div>
-                                    </div>
-                                    <div class="faculty-details-popup"></div>
-                                </div>
-                        `;
-                    });
-                    html += `</div>`;
-
-                    facultyContent.innerHTML = html;
-                    setupIntersectionObservers();
-                    setupCardClickListeners();
-                }
-
-                let facultyImageRevealObserver;
-
-                function setupIntersectionObservers() {
-                    if (facultyImageRevealObserver)
-                        facultyImageRevealObserver.disconnect();
-
-                    facultyImageRevealObserver = new IntersectionObserver(
-                        (entries) => {
-                            entries.forEach((entry) => {
-                                if (entry.isIntersecting) {
-                                    const memberElement = entry.target;
-                                    if (
-                                        !memberElement.classList.contains(
-                                            "reveal-image",
-                                        )
-                                    ) {
-                                        memberElement.classList.add(
-                                            "reveal-image",
-                                        );
-                                    }
-                                }
-                            });
-                        },
-                        {
-                            root: null,
-                            rootMargin: "0px",
-                            threshold: 0.1,
-                        },
-                    );
-
-                    document
-                        .querySelectorAll(".faculty-member")
-                        .forEach((member) => {
-                            facultyImageRevealObserver.observe(member);
-                        });
-                }
-
-                function setupCardClickListeners() {
-                    document
-                        .querySelectorAll(".faculty-member")
-                        .forEach((card) => {
-                            card.addEventListener("click", (event) => {
-                                if (event.target.closest(".linkedin-link"))
-                                    return;
-
-                                const profName = card.dataset.profName;
-                                const profPosition = card.dataset.profPosition;
-                                const profDomain = card.dataset.profDomain;
-                                const profProjects = card.dataset.profProjects;
-                                const profLinkedIn = card.dataset.profLinkedin;
-                                const profImage = card.dataset.profImage;
-
-                                // Populate modal
-                                modalProfImage.src = profImage;
-                                modalProfImage.alt = profName;
-                                modalProfName.textContent = profName;
-                                modalProfPosition.textContent = profPosition;
-                                modalProfDomain.textContent = `Domain: ${profDomain}`;
-                                modalProfProjects.textContent = profProjects;
-                                modalProfLinkedIn.href = profLinkedIn;
-
-                                facultyModal.classList.add("visible");
-                                document.body.style.overflow = "hidden"; // Prevent scrolling while modal is open
-                            });
-                        });
-
-                    // Close modal listeners
-                    modalCloseBtn.addEventListener("click", closeModal);
-                    facultyModal.addEventListener("click", (event) => {
-                        if (event.target === facultyModal) {
-                            // Only close if clicked on overlay, not content
-                            closeModal();
-                        }
-                    });
-                    document.addEventListener("keydown", (event) => {
-                        if (
-                            event.key === "Escape" &&
-                            facultyModal.classList.contains("visible")
-                        ) {
-                            closeModal();
-                        }
-                    });
-                }
-
-                function closeModal() {
-                    facultyModal.classList.remove("visible");
-                    document.body.style.overflow = "auto";
-                }
-
                 async function loadFacultyData() {
                     try {
-                        const response = await fetch(JSON_FILE_PATH);
+                        console.log("Fetching data from /api/profs...");
+
+                        const response = await fetch("/api/profs");
+                        console.log("Response status:", response.status);
+                        console.log("Response headers:", response.headers);
 
                         if (!response.ok) {
                             throw new Error(
@@ -1009,98 +683,160 @@
                         }
 
                         const data = await response.json();
-                        const currentModified =
-                            response.headers.get("Last-Modified");
+                        console.log("Faculty data received:", data);
+                        console.log("Data type:", typeof data);
+                        console.log("Is array:", Array.isArray(data));
+                        console.log("Data length:", data.length);
 
-                        if (
-                            lastModified &&
-                            currentModified &&
-                            currentModified !== lastModified
-                        ) {
-                            showNotification(
-                                "Faculty data updated! Refreshing...",
+                        if (!Array.isArray(data) || data.length === 0) {
+                            throw new Error(
+                                "No faculty data found or data is not an array",
                             );
-                            await wait(1000);
                         }
 
-                        lastModified = currentModified;
-                        facultyData = data;
-
-                        await wait(800);
-
-                        renderFacultyMembers();
+                        renderFacultyMembers(data);
                     } catch (error) {
                         console.error("Error loading faculty data:", error);
-                        document.getElementById("faculty-content").innerHTML = `
-                                <div class="error">
-                                    <h3>Error Loading Faculty Data</h3>
-                                    <p>Could not load data.json. Please ensure:</p>
-                                    <ul style="text-align: left; margin-top: 1rem; list-style-position: inside;">
-                                        <li>The file exists in the same folder as this HTML file</li>
-                                        <li>The JSON format is correct</li>
-                                        <li>You're running this from a web server (not file:// protocol)</li>
-                                    </ul>
-                                    <p style="margin-top: 1rem;">Error details: ${error.message}</p>
+                        facultyContent.innerHTML = `
+                            <div class="error">
+                                <h3>Error Loading Faculty Data</h3>
+                                <p><strong>Error:</strong> ${error.message}</p>
+                                <div class="debug-info">
+                                    <p><strong>Debug Info:</strong></p>
+                                    <p>Trying to fetch from: ${window.location.origin}/api/profs</p>
+                                    <p>Current URL: ${window.location.href}</p>
+                                    <p>Check browser console for more details</p>
                                 </div>
+                            </div>
                         `;
                     }
                 }
 
-                function startAutoReload() {
-                    setInterval(async () => {
-                        try {
-                            const response = await fetch(JSON_FILE_PATH, {
-                                method: "HEAD",
-                                cache: "no-cache",
-                            });
-                            const currentModified =
-                                response.headers.get("Last-Modified");
+                function renderFacultyMembers(facultyData) {
+                    console.log("Rendering faculty members:", facultyData);
 
-                            if (
-                                lastModified &&
-                                currentModified &&
-                                currentModified !== lastModified
-                            ) {
-                                showNotification(
-                                    "Changes detected! Reloading faculty data...",
-                                );
-                                await loadFacultyData();
-                            }
-                        } catch (error) {
-                            console.log("Auto-reload check failed:", error);
-                        }
-                    }, 5000);
+                    let html = '<div class="faculty-grid">';
+
+                    facultyData.forEach((prof, index) => {
+                        console.log(`Processing professor ${index}:`, prof);
+
+                        // Create initials for placeholder
+                        const initials = prof.ProfName
+                            ? prof.ProfName.split(" ")
+                                  .map((n) => n[0])
+                                  .join("")
+                                  .toUpperCase()
+                            : "NA";
+                        const placeholderUrl = `https://placehold.co/220x220/01060f/90fcfd?text=${initials}`;
+
+                        // Use the image URL from the API or fallback to placeholder
+                        const profImageUrl = prof.ProfImage
+                            ? `${window.location.origin}${prof.ProfImage}`
+                            : placeholderUrl;
+
+                        html += `
+                            <div class="faculty-member" data-index="${index}">
+                                <div class="faculty-img-container">
+                                    <img src="${profImageUrl}" alt="${prof.ProfName || "Faculty Member"}"
+                                        onerror="this.src='${placeholderUrl}'">
+                                </div>
+                                <div class="faculty-info">
+                                    <h3>${prof.ProfName || "Name not available"}</h3>
+                                    <div class="position">${prof.ProfPosition || "Position not available"}</div>
+                                    <div class="domain"><strong>Domain:</strong> ${prof.ProfDomain || "Domain not available"}</div>
+                                </div>
+                            </div>
+                        `;
+                    });
+
+                    html += "</div>";
+                    facultyContent.innerHTML = html;
+
+                    // Add click listeners to faculty cards
+                    setupCardClickListeners(facultyData);
                 }
-                const primaryColor = getComputedStyle(document.documentElement)
-                    .getPropertyValue("--primary")
-                    .trim();
-                const secondaryColor = getComputedStyle(
-                    document.documentElement,
-                )
-                    .getPropertyValue("--secondary")
-                    .trim();
-                const tertiaryColor = getComputedStyle(document.documentElement)
-                    .getPropertyValue("--tertiary")
-                    .trim();
-                const yellowColor = getComputedStyle(document.documentElement)
-                    .getPropertyValue("--yellow-color")
-                    .trim();
 
-                document.addEventListener("DOMContentLoaded", () => {
-                    document.body.style.cursor = `url("${goldenDiamondCursorSVG}") 12 12, auto`;
-                    initParticlesBackground();
-                    animateParticlesBackground();
-                    runPreloaderVideo();
-                    loadFacultyData();
-                    startAutoReload();
+                // Add touch/tap feedback for mobile
+                function setupCardClickListeners(facultyData) {
+                    document
+                        .querySelectorAll(".faculty-member")
+                        .forEach((card) => {
+                            // Add touch feedback
+                            card.addEventListener("touchstart", function () {
+                                this.style.transform =
+                                    "translateY(-2px) scale(0.98)";
+                            });
+
+                            card.addEventListener("touchend", function () {
+                                this.style.transform = "";
+                            });
+
+                            card.addEventListener("click", function (e) {
+                                e.preventDefault(); // Prevent double-tap zoom on mobile
+
+                                const index = parseInt(this.dataset.index);
+                                const prof = facultyData[index];
+
+                                console.log("Opening modal for:", prof);
+
+                                // Populate modal
+                                const initials = prof.ProfName
+                                    ? prof.ProfName.split(" ")
+                                          .map((n) => n[0])
+                                          .join("")
+                                          .toUpperCase()
+                                    : "NA";
+                                const placeholderUrl = `https://placehold.co/250x250/01060f/90fcfd?text=${initials}`;
+                                const profImageUrl = prof.ProfImage
+                                    ? `${window.location.origin}${prof.ProfImage}`
+                                    : placeholderUrl;
+
+                                modalProfImage.src = profImageUrl;
+                                modalProfImage.alt =
+                                    prof.ProfName || "Faculty Member";
+                                modalProfName.textContent =
+                                    prof.ProfName || "Name not available";
+                                modalProfPosition.textContent =
+                                    prof.ProfPosition ||
+                                    "Position not available";
+                                modalProfDomain.textContent = `Domain: ${prof.ProfDomain || "Domain not available"}`;
+                                modalProfProjects.textContent =
+                                    prof.ProfCurrentProjects ||
+                                    "No projects listed";
+                                modalProfLinkedIn.href =
+                                    prof.ProfLinkedIn || "#";
+
+                                // Show modal
+                                facultyModal.classList.add("visible");
+                                document.body.style.overflow = "hidden";
+                            });
+                        });
+                }
+
+                function closeModal() {
+                    facultyModal.classList.remove("visible");
+                    document.body.style.overflow = "auto";
+                }
+
+                // Modal close listeners
+                modalCloseBtn.addEventListener("click", closeModal);
+                facultyModal.addEventListener("click", function (event) {
+                    if (event.target === facultyModal) {
+                        closeModal();
+                    }
+                });
+                document.addEventListener("keydown", function (event) {
+                    if (
+                        event.key === "Escape" &&
+                        facultyModal.classList.contains("visible")
+                    ) {
+                        closeModal();
+                    }
                 });
 
-                window.addEventListener("resize", () => {
-                    dynamicBackgroundCanvas.width = window.innerWidth;
-                    dynamicBackgroundCanvas.height = window.innerHeight;
-                    initParticlesBackground();
-                });
-            })();
+                // Load the data
+                loadFacultyData();
+            });
         </script>
     </body>
 </html>

@@ -9,11 +9,6 @@
             content="Discover extraordinary moments and innovative ideas from our curated collection of events"
         />
         <link rel="stylesheet" href="style.css" />
-
-        <script src="../navbar-widget.iife.js"></script>
-
-        <!-- Optional: if your widget has styles -->
-        <link rel="stylesheet" href="../navbar-widget.css" />
     </head>
     <body>
         <script type="module">
@@ -41,37 +36,8 @@
                 revealDelay: 1, // optional, default is 1ms (very fast)
             });
         </script>
-        <!-- Hero Section with Grid Motion -->
-        <div
-            id="sparkonics-navbar-widget"
-            style="
-                position: relative;
-                width: 100%;
-                height: auto;
-                z-index: 9999;
-                overflow-x: auto;
-                font-family:
-                    &quot;Inter&quot;, &quot;Space Grotesk&quot;, sans-serif;
-                background: linear-gradient(
-                    135deg,
-                    rgba(144, 252, 253, 0.08),
-                    rgba(0, 0, 0, 0.7)
-                );
-                border: 1px solid rgba(246, 231, 82, 0.3);
-                box-shadow: 0 0 18px rgba(144, 252, 253, 0.18);
-                padding: 0.5rem 1.2rem;
-                border-radius: 1.25rem;
-            "
-        >
-            <!-- Injected navbar HTML here -->
-            <div id="navbar-overlay">
-                <div id="react-navbar"></div>
-            </div>
-        </div>
+        <script src="/sparkonics-navbar.js"></script>
 
-        <script>
-            injectNavbar();
-        </script>
         <script type="module">
             import { initSparkonicsBackground } from "/background/index.js";
             const cleanup = initSparkonicsBackground();

@@ -36,17 +36,17 @@ h6 {
 
 h1 {
     font-size: 3rem;
-    color: #90fcfd;
+    color: #ffd300;
 }
 
 h2 {
     font-size: 2.25rem;
-    color: #90fcfd;
+    color: #ffd300;
 }
 
 h3 {
     font-size: 1.75rem;
-    color: #67e8f9; /* light cyan for h3 */
+    color: #ffd300; /* light cyan for h3 */
 }
 
 h4 {
@@ -75,7 +75,7 @@ p {
 }
 
 a {
-    color: #67e8f9; /* soft yellow/gold */
+    color: #ffd300; /* soft yellow/gold */
     text-decoration: none;
     transition: color 0.2s ease-in-out;
 }
@@ -144,20 +144,20 @@ a:hover {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    color: #90fcfd;
+    color: #ffd300;
     text-shadow: 0 0 6px rgba(0, 0, 0, 0.8);
 }
 
 .events-present .events .event .event-details span {
     text-transform: uppercase;
     letter-spacing: 1.2px;
-    color: rgba(144, 252, 253, 0.85);
+    color: #ffd300;
 }
 
 .events-present .events .event .event-details h2 {
     font-size: 3.5rem;
     margin: 0;
-    color: #90fcfd;
+    color: #ffd300;
 }
 
 .events-present .events .event .event-details h3 {
@@ -169,7 +169,7 @@ a:hover {
 .events-present .events .event .event-details p {
     margin-top: 3rem;
     max-width: 50%;
-    color: rgba(156, 163, 175, 0.85);
+    color: rgba(103, 232, 249, 0.9);
 }
 
 .events-present .events .event .event-details:before {
@@ -181,9 +181,9 @@ a:hover {
     bottom: 0;
     background: linear-gradient(
         135deg,
-        rgba(144, 252, 253, 0.1),
-        rgba(0, 0, 0, 0.8)
-    ); /* dark overlay with cyan hint */
+        rgba(200, 240, 240, 0.2),
+        rgba(150, 200, 255, 0.3)
+    );
     z-index: 100;
     border-radius: 0.5rem;
 }
@@ -410,7 +410,8 @@ a:hover {
     border-radius: 4px;
     display: inline-block;
     background-color: transparent;
-    color: #90fcfd;
+    color: #ffd300;
+    border-color: #ffd300;
 }
 
 .sw-button-shadow {
@@ -418,13 +419,13 @@ a:hover {
 }
 
 .sw-button-shadow:hover {
-    box-shadow: 6px 8px 12px rgba(144, 252, 253, 0.3);
+    box-shadow: 0 0 10px rgba(255, 211, 0, 0.3);
 }
 
 .sw-button-filled {
+    background: #ffd300;
     color: #000;
-    background: #f6e752; /* gold background */
-    box-shadow: 0 4px 6px rgba(246, 231, 82, 0.5);
+    box-shadow: 0 4px 6px rgba(255, 211, 0, 0.5);
 }
 
 .sw-button-filled:hover {

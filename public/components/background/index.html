@@ -2,6 +2,7 @@
 <html>
     <head>
         <title>My App</title>
+        <script src="/background/index.js"></script>
     </head>
     <body>
         <!-- Your app content -->
@@ -12,12 +13,5 @@
         <!-- Optional: Container for non-fullscreen mode -->
         <div id="preloadr"></div>
         <div class="background-bubbles"></div>
-
-        <script type="module">
-            import { initSparkonicsBackground } from "./index.js";
-
-            // Start the background effects
-            const cleanup = initSparkonicsBackground();
-        </script>
     </body>
 </html>
