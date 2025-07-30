@@ -1,9 +1,0 @@
-@use "../../../styles/colors" as colors;
-
-.progressbar {
-    position: fixed;
-    height: 3px;
-    background-color: colors.$blue;
-    top: 0;
-    left: 0;
-}

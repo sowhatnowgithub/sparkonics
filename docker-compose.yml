@@ -2,36 +2,55 @@ version: "3.8"
 
 services:
   nginx:
-    image: nginx:latest
+    image: nginx:alpine
+    container_name: sparkonics-nginx
     ports:
       - "80:80"
+      - "443:443"
     volumes:
-      - .:/var/www
-      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+      - .:/var/www:ro
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./nginx/ssl:/etc/nginx/ssl:ro
+      - ./nginx/logs:/var/log/nginx
     depends_on:
       - swoole-api
       - php-fpm
     networks:
-      - swoole-net
+      - sparkonics-net
+    restart: unless-stopped
 
   swoole-api:
     build: .
+    container_name: sparkonics-swoole
     ports:
       - "1978:1978" # API HTTP server
       - "9501:9501" # WebSocket server
     volumes:
       - .:/var/www
       - ./vendor:/var/www/vendor
+    environment:
+      - PHP_ENV=production
     restart: unless-stopped
     networks:
-      - swoole-net
+      - sparkonics-net
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:1978/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
   php-fpm:
-    image: php:8.2-fpm
+    image: php:8.2-fpm-alpine
+    container_name: sparkonics-php-fpm
     volumes:
       - .:/var/www
     networks:
-      - swoole-net
+      - sparkonics-net
+    restart: unless-stopped
 
 networks:
-  swoole-net:
+  sparkonics-net:
+    driver: bridge
+
+volumes:
+  nginx-logs:
