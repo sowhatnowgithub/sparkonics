@@ -202,7 +202,7 @@
                 "UTF-8",
             ); ?>
             <div class="member-card" onclick='openModal(<?= $memberJson ?>)'>
-              <img src="http://localhost<?= htmlspecialchars(
+              <img src="<?= htmlspecialchars(
                   $member["MemImageUrl"],
               ) ?>" alt="Member Image" class="member-photo">
               <div class="member-info">

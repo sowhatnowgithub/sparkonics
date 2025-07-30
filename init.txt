@@ -16,6 +16,7 @@ export PHP_LDFLAGS="-L$(php-config --extension-dir)"
 make -j$(nproc)
 sudo make install
 
+chmod o+w . and also to the databases to be written
 nm -D /usr/lib/php/20240924/sockets.so | grep socket_ce => this is to see if there are linked or not if not game over
 
 sudo mv /etc/php/8.x/cli/conf.d/20-openswoole.ini /etc/php/8.x/cli/conf.d/99-openswoole.ini  =? this is to make sure all dependancy load before openswoole

@@ -74,9 +74,8 @@ class MembersController extends AdminController
     public function GrantAccessMemeber($data)
     {
         $this->sessionStatusCord(
-            "Granting Access a member" . json_encode($data)
+            "Granting Access a member" . json_encode($data),
         );
-
         echo $this->adminModel->GrantAccessMemeber($data);
     }
     public function MembersControl()
@@ -89,7 +88,7 @@ class MembersController extends AdminController
     public function UpdateMemberRole($data)
     {
         $this->sessionStatusCord(
-            "Updating the members ROle" . json_encode($data)
+            "Updating the members ROle" . json_encode($data),
         );
         echo $this->adminModel->UpdateMemberRole($data);
     }

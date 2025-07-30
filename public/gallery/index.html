@@ -9,6 +9,34 @@
             content="Discover extraordinary moments and innovative ideas from our curated collection of events"
         />
         <link rel="stylesheet" href="style.css" />
+        <style>
+            /* Live Quiz Button - Floating */
+            .live-quiz-btn {
+                position: fixed;
+                top: 80px;
+                right: 20px;
+                z-index: 9998;
+                background: var(--orange-accent);
+                color: var(--deep-navy);
+                padding: 12px 20px;
+                border-radius: 25px;
+                text-decoration: none;
+                font-weight: 600;
+                font-size: 14px;
+                border: 2px solid var(--primary-yellow);
+                transition: all 0.3s ease;
+                box-shadow: 0 2px 10px rgba(255, 140, 0, 0.3);
+            }
+
+            .live-quiz-btn:hover {
+                background: var(--primary-yellow);
+                color: var(--deep-navy);
+                transform: translateY(-2px);
+                box-shadow: 0 4px 15px rgba(246, 231, 82, 0.4);
+            }
+            <!-- Live Quiz Button -->
+            <a href="/quiz" class="live-quiz-btn">🔥 Live Quiz</a>
+        </style>
     </head>
     <body>
         <script type="module">
@@ -268,21 +296,6 @@
             </div>
         </div>
 
-        <!-- Footer -->
-        <footer class="footer">
-            <div class="footer-container">
-                <h3 class="footer-title">Sparkonics</h3>
-                <p class="footer-description">
-                    Capturing innovation, one event at a time.
-                </p>
-                <div class="footer-links">
-                    <span class="footer-link">About</span>
-                    <span class="footer-link">Contact</span>
-                    <span class="footer-link">Privacy</span>
-                </div>
-            </div>
-        </footer>
-
         <!-- Image Modal -->
         <div id="imageModal" class="modal" style="display: none">
             <div class="modal-overlay"></div>
@@ -367,5 +380,20 @@
         </div>
 
         <script src="script.js"></script>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-container">
+                <h3 class="footer-title">Sparkonics</h3>
+                <p class="footer-description">
+                    Capturing innovation, one event at a time.
+                </p>
+                <div class="footer-links">
+                    <span class="footer-link">About</span>
+                    <span class="footer-link">Contact</span>
+                    <span class="footer-link">Privacy</span>
+                </div>
+            </div>
+        </footer>
     </body>
 </html>

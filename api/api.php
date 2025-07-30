@@ -33,18 +33,18 @@ $server->on("Start", function (Server $server) use ($host, $port) {
 });
 
 $server->on("Request", function (Request $request, Response $response) use (
-    $router
+    $router,
 ) {
     if ($request->server["request_method"] === "OPTIONS") {
         // this is for preflight request send by browsers
         $response->header("Access-Control-Allow-Origin", "*");
         $response->header(
             "Access-Control-Allow-Methods",
-            "GET, POST, PUT, DELETE, OPTIONS"
+            "GET, POST, PUT, DELETE, OPTIONS",
         );
         $response->header(
             "Access-Control-Allow-Headers",
-            "Authorization, Content-Type, Accept"
+            "Authorization, Content-Type, Accept",
         );
 
         $response->status(204);
@@ -75,19 +75,19 @@ $server->on("Request", function (Request $request, Response $response) use (
                 $returnData = $router->routeAction(
                     $request->server["request_uri"],
                     $request->server["request_method"],
-                    $request->server["query_string"]
+                    $request->server["query_string"],
                 );
             } else {
                 $returnData = $router->routeAction(
                     $request->server["request_uri"],
-                    $request->server["request_method"]
+                    $request->server["request_method"],
                 );
             }
         } elseif ($request->server["request_method"] == "POST") {
             $returnData = $router->routeAction(
                 $request->server["request_uri"],
                 $request->server["request_method"],
-                $postData
+                $postData,
             );
         }
 

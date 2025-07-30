@@ -132,9 +132,6 @@ class AdminController
             header("Location: {$this->url}/admin/");
             exit();
         }
-        var_dump($trueCredentials);
-        echo "<br>";
-        var_dump($credentials);
         if (
             $trueCredentials["MemMobile"] === $credentials["usermobile"] &&
             $trueCredentials["MemPassword"] === $credentials["userpassword"] &&
