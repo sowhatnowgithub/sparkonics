@@ -1,0 +1,746 @@
+{
+  "tests": [
+    {
+      "testId": "ECE_DE_L1",
+      "testTitle": "Digital Electronics Quiz - Level 1",
+      "testIntro": "Fundamentals quiz to revise basics of logic gates, Boolean algebra, number systems, and simple circuits.",
+      "questions": [
+        {
+          "questionId": 1,
+          "questionType": "mcq",
+          "questionText": "Which logic gate gives a HIGH output only when both inputs are HIGH?",
+          "options": "OR&NAND&AND&NOR",
+          "answer": "AND",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 2,
+          "questionType": "mcq",
+          "questionText": "Which number system uses only 0 and 1?",
+          "options": "Decimal&Octal&Binary&Hexadecimal",
+          "answer": "Binary",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 3,
+          "questionType": "numeric",
+          "questionText": "Convert binary 1101 to decimal.",
+          "options": "",
+          "answer": "13",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 4,
+          "questionType": "mcq",
+          "questionText": "Which logic gate has the output LOW only when both inputs are HIGH?",
+          "options": "XOR&NAND&OR&AND",
+          "answer": "NAND",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 5,
+          "questionType": "numeric",
+          "questionText": "What is the 2's complement of 0011?",
+          "options": "",
+          "answer": "1101",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 6,
+          "questionType": "mcq",
+          "questionText": "Which flip-flop is known for toggling on every clock pulse?",
+          "options": "D&SR&T&JK",
+          "answer": "T",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 7,
+          "questionType": "numeric",
+          "questionText": "Decimal equivalent of binary 1000?",
+          "options": "",
+          "answer": "8",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 8,
+          "questionType": "mcq",
+          "questionText": "Which gate is called the universal gate?",
+          "options": "XOR&NAND&NOR&AND",
+          "answer": "NAND",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 9,
+          "questionType": "numeric",
+          "questionText": "Find 1's complement of 1010.",
+          "options": "",
+          "answer": "0101",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 10,
+          "questionType": "mcq",
+          "questionText": "Which of these is a sequential circuit?",
+          "options": "Multiplexer&Encoder&Latch&Decoder",
+          "answer": "Latch",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 11,
+          "questionType": "mcq",
+          "questionText": "Output of XOR gate when A=1 and B=1?",
+          "options": "0&1&Depends on previous state&Undefined",
+          "answer": "0",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 12,
+          "questionType": "numeric",
+          "questionText": "Decimal equivalent of hexadecimal F?",
+          "options": "",
+          "answer": "15",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 13,
+          "questionType": "mcq",
+          "questionText": "Which gate provides HIGH when inputs are different?",
+          "options": "OR&XOR&AND&NOR",
+          "answer": "XOR",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 14,
+          "questionType": "mcq",
+          "questionText": "Which of these is a combinational circuit?",
+          "options": "Counter&Shift Register&Adder&Latch",
+          "answer": "Adder",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 15,
+          "questionType": "numeric",
+          "questionText": "What is the output of a full adder for A=1, B=1, Cin=1?",
+          "options": "",
+          "answer": "11",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 16,
+          "questionType": "mcq",
+          "questionText": "Which of the following stores 1-bit of information?",
+          "options": "Multiplexer&Flip-Flop&Decoder&Adder",
+          "answer": "Flip-Flop",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 17,
+          "questionType": "mcq",
+          "questionText": "Which number system uses base 16?",
+          "options": "Binary&Decimal&Octal&Hexadecimal",
+          "answer": "Hexadecimal",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 18,
+          "questionType": "numeric",
+          "questionText": "Convert decimal 20 to binary.",
+          "options": "",
+          "answer": "10100",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 19,
+          "questionType": "mcq",
+          "questionText": "Which flip-flop removes bouncing in mechanical switches?",
+          "options": "SR&T&D&Debouncer",
+          "answer": "Debouncer",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 20,
+          "questionType": "numeric",
+          "questionText": "How many unique combinations for 4 input variables?",
+          "options": "",
+          "answer": "16",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 21,
+          "questionType": "mcq",
+          "questionText": "Which circuit adds two 1-bit numbers and carry-in?",
+          "options": "Half Adder&Full Adder&Decoder&Multiplexer",
+          "answer": "Full Adder",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 22,
+          "questionType": "numeric",
+          "questionText": "If A=1 and B=0 in NOR gate, what is output?",
+          "options": "",
+          "answer": "0",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 23,
+          "questionType": "mcq",
+          "questionText": "Which of the following performs encoding?",
+          "options": "Decoder&Encoder&Latch&Counter",
+          "answer": "Encoder",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 24,
+          "questionType": "mcq",
+          "questionText": "What’s the result of A' + B in Boolean logic?",
+          "options": "NOR&NAND&OR&Inverted A OR B",
+          "answer": "Inverted A OR B",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 25,
+          "questionType": "numeric",
+          "questionText": "What is 2^5?",
+          "options": "",
+          "answer": "32",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 26,
+          "questionType": "mcq",
+          "questionText": "Which gate has output HIGH when at least one input is HIGH?",
+          "options": "AND&XOR&OR&NOR",
+          "answer": "OR",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 27,
+          "questionType": "numeric",
+          "questionText": "Decimal of binary 11100?",
+          "options": "",
+          "answer": "28",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 28,
+          "questionType": "mcq",
+          "questionText": "Which component converts analog to digital?",
+          "options": "Op-Amp&Multiplexer&ADC&DAC",
+          "answer": "ADC",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 29,
+          "questionType": "mcq",
+          "questionText": "Which logic gate gives output 1 when both inputs are 0?",
+          "options": "OR&AND&NOR&XOR",
+          "answer": "NOR",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 30,
+          "questionType": "numeric",
+          "questionText": "What is 1's complement of 0000?",
+          "options": "",
+          "answer": "1111",
+          "imageUrl": ""
+        }
+      ]
+    },
+    {
+      "testId": "ECE_DE_L2",
+      "testTitle": "Digital Electronics Quiz - Level 2",
+      "testIntro": "This test is intended for interview preparation, assessing your knowledge of Karnaugh maps, timing analysis, flip-flop conversions, and intermediate-level Boolean logic.",
+      "questions": [
+        {
+          "questionId": 1,
+          "questionType": "mcq",
+          "questionText": "Which of the following is used to simplify Boolean expressions?",
+          "options": "Truth Table&Karnaugh Map&Multiplexer&Decoder",
+          "answer": "Karnaugh Map",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 2,
+          "questionType": "mcq",
+          "questionText": "How many minterms are there for 4 variables?",
+          "options": "8&16&32&4",
+          "answer": "16",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 3,
+          "questionType": "numeric",
+          "questionText": "Find the decimal of 2’s complement binary number 11101100 (8-bit signed).",
+          "options": "",
+          "answer": "-20",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 4,
+          "questionType": "mcq",
+          "questionText": "Which flip-flop configuration is used to eliminate the race-around condition?",
+          "options": "D Flip-Flop&SR Flip-Flop&JK Master-Slave&T Flip-Flop",
+          "answer": "JK Master-Slave",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 5,
+          "questionType": "numeric",
+          "questionText": "For a 4-bit ripple counter, what is the maximum count value?",
+          "options": "",
+          "answer": "15",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 6,
+          "questionType": "mcq",
+          "questionText": "Which circuit uses feedback to store state?",
+          "options": "Combinational&Decoder&Sequential&Adder",
+          "answer": "Sequential",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 7,
+          "questionType": "mcq",
+          "questionText": "Which of these devices can act as both encoder and decoder?",
+          "options": "PLA&MUX&DEMUX&PROM",
+          "answer": "PLA",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 8,
+          "questionType": "numeric",
+          "questionText": "Find the output frequency if a 10 MHz clock is applied to a 3-bit binary counter.",
+          "options": "",
+          "answer": "1.25",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 9,
+          "questionType": "mcq",
+          "questionText": "In timing diagrams, what does setup time refer to?",
+          "options": "Delay before clock&Time data must be stable before clock edge&Propagation delay&None",
+          "answer": "Time data must be stable before clock edge",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 10,
+          "questionType": "numeric",
+          "questionText": "What is the fan-out if 1 output drives 5 similar inputs?",
+          "options": "",
+          "answer": "5",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 11,
+          "questionType": "mcq",
+          "questionText": "What is the expression for the output of a 2-to-1 multiplexer?",
+          "options": "AS + B&S'(A+B)&AB + A'B'&S’A + SB",
+          "answer": "S’A + SB",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 12,
+          "questionType": "numeric",
+          "questionText": "How many select lines are required for a 32-to-1 multiplexer?",
+          "options": "",
+          "answer": "5",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 13,
+          "questionType": "mcq",
+          "questionText": "Which logic family has highest noise immunity?",
+          "options": "CMOS&TTL&RTL&DCTL",
+          "answer": "CMOS",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 14,
+          "questionType": "numeric",
+          "questionText": "If propagation delay per flip-flop is 20ns, what’s delay of 4-bit ripple counter?",
+          "options": "",
+          "answer": "80",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 15,
+          "questionType": "mcq",
+          "questionText": "Which type of adder allows carry to ripple through all bits?",
+          "options": "Half Adder&Ripple Carry Adder&Look Ahead Adder&Serial Adder",
+          "answer": "Ripple Carry Adder",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 16,
+          "questionType": "mcq",
+          "questionText": "What is the output of A XOR A?",
+          "options": "A&1&0&A'",
+          "answer": "0",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 17,
+          "questionType": "numeric",
+          "questionText": "Number of bits needed to represent 1000 in binary?",
+          "options": "",
+          "answer": "10",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 18,
+          "questionType": "mcq",
+          "questionText": "Which memory type is volatile?",
+          "options": "ROM&PROM&EEPROM&RAM",
+          "answer": "RAM",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 19,
+          "questionType": "mcq",
+          "questionText": "To convert SR to JK flip-flop, which logic is used?",
+          "options": "T = J&K&JQ'+K'Q&JK = SR&None",
+          "answer": "JQ'+K'Q",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 20,
+          "questionType": "numeric",
+          "questionText": "How many flip-flops are needed to count up to 24?",
+          "options": "",
+          "answer": "5",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 21,
+          "questionType": "mcq",
+          "questionText": "Which circuit detects a specific sequence of inputs over time?",
+          "options": "Shift Register&Counter&Finite State Machine&Decoder",
+          "answer": "Finite State Machine",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 22,
+          "questionType": "numeric",
+          "questionText": "How many possible outputs from a 4x1 MUX?",
+          "options": "",
+          "answer": "1",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 23,
+          "questionType": "mcq",
+          "questionText": "Which circuit stores and shifts data?",
+          "options": "Encoder&Shift Register&Demux&PLA",
+          "answer": "Shift Register",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 24,
+          "questionType": "numeric",
+          "questionText": "Minimum flip-flops to design MOD-12 counter?",
+          "options": "",
+          "answer": "4",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 25,
+          "questionType": "mcq",
+          "questionText": "What is the logic expression of a NOR gate?",
+          "options": "(A+B)'&(AB)'&A'+B'&A'B'",
+          "answer": "(A+B)'",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 26,
+          "questionType": "mcq",
+          "questionText": "Which circuit has propagation delay as a major limitation?",
+          "options": "Ripple Counter&Ring Oscillator&SR Latch&MUX",
+          "answer": "Ripple Counter",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 27,
+          "questionType": "mcq",
+          "questionText": "What’s the output of a NAND gate with inputs A=0, B=1?",
+          "options": "0&1&Undefined&Depends",
+          "answer": "1",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 28,
+          "questionType": "mcq",
+          "questionText": "Which is used to implement logic functions using read-only memory?",
+          "options": "PLA&PROM&Latch&MUX",
+          "answer": "PROM",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 29,
+          "questionType": "numeric",
+          "questionText": "Max value in 4-bit signed 2’s complement system?",
+          "options": "",
+          "answer": "7",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 30,
+          "questionType": "mcq",
+          "questionText": "Which input combination resets a JK flip-flop to 0?",
+          "options": "J=1, K=1&J=0, K=1&J=1, K=0&J=0, K=0",
+          "answer": "J=0, K=1",
+          "imageUrl": ""
+        }
+      ]
+    },
+    {
+      "testId": "ECE_DE_L3",
+      "testTitle": "Digital Electronics Quiz - Level 3",
+      "testIntro": "This is an advanced digital electronics test focused on timing analysis, state minimization, hazards, and complex sequential circuit design. Ideal for research-level or competitive preparation.",
+      "questions": [
+        {
+          "questionId": 1,
+          "questionType": "mcq",
+          "questionText": "What type of hazard occurs in combinational logic due to different propagation delays?",
+          "options": "Static&Dynamic&Functional&None",
+          "answer": "Static",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 2,
+          "questionType": "mcq",
+          "questionText": "In a Mealy machine, output depends on:",
+          "options": "Present state only&Next state&Inputs only&Present state and inputs",
+          "answer": "Present state and inputs",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 3,
+          "questionType": "numeric",
+          "questionText": "Minimum number of states needed to detect a 1011 sequence using Moore FSM?",
+          "options": "",
+          "answer": "5",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 4,
+          "questionType": "mcq",
+          "questionText": "Which method is used for state minimization in sequential circuits?",
+          "options": "Quine–McCluskey&K-map&Partitioning&Dual Table",
+          "answer": "Partitioning",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 5,
+          "questionType": "mcq",
+          "questionText": "What is the setup time violation?",
+          "options": "Data changes after clock&Clock period too long&Data not stable before clock edge&None",
+          "answer": "Data not stable before clock edge",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 6,
+          "questionType": "numeric",
+          "questionText": "If setup time = 3ns, hold time = 1ns, clock period = 10ns, and data arrival = 9ns, is it a violation? (1 = Yes, 0 = No)",
+          "options": "",
+          "answer": "1",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 7,
+          "questionType": "mcq",
+          "questionText": "What does an ASM chart represent?",
+          "options": "Analog Signal Mapping&Asynchronous Machine Logic&Algorithmic State Machine&Arithmetic State Model",
+          "answer": "Algorithmic State Machine",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 8,
+          "questionType": "numeric",
+          "questionText": "How many transitions are possible in a 3-bit Gray code?",
+          "options": "",
+          "answer": "8",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 9,
+          "questionType": "mcq",
+          "questionText": "Which gate combination can generate a race hazard in asynchronous logic?",
+          "options": "XOR-AND&AND-OR&OR-OR&NAND-NAND",
+          "answer": "NAND-NAND",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 10,
+          "questionType": "mcq",
+          "questionText": "Which flip-flop is least prone to race conditions?",
+          "options": "JK&SR&T&D",
+          "answer": "D",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 11,
+          "questionType": "numeric",
+          "questionText": "Given a 4-bit Johnson counter, how many distinct states are there?",
+          "options": "",
+          "answer": "8",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 12,
+          "questionType": "mcq",
+          "questionText": "Which hazard can be removed by adding redundant logic?",
+          "options": "Static 0 hazard&Dynamic hazard&Functional hazard&All of these",
+          "answer": "Static 0 hazard",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 13,
+          "questionType": "mcq",
+          "questionText": "Retiming in synchronous circuits is used to:",
+          "options": "Add registers&Remove registers&Optimize clock delay&Detect glitches",
+          "answer": "Optimize clock delay",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 14,
+          "questionType": "numeric",
+          "questionText": "For a 10-stage pipeline with stage delay 1ns, what's ideal instruction throughput?",
+          "options": "",
+          "answer": "1",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 15,
+          "questionType": "mcq",
+          "questionText": "Which logic synthesis algorithm handles multi-level logic minimization?",
+          "options": "Espresso&Karnaugh Map&DAVID&Quine–McCluskey",
+          "answer": "Espresso",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 16,
+          "questionType": "numeric",
+          "questionText": "In a 4-bit synchronous up-counter, how many flip-flops change state in transition from 0111 to 1000?",
+          "options": "",
+          "answer": "4",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 17,
+          "questionType": "mcq",
+          "questionText": "In a dynamic hazard, the output:",
+          "options": "Oscillates permanently&May momentarily glitch&Stays stable&Becomes undefined",
+          "answer": "May momentarily glitch",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 18,
+          "questionType": "mcq",
+          "questionText": "FSM equivalence is used to:",
+          "options": "Design FSM&Compare two FSMs&Optimize flip-flops&Design ROMs",
+          "answer": "Compare two FSMs",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 19,
+          "questionType": "numeric",
+          "questionText": "Minimum flip-flops needed for MOD-45 counter?",
+          "options": "",
+          "answer": "6",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 20,
+          "questionType": "mcq",
+          "questionText": "Which of the following is true about metastability?",
+          "options": "Occurs in combinational circuits&Always causes permanent failure&Is caused by violating setup/hold time&Occurs only in asynchronous resets",
+          "answer": "Is caused by violating setup/hold time",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 21,
+          "questionType": "mcq",
+          "questionText": "In synchronous counters, why is clock applied simultaneously to all flip-flops?",
+          "options": "Reduce power&Reduce glitches&Avoid delay&Simplify wiring",
+          "answer": "Avoid delay",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 22,
+          "questionType": "numeric",
+          "questionText": "If each logic gate takes 2ns and there are 7 in critical path, total delay is?",
+          "options": "",
+          "answer": "14",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 23,
+          "questionType": "mcq",
+          "questionText": "An FSM with fewer states than required leads to:",
+          "options": "Faster design&Glitches&Incomplete detection&Optimization",
+          "answer": "Incomplete detection",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 24,
+          "questionType": "mcq",
+          "questionText": "In asynchronous sequential logic, instability arises due to:",
+          "options": "Memory elements&Race conditions&Hazards&All of the above",
+          "answer": "All of the above",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 25,
+          "questionType": "numeric",
+          "questionText": "If clock skew = 1ns and timing margin = 0.5ns, is system timing safe? (1=Yes, 0=No)",
+          "options": "",
+          "answer": "0",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 26,
+          "questionType": "mcq",
+          "questionText": "Which circuit intentionally introduces logic hazards for delay testing?",
+          "options": "PLA&DFT logic&FSM&MUX",
+          "answer": "DFT logic",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 27,
+          "questionType": "mcq",
+          "questionText": "State reduction in FSMs may use:",
+          "options": "Equivalent partitions&Gray codes&Timing analysis&Fan-out control",
+          "answer": "Equivalent partitions",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 28,
+          "questionType": "numeric",
+          "questionText": "A Moore FSM has 6 states. Minimum bits needed to encode states?",
+          "options": "",
+          "answer": "3",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 29,
+          "questionType": "mcq",
+          "questionText": "Which circuit is most sensitive to race-around problems?",
+          "options": "Master-slave JK&SR latch&T flip-flop&Edge-triggered D",
+          "answer": "SR latch",
+          "imageUrl": ""
+        },
+        {
+          "questionId": 30,
+          "questionType": "mcq",
+          "questionText": "Why are one-hot state encodings preferred in FPGAs?",
+          "options": "Simplifies logic&Reduces power&Minimizes delay&Avoids glitches",
+          "answer": "Simplifies logic",
+          "imageUrl": ""
+        }
+      ]
+    }
+  ]
+}
+

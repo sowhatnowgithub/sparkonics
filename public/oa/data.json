@@ -1,0 +1,13 @@
+{
+"testsDetails": [
+    {
+      "testname": "Digital Electronics",
+      "description": "Tests going from easy to difficult.",
+      "total": 90,
+      "availableoas": 3,
+      "domain": "Digital,  VLSI",
+      "link": "digi/"
+    }
+  ]
+}
+

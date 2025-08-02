@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+    <head>
+        <title>My App</title>
+    </head>
+    <body>
+        <script type="module">
+            import { showAtomicPreloader } from "./preloader.js";
+
+            const preloader = showAtomicPreloader({
+                timeout: 3000,
+                loadingText: "Loading Sparkonics",
+                subtitle: "Preparing your experience...",
+                showProgress: true,
+                onComplete: () => {
+                    console.log("App ready!");
+                },
+            });
+        </script>
+        <script type="module">
+            import { showAtomicPreloader } from "./preloader_bg.js";
+
+            showAtomicPreloader({
+                onComplete: () => {
+                    console.log("Preloader animation finished. App is ready!");
+                    // You can now initialize your app here
+                },
+                blockSize: 65, // optional, default is 65px
+                revealDelay: 1, // optional, default is 1ms (very fast)
+            });
+        </script>
+
+        <div id="preloader"></div>
+        <div class="background-bubbles"></div>
+        <script type="module">
+            import { initSparkonicsBackground } from "./../background/index.js";
+            const cleanup = initSparkonicsBackground();
+        </script>
+
+        <div id="app">
+            <h1>My Application</h1>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,49 @@
+First is to install these for the openswoole
+sudo apt update && sudo apt install -y \
+    php php-cli php-dev php-pear \
+    gcc g++ make autoconf \
+    git \
+    libssl-dev \
+    libcurl4-openssl-dev \
+    libboost-all-dev \
+    cmake \
+    re2c
+sudo apt install -y libcurl4-openssl-dev
+php -m | grep sockets if not giving sudo apt install php-sockets
+export PHP_CPPFLAGS="-I$(php-config --include-dir)"
+export PHP_LDFLAGS="-L$(php-config --extension-dir)"
+./configure --enable-openssl --enable-http2 --enable-hook-sockets --enable-curl --enable-mysqlnd
+make -j$(nproc)
+sudo make install
+
+nm -D /usr/lib/php/20240924/sockets.so | grep socket_ce => this is to see if there are linked or not if not game over
+
+sudo mv /etc/php/8.x/cli/conf.d/20-openswoole.ini /etc/php/8.x/cli/conf.d/99-openswoole.ini  =? this is to make sure all dependancy load before openswoole
+
+echo "extension=openswoole" | sudo tee /etc/php/8.4/cli/conf.d/20-openswoole.ini
+php -m | grep openswoole
+php -r 'var_dump(extension_loaded("openswoole")); =? this confirms the installation
+
+Install nginx and change the defalt that is site-available
+
+Installing php-fpm
+sudo apt install php8.4-fpm
+sudo systemctl enable php8.4-fpm
+sudo systemctl start php8.4-fpm
+
+Now change the sparkonics conf file root directories to fit this
+and also fpm
+Disable apache, since it uses 80, if not change the port based on server
+
+And also the folder have to be given access to www-data
+
+sudo chown -R kali:www-data /home/kali/sparkonics
+sudo chmod -R g+rX /home/kali/sparkonics
+And similarly all the folders
+
+If using ngrok don't forget there a thing called mode-content, meaning if we request from https we have to get https, hence its best to make self signed certs and do this, and also we have redirect the ngrok http https://localhost:443
+Why, cause ngrok, will be in infinte loop if we give port 80, cause nginx tries to resove to 443 internally, and ngrok wouldn't know that, so yes, this is the way
+
+
+Now with this this, and proper nginx root directory, and proxy_pass
+We can finally say we have set up the folder

@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <title>Events Widget</title>
+
+        <!-- Optional: Include your widget's CSS if it exists -->
+
+        <script src="/public/events/events-widget.iife.js"></script>
+
+        <link rel="stylesheet" href="mystyle.css" />
+        <style>
+            :root {
+                --foreground: rgb(246, 231, 82); /* light text (tertiary) */
+                --primary: rgb(144, 252, 253); /* cyan (secondary) */
+
+                --muted-foreground: rgba(
+                    246,
+                    231,
+                    82,
+                    0.6
+                ); /* faded tertiary */
+                --border: rgba(144, 252, 253, 0.3);
+
+                --gradient-card: linear-gradient(
+                    145deg,
+                    rgb(1, 6, 15),
+                    rgb(2, 12, 30)
+                );
+            }
+
+            /* Footer */
+            .footer {
+                background: var(--gradient-card);
+                border-top: 1px solid var(--border);
+                padding: 48px 16px;
+            }
+
+            .footer-container {
+                max-width: 1536px;
+                margin: 0 auto;
+                text-align: center;
+            }
+
+            .footer-title {
+                font-size: 2rem;
+                font-weight: 700;
+                color: var(--foreground);
+                margin-bottom: 16px;
+            }
+
+            .footer-description {
+                color: var(--muted-foreground);
+                margin-bottom: 24px;
+            }
+
+            .footer-links {
+                display: flex;
+                justify-content: center;
+                gap: 24px;
+                color: var(--muted-foreground);
+            }
+
+            .footer-link {
+                cursor: pointer;
+                transition: color 0.3s ease;
+            }
+
+            .footer-link:hover {
+                color: var(--primary);
+            }
+        </style>
+        <!-- Optional: if your widget has styles -->
+    </head>
+    <body style="margin: 0; padding: 0">
+
+        <script src="/public/sparkonics-navbar.js"></script>
+
+        <script type="module">
+            import { initSparkonicsBackground } from "/public/components/background/index.js";
+            const cleanup = initSparkonicsBackground();
+        </script>
+        <br /><br />
+        <br />
+        <div class="widget-container">
+            <div id="events-widget"></div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-container">
+                <h3 class="footer-title">Sparkonics</h3>
+                <p class="footer-description">
+                    Capturing innovation, one event at a time.
+                </p>
+                <div class="footer-links">
+                    <span class="footer-link">About</span>
+                    <span class="footer-link">Contact</span>
+                    <span class="footer-link">Privacy</span>
+                </div>
+            </div>
+        </footer>
+        <script>
+            window.injectEventsWidget("events-widget");
+        </script>
+    </body>
+</html>

@@ -1,0 +1,1145 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>Online Assesment</title>
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+        />
+        <style>
+            :root {
+                --primary-bg: rgb(26, 26, 46); /* Main background */
+                --secondary-bg: rgb(22, 33, 62); /* Main content cards */
+                --primary-text: rgb(144, 252, 253); /* Main text */
+                --accent-color: #ffd300; /* For headings, highlights, active states */
+                --accent-glow: rgb(144, 252, 253); /* Glow effect */
+                --border-color: rgba(240, 240, 240, 0.2);
+                --nav-button-bg: rgb(44, 62, 80);
+
+                --correct-bg: rgba(46, 204, 113, 0.15); /* correct answers */
+                --correct-border: rgb(144, 252, 253);
+                --wrong-bg: rgba(231, 76, 60, 0.15); /* wrong answers */
+                --wrong-border: rgb(231, 76, 60);
+            }
+
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                font-family:
+                    system-ui,
+                    -apple-system,
+                    BlinkMacSystemFont,
+                    "Segoe UI",
+                    Roboto,
+                    Oxygen,
+                    Ubuntu,
+                    Cantarell,
+                    "Open Sans",
+                    "Helvetica Neue",
+                    sans-serif;
+                background-color: var(--primary-bg);
+                color: var(--primary-text);
+                overflow-x: hidden;
+                min-height: 100vh;
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: center;
+
+                &::-webkit-scrollbar {
+                    width: 10px;
+                }
+                &::-webkit-scrollbar-track {
+                    background: var(--primary-bg);
+                }
+                &::-webkit-scrollbar-thumb {
+                    background: var(--nav-button-bg);
+                    border-radius: 5px;
+                }
+                &::-webkit-scrollbar-thumb:hover {
+                    background: var(--accent-color);
+                }
+            }
+
+            main {
+                padding: 2.5rem;
+                width: 96vw;
+                max-width: 1600px;
+                margin: 2vh auto;
+                background: var(--secondary-bg);
+                border: 1px solid var(--border-color);
+                border-radius: 16px;
+                box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+                position: relative;
+                animation: fadeIn 0.8s ease-out forwards;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                flex-grow: 1;
+            }
+
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            header {
+                text-align: center;
+                padding-bottom: 1.5rem;
+                border-bottom: 1px solid var(--border-color);
+                width: 100%;
+            }
+
+            header h1 {
+                font-size: 3rem;
+                font-weight: 700;
+                color: var(--accent-color);
+                margin-bottom: 0.5rem;
+            }
+
+            .main-intro-text {
+                font-size: 1.2rem;
+                color: var(--primary-text);
+                font-weight: 400;
+                text-align: center;
+                margin: 1rem 0 2rem 0;
+                width: 100%;
+                max-width: 800px;
+            }
+
+            #test-selection-screen,
+            #test-quiz-screen,
+            #test-result-screen {
+                display: none;
+                width: 100%;
+                background: transparent;
+                border: none;
+                box-shadow: none;
+            }
+
+            #test-selection-screen.active,
+            #test-quiz-screen.active,
+            #test-result-screen.active {
+                display: block;
+            }
+
+            .test-card {
+                background: rgba(0, 0, 0, 0.2);
+                border: 1px solid var(--border-color);
+                border-radius: 10px;
+                padding: 1.5rem;
+                margin-bottom: 1.5rem;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                text-align: center;
+            }
+
+            .test-card:hover {
+                border-color: var(--accent-color);
+                box-shadow: 0 0 15px var(--accent-glow);
+                transform: translateY(-5px);
+            }
+
+            .test-card h3 {
+                color: var(--accent-color);
+                font-size: 1.8rem;
+                margin-bottom: 0.5rem;
+            }
+
+            .test-card p {
+                color: var(--primary-text);
+                font-size: 1rem;
+                line-height: 1.4;
+                opacity: 0.8;
+            }
+
+            #question-nav-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+                gap: 10px;
+                padding: 1rem 0;
+                border-bottom: 1px solid var(--border-color);
+                margin-bottom: 1.5rem;
+            }
+
+            .question-nav-btn {
+                background-color: var(--nav-button-bg);
+                border: 1px solid var(--border-color);
+                border-radius: 8px;
+                padding: 0.8rem 0.5rem;
+                font-size: 1.1rem;
+                font-weight: 600;
+                color: var(--primary-text);
+                cursor: pointer;
+                transition: all 0.2s ease;
+                text-align: center;
+            }
+
+            .question-nav-btn:hover {
+                border-color: var(--accent-color);
+                color: var(--accent-color);
+                transform: translateY(-2px);
+            }
+
+            .question-nav-btn.active-q {
+                background: linear-gradient(135deg, var(--accent-color));
+                color: var(--primary-bg);
+                border-color: var(--accent-color);
+                box-shadow: 0 0 10px var(--accent-glow);
+            }
+            .question-nav-btn.answered-q {
+                background-color: var(--primary-bg);
+                border-color: var(--nav-button-bg);
+                color: var(--primary-text);
+            }
+            .question-nav-btn.active-q.answered-q {
+                background: linear-gradient(135deg, var(--accent-color));
+                color: var(--primary-bg);
+                border-color: var(--accent-color);
+            }
+
+            #current-question-container {
+                min-height: 250px;
+                padding-top: 1rem;
+                display: flex;
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            .question-block {
+                background: var(--primary-bg);
+                border: 1px solid var(--border-color);
+                border-radius: 10px;
+                padding: 1.5rem;
+            }
+
+            .question-block p.question-text {
+                font-size: 1.15rem;
+                font-weight: 600;
+                margin-bottom: 1rem;
+                color: var(--primary-text);
+                line-height: 1.5;
+                display: block;
+            }
+
+            .question-block p.question-text img {
+                max-width: 100%;
+                height: auto;
+                border-radius: 8px;
+                margin-top: 15px;
+                border: 1px solid var(--border-color);
+            }
+
+            .options label {
+                display: block;
+                margin-bottom: 0.8rem;
+                cursor: pointer;
+                font-size: 1.05rem;
+                padding: 0.7rem 1rem;
+                border-radius: 8px;
+                transition:
+                    background-color 0.3s ease,
+                    color 0.3s ease;
+                position: relative;
+                padding-left: 35px;
+                border: 1px solid var(--border-color);
+                background-color: var(--nav-button-bg);
+            }
+
+            .options label:hover {
+                background-color: var(--secondary-bg);
+                border-color: var(--accent-color);
+            }
+
+            .options input[type="radio"],
+            .options input[type="checkbox"] {
+                position: absolute;
+                opacity: 0;
+                cursor: pointer;
+            }
+
+            .options input[type="radio"] + span.custom-control,
+            .options input[type="checkbox"] + span.custom-control {
+                height: 20px;
+                width: 20px;
+                background-color: var(--secondary-bg);
+                border: 2px solid var(--primary-text);
+                border-radius: 50%;
+                position: absolute;
+                left: 10px;
+                top: 50%;
+                transform: translateY(-50%);
+                transition: all 0.2s ease;
+            }
+
+            .options input[type="checkbox"] + span.custom-control {
+                border-radius: 5px;
+            }
+
+            .options input[type="radio"]:checked + span.custom-control,
+            .options input[type="checkbox"]:checked + span.custom-control {
+                background-color: var(--accent-color);
+                border-color: var(--accent-color);
+            }
+
+            .options input[type="radio"]:checked + span.custom-control:after {
+                content: "";
+                position: absolute;
+                top: 6px;
+                left: 6px;
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                background: var(--primary-bg);
+            }
+
+            .options
+                input[type="checkbox"]:checked
+                + span.custom-control:after {
+                content: "\2713";
+                font-size: 14px;
+                color: var(--primary-bg);
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                font-weight: bold;
+            }
+
+            textarea,
+            input[type="text"],
+            input[type="number"] {
+                width: 100%;
+                padding: 1rem;
+                border-radius: 8px;
+                border: 1px solid var(--border-color);
+                background-color: var(--primary-bg);
+                color: var(--primary-text);
+                font-size: 1rem;
+                min-height: 50px;
+                resize: vertical;
+                transition:
+                    border-color 0.3s ease,
+                    box-shadow 0.3s ease;
+            }
+
+            textarea:focus,
+            input[type="text"]:focus,
+            input[type="number"]:focus {
+                outline: none;
+                border-color: var(--accent-color);
+                box-shadow: 0 0 10px var(--accent-glow);
+            }
+
+            .quiz-navigation-buttons {
+                display: flex;
+                justify-content: space-between;
+                gap: 1rem;
+                margin-top: 2rem;
+                width: 100%;
+            }
+
+            .prev-q-btn,
+            .next-q-btn,
+            .submit-btn,
+            .back-to-tests-btn,
+            .retry-test-btn,
+            .exit-test-btn {
+                display: block;
+                width: 100%;
+                padding: 1rem 2rem;
+                border-radius: 25px;
+                font-size: 1.2rem;
+                font-weight: 600;
+                text-decoration: none;
+                color: var(--primary-bg);
+                background: linear-gradient(135deg, var(--accent-color));
+                box-shadow: 0 0 10px var(--accent-glow);
+                transition: all 0.3s ease-in-out;
+                border: none;
+                cursor: pointer;
+            }
+
+            .prev-q-btn:hover,
+            .next-q-btn:hover,
+            .submit-btn:hover,
+            .back-to-tests-btn:hover,
+            .retry-test-btn:hover {
+                box-shadow:
+                    0 0 15px var(--accent-glow),
+                    0 0 25px var(--accent-glow);
+                transform: scale(1.02) translateY(-2px);
+            }
+
+            .prev-q-btn,
+            .next-q-btn {
+                flex: 1;
+                padding: 0.8rem 1.5rem;
+                font-size: 1.1rem;
+            }
+
+            .submit-btn {
+                margin-top: 3rem;
+            }
+
+            .back-to-tests-btn,
+            .retry-test-btn,
+            .exit-test-btn {
+                margin-top: 1.5rem;
+            }
+
+            .exit-test-btn {
+                background: linear-gradient(
+                    135deg,
+                    var(--wrong-border),
+                    #c0392b
+                );
+                box-shadow: 0 0 10px rgba(231, 76, 60, 0.7);
+                color: var(--primary-text);
+            }
+            .exit-test-btn:hover {
+                box-shadow:
+                    0 0 15px rgba(231, 76, 60, 0.7),
+                    0 0 25px rgba(231, 76, 60, 0.7);
+                transform: scale(1.02) translateY(-2px);
+            }
+
+            .result-summary {
+                text-align: center;
+                margin-top: 2rem;
+                padding: 1.5rem;
+                border-radius: 10px;
+                background: var(--primary-bg);
+                border: 1px solid var(--border-color);
+                color: var(--primary-text);
+            }
+
+            .result-summary h2 {
+                font-size: 2.5rem;
+                color: var(--accent-color);
+                margin-bottom: 0.5rem;
+            }
+
+            .result-summary p {
+                font-size: 1.5rem;
+                color: var(--primary-text);
+                margin-bottom: 1rem;
+            }
+
+            .question-result {
+                margin-top: 2rem;
+            }
+
+            .question-result .question-block {
+                position: relative;
+                background: var(--primary-bg);
+                margin-bottom: 1.5rem;
+            }
+
+            .question-result .question-block.correct {
+                background-color: var(--correct-bg);
+                border-color: var(--correct-border);
+            }
+
+            .question-result .question-block.wrong {
+                background-color: var(--wrong-bg);
+                border-color: var(--wrong-border);
+            }
+
+            .question-result .question-block .status-icon {
+                position: absolute;
+                top: 15px;
+                right: 15px;
+                font-size: 1.8rem;
+            }
+            .question-result .question-block.correct .status-icon {
+                color: var(--correct-border);
+            }
+            .question-result .question-block.wrong .status-icon {
+                color: var(--wrong-border);
+            }
+
+            .question-result .user-answer,
+            .question-result .correct-answer {
+                font-size: 1rem;
+                margin-top: 0.8rem;
+                padding: 0.5rem 1rem;
+                border-radius: 5px;
+                color: var(--primary-text);
+                border: 1px dashed var(--border-color);
+            }
+
+            .question-result .user-answer {
+                background-color: var(--secondary-bg);
+            }
+
+            .question-result .correct-answer {
+                background-color: var(--primary-bg);
+            }
+
+            .question-result .options label.correct-option {
+                background-color: var(--correct-bg);
+                border: 1px solid var(--correct-border);
+                font-weight: 600;
+            }
+            .question-result .options label.selected-wrong {
+                background-color: var(--wrong-bg);
+                border: 1px solid var(--wrong-border);
+            }
+
+            #preloader {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+                background-color: var(--primary-bg);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 1000;
+                transition: opacity 0.5s ease-out;
+                opacity: 1;
+                visibility: visible;
+            }
+
+            #preloader.hidden {
+                opacity: 0;
+                visibility: hidden;
+            }
+
+            .spinner {
+                border: 8px solid var(--border-color);
+                border-top: 8px solid var(--accent-color);
+                border-radius: 50%;
+                width: 60px;
+                height: 60px;
+                animation: spin 1s linear infinite;
+            }
+
+            @keyframes spin {
+                0% {
+                    transform: rotate(0deg);
+                }
+                100% {
+                    transform: rotate(360deg);
+                }
+            }
+
+            @media (max-width: 768px) {
+                main {
+                    width: 98vw;
+                    padding: 1.5rem;
+                    margin: 1vh auto;
+                }
+
+                header h1 {
+                    font-size: 2.2rem;
+                }
+                .main-intro-text {
+                    font-size: 1rem;
+                }
+                .question-block {
+                    padding: 1rem;
+                }
+                .question-block p.question-text {
+                    font-size: 1rem;
+                }
+                .options label {
+                    font-size: 0.95rem;
+                    padding: 0.6rem 0.8rem;
+                    padding-left: 30px;
+                }
+                .options input[type="radio"] + span.custom-control,
+                .options input[type="checkbox"] + span.custom-control {
+                    height: 18px;
+                    width: 18px;
+                    left: 8px;
+                }
+                .options
+                    input[type="radio"]:checked
+                    + span.custom-control:after {
+                    top: 5px;
+                    left: 5px;
+                    width: 8px;
+                    height: 8px;
+                }
+                .submit-btn,
+                .back-to-tests-btn,
+                .retry-test-btn,
+                .exit-test-btn,
+                .prev-q-btn,
+                .next-q-btn {
+                    font-size: 1rem;
+                    padding: 0.8rem 1.5rem;
+                }
+                .result-summary h2 {
+                    font-size: 2rem;
+                }
+                .result-summary p {
+                    font-size: 1.2rem;
+                }
+                .quiz-navigation-buttons {
+                    flex-direction: column;
+                }
+            }
+
+            @media (max-width: 480px) {
+                main {
+                    width: 100vw;
+                    margin: 0;
+                    border-radius: 0;
+                    border-left: none;
+                    border-right: none;
+                    box-shadow: none;
+                    padding: 1rem;
+                }
+
+                header h1 {
+                    font-size: 1.8rem;
+                }
+                .main-intro-text {
+                    font-size: 0.9rem;
+                }
+                .question-block p.question-text {
+                    font-size: 0.95rem;
+                }
+                .options label {
+                    font-size: 0.9rem;
+                    padding-left: 25px;
+                }
+                .options input[type="radio"] + span.custom-control,
+                .options input[type="checkbox"] + span.custom-control {
+                    height: 16px;
+                    width: 16px;
+                    left: 5px;
+                }
+                #question-nav-grid {
+                    grid-template-columns: repeat(auto-fit, minmax(45px, 1fr));
+                }
+            }
+        </style>
+        <style>
+            :root {
+                --foreground: rgb(246, 231, 82); /* light text (tertiary) */
+                --primary: rgb(144, 252, 253); /* cyan (secondary) */
+
+                --muted-foreground: rgba(
+                    246,
+                    231,
+                    82,
+                    0.6
+                ); /* faded tertiary */
+                --border: rgba(144, 252, 253, 0.3);
+
+                --gradient-card: linear-gradient(
+                    145deg,
+                    rgb(1, 6, 15),
+                    rgb(2, 12, 30)
+                );
+            }
+
+            /* Footer */
+            .footer {
+                background: var(--gradient-card);
+                border-top: 1px solid var(--border);
+                padding: 48px 16px;
+            }
+
+            .footer-container {
+                max-width: 1536px;
+                margin: 0 auto;
+                text-align: center;
+            }
+
+            .footer-title {
+                font-size: 2rem;
+                font-weight: 700;
+                color: var(--foreground);
+                margin-bottom: 16px;
+            }
+
+            .footer-description {
+                color: var(--muted-foreground);
+                margin-bottom: 24px;
+            }
+
+            .footer-links {
+                display: flex;
+                justify-content: center;
+                gap: 24px;
+                color: var(--muted-foreground);
+            }
+
+            .footer-link {
+                cursor: pointer;
+                transition: color 0.3s ease;
+            }
+
+            .footer-link:hover {
+                color: var(--primary);
+            }
+        </style>
+    </head>
+    <body style="margin: 0; padding: 0">
+        <script type="module">
+            import { initSparkonicsBackground } from "/public/components/background/index.js";
+            const cleanup = initSparkonicsBackground();
+        </script>
+        <div id="preloader"><div class="spinner"></div></div>
+
+        <main>
+            <header>
+                <h1 id="main-title">Online Assessment Hub</h1>
+            </header>
+
+            <div id="main-intro" class="main-intro-text">
+                Select a test to begin your assessment.
+            </div>
+
+            <div id="test-selection-screen" class="active"></div>
+
+            <div id="test-quiz-screen">
+                <div id="question-nav-grid"></div>
+
+                <form id="quiz-form">
+                    <div id="current-question-container"></div>
+
+                    <div class="quiz-navigation-buttons">
+                        <button
+                            type="button"
+                            id="prev-q-btn"
+                            class="prev-q-btn"
+                            style="display: none"
+                        >
+                            <i class="fas fa-arrow-left"></i> Previous
+                        </button>
+                        <button
+                            type="button"
+                            id="next-q-btn"
+                            class="next-q-btn"
+                            style="display: none"
+                        >
+                            Next <i class="fas fa-arrow-right"></i>
+                        </button>
+                        <button
+                            type="submit"
+                            id="submit-quiz-btn"
+                            class="submit-btn"
+                            style="display: none"
+                        >
+                            <i class="fas fa-paper-plane"></i> Submit Assessment
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div id="test-result-screen">
+                <div class="result-summary">
+                    <h2>
+                        Your Score: <span id="score-display"></span> /
+                        <span id="total-questions-display"></span>
+                    </h2>
+                    <p id="percentage-display"></p>
+                </div>
+                <div id="result-details" class="question-result"></div>
+                <button class="back-to-tests-btn">
+                    <i class="fas fa-arrow-left"></i> Back to Tests
+                </button>
+                <button class="retry-test-btn">
+                    <i class="fas fa-redo"></i> Retry This Test
+                </button>
+                <button class="exit-test-btn">
+			<i class="fas fa-sign-out-alt"></i> <a href="/public/oa/">Exit to Main Page</a>
+                </button>
+            </div>
+        </main>
+
+        <script>
+            // Global variables for data
+            const preloader = document.getElementById("preloader");
+            const mainTitle = document.getElementById("main-title");
+            const mainIntro = document.getElementById("main-intro");
+            const testSelectionScreen = document.getElementById(
+                "test-selection-screen",
+            );
+            const testQuizScreen = document.getElementById("test-quiz-screen");
+            const quizForm = document.getElementById("quiz-form");
+            const questionNavGrid =
+                document.getElementById("question-nav-grid");
+            const currentQuestionContainer = document.getElementById(
+                "current-question-container",
+            );
+            const prevQBtn = document.getElementById("prev-q-btn");
+            const nextQBtn = document.getElementById("next-q-btn");
+            const submitQuizBtn = document.getElementById("submit-quiz-btn");
+
+            const testResultScreen =
+                document.getElementById("test-result-screen");
+            const scoreDisplay = document.getElementById("score-display");
+            const totalQuestionsDisplay = document.getElementById(
+                "total-questions-display",
+            );
+            const percentageDisplay =
+                document.getElementById("percentage-display");
+            const resultDetails = document.getElementById("result-details");
+            const backToTestsBtn = document.querySelector(".back-to-tests-btn");
+            const retryTestBtn = document.querySelector(".retry-test-btn");
+            const exitTestBtn = document.querySelector(".exit-test-btn");
+
+            const JSON_FILE_PATH = "data.json";
+            let allTestsData = [];
+            let currentTest = null;
+            let currentQuestionIndex = 0;
+
+            let userAnswers = {};
+
+            function showPreloader() {
+                preloader.classList.remove("hidden");
+            }
+
+            function hidePreloader() {
+                preloader.classList.add("hidden");
+            }
+
+            function showScreen(screenId) {
+                testSelectionScreen.classList.remove("active");
+                testQuizScreen.classList.remove("active");
+                testResultScreen.classList.remove("active");
+                document.getElementById(screenId).classList.add("active");
+            }
+
+            function renderTestSelection() {
+                mainTitle.textContent = "Online Assessment Hub";
+                mainIntro.textContent =
+                    "Select a test to begin your assessment.";
+                testSelectionScreen.innerHTML = "";
+
+                allTestsData.forEach((test) => {
+                    const testCard = document.createElement("div");
+                    testCard.classList.add("test-card");
+                    testCard.dataset.testId = test.testId;
+                    testCard.innerHTML = `
+                        <h3>${test.testTitle}</h3>
+                        <p>${test.testIntro}</p>
+                    `;
+                    testCard.addEventListener("click", () =>
+                        loadTest(test.testId),
+                    );
+                    testSelectionScreen.appendChild(testCard);
+                });
+                showScreen("test-selection-screen");
+            }
+
+            async function loadTest(testId) {
+                await new Promise((resolve) => setTimeout(resolve, 1000));
+
+                currentTest = allTestsData.find(
+                    (test) => test.testId === testId,
+                );
+
+                if (!currentTest) {
+                    alert("Test not found!");
+                    hidePreloader();
+                    renderTestSelection();
+                    return;
+                }
+
+                currentQuestionIndex = 0;
+                userAnswers = {};
+
+                mainTitle.textContent = currentTest.testTitle;
+                mainIntro.textContent = currentTest.testIntro;
+
+                renderQuestionNavigation();
+                displayQuestion(currentQuestionIndex);
+                updateNavigationButtons();
+
+                showScreen("test-quiz-screen");
+                hidePreloader();
+            }
+
+            function renderQuestionNavigation() {
+                questionNavGrid.innerHTML = "";
+                currentTest.questions.forEach((q, index) => {
+                    const navBtn = document.createElement("button");
+                    navBtn.classList.add("question-nav-btn");
+                    navBtn.textContent = index + 1;
+                    navBtn.dataset.questionIndex = index;
+                    navBtn.addEventListener("click", () => {
+                        saveCurrentAnswer();
+                        displayQuestion(index);
+                    });
+                    questionNavGrid.appendChild(navBtn);
+                });
+            }
+
+            function displayQuestion(index) {
+                currentQuestionIndex = index;
+                currentQuestionContainer.innerHTML = "";
+
+                const question = currentTest.questions[currentQuestionIndex];
+                const questionBlock = document.createElement("div");
+                questionBlock.classList.add("question-block");
+
+                let questionHtml = `<p class="question-text">${question.questionId}. ${question.questionText}`;
+                if (question.imageUrl) {
+                    questionHtml += `<img src="${question.imageUrl}" alt="Question Image" onerror="this.style.display='none'">`;
+                }
+                questionHtml += `</p>`;
+
+                if (question.questionType === "mcq") {
+                    questionHtml += `<div class="options">`;
+                    const options = question.options.split("&");
+                    options.forEach((option, optIndex) => {
+                        const optionId = `q${question.questionId}_option${optIndex}`;
+                        const checked =
+                            userAnswers[question.questionId] === option
+                                ? "checked"
+                                : "";
+                        questionHtml += `
+                            <label for="${optionId}">
+                                <input type="radio" id="${optionId}" name="q${question.questionId}" value="${option}" ${checked}>
+                                <span class="custom-control"></span>
+                                ${option}
+                            </label>
+                        `;
+                    });
+                    questionHtml += `</div>`;
+                } else if (question.questionType === "numeric") {
+                    const userAnswerValue =
+                        userAnswers[question.questionId] || "";
+                    questionHtml += `
+                        <input type="number" name="q${question.questionId}" placeholder="Enter your numeric answer" value="${userAnswerValue}">
+                    `;
+                }
+                questionBlock.innerHTML = questionHtml;
+                currentQuestionContainer.appendChild(questionBlock);
+
+                updateNavigationButtons();
+                updateQuestionNavGridHighlight();
+            }
+
+            function saveCurrentAnswer() {
+                const question = currentTest.questions[currentQuestionIndex];
+                let answer = "";
+
+                if (question.questionType === "mcq") {
+                    const selectedOption = document.querySelector(
+                        `input[name="q${question.questionId}"]:checked`,
+                    );
+                    if (selectedOption) {
+                        answer = selectedOption.value;
+                    }
+                } else if (question.questionType === "numeric") {
+                    const numericInput = document.querySelector(
+                        `input[name="q${question.questionId}"]`,
+                    );
+                    if (numericInput) {
+                        answer = numericInput.value.trim();
+                    }
+                }
+                userAnswers[question.questionId] = answer;
+            }
+
+            function updateQuestionNavGridHighlight() {
+                document
+                    .querySelectorAll(".question-nav-btn")
+                    .forEach((btn, index) => {
+                        btn.classList.remove("active-q");
+                        if (
+                            userAnswers[currentTest.questions[index].questionId]
+                        ) {
+                            btn.classList.add("answered-q");
+                        } else {
+                            btn.classList.remove("answered-q");
+                        }
+                        if (index === currentQuestionIndex) {
+                            btn.classList.add("active-q");
+                        }
+                    });
+            }
+
+            function updateNavigationButtons() {
+                prevQBtn.style.display =
+                    currentQuestionIndex > 0 ? "block" : "none";
+                nextQBtn.style.display =
+                    currentQuestionIndex < currentTest.questions.length - 1
+                        ? "block"
+                        : "none";
+                submitQuizBtn.style.display =
+                    currentQuestionIndex === currentTest.questions.length - 1
+                        ? "block"
+                        : "none";
+            }
+
+            prevQBtn.addEventListener("click", () => {
+                saveCurrentAnswer();
+                if (currentQuestionIndex > 0) {
+                    displayQuestion(currentQuestionIndex - 1);
+                }
+            });
+
+            nextQBtn.addEventListener("click", () => {
+                saveCurrentAnswer();
+                if (currentQuestionIndex < currentTest.questions.length - 1) {
+                    displayQuestion(currentQuestionIndex + 1);
+                }
+            });
+
+            quizForm.addEventListener("submit", function (event) {
+                event.preventDefault();
+                saveCurrentAnswer();
+                calculateResults();
+            });
+
+            function calculateResults() {
+                let score = 0;
+                resultDetails.innerHTML = "";
+
+                currentTest.questions.forEach((question) => {
+                    let userAnswer = userAnswers[question.questionId] || "";
+                    let isCorrect = false;
+                    const questionElement = document.createElement("div");
+                    questionElement.classList.add("question-block");
+
+                    if (question.questionType === "mcq") {
+                        isCorrect = userAnswer === question.answer;
+                    } else if (question.questionType === "numeric") {
+                        const expectedAnswer = String(question.answer).trim();
+                        isCorrect = userAnswer === expectedAnswer;
+                    }
+
+                    if (isCorrect) {
+                        score++;
+                        questionElement.classList.add("correct");
+                    } else {
+                        questionElement.classList.add("wrong");
+                    }
+
+                    let questionHtml = `<p class="question-text">${question.questionId}. ${question.questionText}`;
+                    if (question.imageUrl) {
+                        questionHtml += `<img src="${question.imageUrl}" alt="Question Image" onerror="this.style.display='none'">`;
+                    }
+                    questionHtml += `</p>`;
+
+                    if (question.questionType === "mcq") {
+                        questionHtml += `<div class="options">`;
+                        const options = question.options.split("&");
+                        options.forEach((option, optIndex) => {
+                            let labelClass = "";
+                            if (option === question.answer) {
+                                labelClass = "correct-option";
+                            }
+                            if (option === userAnswer && !isCorrect) {
+                                labelClass = "selected-wrong";
+                            }
+
+                            questionHtml += `
+                                <label class="${labelClass}">
+                                    <input type="radio" disabled ${option === userAnswer ? "checked" : ""}>
+                                    <span class="custom-control"></span>
+                                    ${option}
+                                </label>
+                            `;
+                        });
+                        questionHtml += `</div>`;
+                    } else {
+                        // Numeric
+                        questionHtml += `<p class="user-answer">Your Answer: ${userAnswer || "No Answer"}</p>`;
+                        questionHtml += `<p class="correct-answer">Correct Answer: ${question.answer}</p>`;
+                    }
+
+                    questionHtml += `<span class="status-icon">${isCorrect ? '<i class="fas fa-check-circle"></i>' : '<i class="fas fa-times-circle"></i>'}</span>`;
+
+                    questionElement.innerHTML = questionHtml;
+                    resultDetails.appendChild(questionElement);
+                });
+
+                const totalQuestions = currentTest.questions.length;
+                scoreDisplay.textContent = score;
+                totalQuestionsDisplay.textContent = totalQuestions;
+                const percentage =
+                    totalQuestions > 0
+                        ? ((score / totalQuestions) * 100).toFixed(2)
+                        : 0;
+                percentageDisplay.textContent = `(${percentage}%)`;
+
+                showScreen("test-result-screen");
+            }
+
+            backToTestsBtn.addEventListener("click", () => {
+                currentTest = null;
+                renderTestSelection();
+            });
+
+            retryTestBtn.addEventListener("click", () => {
+                if (currentTest) {
+                    loadTest(currentTest.testId);
+                } else {
+                    renderTestSelection();
+                }
+            });
+
+            exitTestBtn.addEventListener("click", () => {
+                currentTest = null;
+                renderTestSelection();
+            });
+
+            document.addEventListener("DOMContentLoaded", async () => {
+                showPreloader();
+
+                try {
+                    const response = await fetch(JSON_FILE_PATH);
+                    if (!response.ok) {
+                        throw new Error(
+                            `HTTP error! status: ${response.status}`,
+                        );
+                    }
+                    const data = await response.json();
+                    allTestsData = data.tests;
+                    renderTestSelection();
+                } catch (error) {
+                    console.error("Error loading tests data:", error);
+                    testSelectionScreen.innerHTML = `
+                        <div class="error" style="text-align: center; padding: 2rem; color: var(--wrong-border); background: var(--wrong-bg); border-radius: 8px; margin: 2rem 0; border: 1px solid var(--wrong-border);">
+                            <h3>Error Loading Assessment Data</h3>
+                            <p>Could not load data.json. Please ensure the file exists and is correctly formatted.</p>
+                            <p>Error details: ${error.message}</p>
+                        </div>
+                    `;
+                    showScreen("test-selection-screen");
+                } finally {
+                    hidePreloader();
+                }
+            });
+        </script>
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-container">
+                <h3 class="footer-title">Sparkonics</h3>
+                <p class="footer-description">
+                    Capturing innovation, one event at a time.
+                </p>
+                <div class="footer-links">
+                    <span class="footer-link">About</span>
+                    <span class="footer-link">Contact</span>
+                    <span class="footer-link">Privacy</span>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

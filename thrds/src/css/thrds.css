@@ -1,0 +1,206 @@
+/* Base Styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+}
+
+html,
+body {
+    background: linear-gradient(
+        to bottom right,
+        #f9f9f9,
+        #e0e0e0
+    ); /* fallback */
+    background-image: url("bg2.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    height: 100%;
+}
+
+/* Header */
+.thrd-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 24px;
+    border-bottom: 1px solid #ddd;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+/* Buttons & Inputs */
+button {
+    padding: 8px 16px;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    background-color: lightpink;
+    background-image: url("hat.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: black;
+    font-size: 15px;
+    transition:
+        background-color 0.2s,
+        transform 0.1s;
+}
+
+button:hover {
+    background-color: lightblue;
+    background-image: url("hat.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    transform: scale(1.02);
+}
+
+input[type="text"] {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    width: 200px;
+    transition: box-shadow 0.2s;
+}
+
+input[type="text"]:focus {
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+    outline: none;
+}
+
+/* Thread List */
+.thrds.area {
+    padding: 24px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
+}
+
+/* Thread card - default view (collapsed) */
+.thrd-area {
+    backdrop-filter: blur(2px);
+    padding: 20px;
+    border-radius: 12px;
+    border: black 2px solid;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition:
+        transform 0.2s,
+        box-shadow 0.2s;
+    position: relative;
+    overflow: hidden;
+    max-height: 150px; /* Collapsed height */
+}
+
+.thrd-area:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+}
+
+/* Hide message area by default */
+.messageArea {
+    display: none;
+}
+
+/* Expanded thread view (when selected) */
+.thrd-area.thrd-selected {
+    background-image: url("bg1.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    max-height: none;
+    position: fixed;
+    top: 64px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 800px;
+    height: calc(100% - 88px);
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    padding: 24px;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+}
+
+.thrd-area.thrd-selected .messageArea {
+    display: block;
+    flex: 1;
+    overflow-y: auto;
+    margin-top: 16px;
+}
+
+/* Close Button */
+.close-thrd-btn {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    border: none;
+    background-color: transparent;
+    color: #888;
+    font-size: 24px;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.close-thrd-btn:hover {
+    color: #333;
+}
+
+/* Messages */
+.broadcasted-message-server {
+    background-color: #fdfdfd;
+    border-left: 4px solid #007bff;
+    padding: 12px 16px;
+    margin: 12px 0;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.broadcasted-message-server .message-text {
+    font-size: 15px;
+    margin-bottom: 6px;
+    color: #333;
+}
+
+.broadcasted-message-server .message-date {
+    font-size: 11px;
+    color: #777;
+    text-align: right;
+}
+
+/* Message Input Form */
+#message-input-form {
+    display: flex;
+    gap: 12px;
+    padding: 12px 0;
+    border-top: 1px solid #eee;
+}
+
+#message-input-form input {
+    flex: 1;
+}
+
+#message-input-form button {
+    flex-shrink: 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .thrds.area {
+        padding: 16px;
+        gap: 16px;
+    }
+    button,
+    input[type="text"] {
+        font-size: 14px;
+        padding: 6px 12px;
+    }
+}

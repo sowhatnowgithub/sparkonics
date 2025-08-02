@@ -1,0 +1,431 @@
+{
+  "Events": {
+    "Add": {
+      "request_method": "POST",
+      "action_url": "/api/events/add",
+      "enctype": "application/x-www-form-urlencoded",
+      "FormData": {
+        "EventName": ["required", "text", "Enter Event Name like sowhatnow"],
+        "EventDescription": ["required", "textarea", "Enter Event Description"],
+        "EventStartTime": ["required", "datetime-local", ""],
+        "EventEndTime": ["required", "datetime-local", ""],
+        "EventDomains": ["required", "text", "Eg: Signals, Digi, Analog"],
+        "EventBanner": ["required", "text", "/api/images/123"],
+        "EventRegisterLink": ["required", "url", "https://example.com/register"]
+      }
+    },
+    "Modify": {
+      "request_method": "POST",
+      "action_url": "/api/events/modify",
+      "enctype": "application/x-www-form-urlencoded",
+      "FormData": {
+        "EventId": ["required", "number", "Enter Event Id"],
+        "EventName": ["", "text", "Enter Event Name like sowhatnow"],
+        "EventDescription": ["", "textarea", "Enter Event Description"],
+        "EventStartTime": ["", "datetime-local", ""],
+        "EventEndTime": ["", "datetime-local", ""],
+        "EventDomains": ["", "text", "Eg: Signals, Digi, Analog"],
+        "EventBanner": ["", "text", "/api/images/123"],
+        "EventRegisterLink": ["", "url", "https://example.com/register"]
+      }
+    },
+    "Delete": {
+      "request_method": "GET",
+      "action_url": "/api/events/delete/",
+      "enctype": "application/x-www-form-urlencoded",
+      "FormData": {
+        "EventId": ["required", "number", "Enter Event Id to delete"]
+      }
+    },
+    "Fetch": {
+      "request_method": "GET",
+      "action_url": "/api/events/",
+      "enctype": "application/x-www-form-urlencoded",
+      "FormData": {
+        "EventId": ["required", "number", "Enter Event Id to Fetch"]
+      }
+    },
+    "FetchAll": {
+      "request_method": "GET",
+      "action_url": "/api/events",
+      "enctype": "application/x-www-form-urlencoded",
+      "FormData": {}
+    }
+  },
+  "Profs": {
+    "Add": {
+      "request_method": "POST",
+      "action_url": "/api/profs/add",
+      "enctype": "application/x-www-form-urlencoded",
+      "FormData": {
+        "ProfName": ["required", "text", "Enter Prof Name like L.Praful"],
+        "ProfPosition": ["required", "text", "Asst.Prof, etc "],
+        "ProfImage": [
+          "required",
+          "text",
+          "add the image path like /api/images/123"
+        ],
+        "ProfContact": [
+          "required",
+          "text",
+          "Like there room no, official iitp mail"
+        ],
+        "ProfDomain": ["required", "text", "Signals, IOT, ML etc"],
+        "ProfCurrentProjects": [
+          "required",
+          "textarea",
+          "There current project in public domain, don't include his private ones without his concern"
+        ]
+      }
+    },
+    "Modify": {
+      "request_method": "POST",
+      "action_url": "/api/profs/modify",
+      "enctype": "application/x-www-form-urlencoded",
+
+      "FormData": {
+        "ProfId": ["required", "number", "Enter Prof Id"],
+        "ProfName": ["", "text", "Enter Prof Name like L.Praful"],
+        "ProfPosition": ["", "text", "Asst.Prof, etc "],
+        "ProfImage": ["", "text", "add the image path like /api/images/123"],
+        "ProfContact": ["", "text", "Like there room no, official iitp mail"],
+        "ProfDomain": ["", "text", "Signals, IOT, ML etc"],
+        "ProfCurrentProjects": [
+          "",
+          "textarea",
+          "There current project in public domain, don't include his private ones without his concern"
+        ]
+      }
+    },
+    "Delete": {
+      "request_method": "GET",
+      "action_url": "/api/profs/delete/",
+      "enctype": "application/x-www-form-urlencoded",
+
+      "FormData": {
+        "ProfId": ["required", "number", "Enter Event Id to delete"]
+      }
+    },
+    "Fetch": {
+      "request_method": "GET",
+      "action_url": "/api/profs/",
+      "enctype": "application/x-www-form-urlencoded",
+
+      "FormData": {
+        "ProfId": ["required", "number", "Enter Event Id to Fetch"]
+      }
+    },
+    "FetchAll": {
+      "request_method": "GET",
+      "action_url": "/api/profs",
+      "enctype": "application/x-www-form-urlencoded",
+
+      "FormData": {}
+    }
+  },
+  "Images": {
+    "Add": {
+      "request_method": "POST",
+      "action_url": "/api/images/add",
+      "enctype": "multipart/form-data",
+
+      "FormData": {
+        "ImageId": ["required", "number", "Enter unique id for the image"],
+        "ImageFile": ["required", "file", ""]
+      }
+    },
+    "Modify": {
+      "request_method": "POST",
+      "action_url": "/api/images/modify",
+      "enctype": "multipart/form-data",
+      "FormData": {
+        "ImageId": ["required", "number", "Enter Image Id"],
+        "ImageFile": ["required", "file", ""]
+      }
+    },
+    "Delete": {
+      "request_method": "GET",
+      "action_url": "/api/images/delete/",
+      "enctype": "application/x-www-form-urlencoded",
+
+      "FormData": {
+        "ImageId": ["required", "number", "Enter Image Id to delete"]
+      }
+    },
+    "Fetch": {
+      "request_method": "GET",
+      "action_url": "/api/images/",
+      "enctype": "application/x-www-form-urlencoded",
+
+      "FormData": {
+        "ImageId": ["required", "number", "Enter Image Id to Fetch"]
+      }
+    },
+    "FetchAll": {
+      "request_method": "GET",
+      "action_url": "/api/images",
+      "enctype": "application/x-www-form-urlencoded",
+
+      "FormData": {}
+    }
+  },
+  "Gallery": {
+    "Add": {
+      "request_method": "POST",
+      "action_url": "/api/gallery/add",
+      "enctype": "application/x-www-form-urlencoded",
+      "FormData": {
+        "GalleryName": [
+          "required",
+          "text",
+          "Enter the gallery name (e.g., Micro Mouse)"
+        ],
+        "GalleryDate": [
+          "required",
+          "text",
+          "Enter the gallery date (e.g., YYYY-MM-DD)"
+        ],
+        "GalleryDescription": [
+          "required",
+          "textarea",
+          "Enter a description of the gallery event"
+        ],
+        "GalleryImageBanner": [
+          "required",
+          "text",
+          "Enter banner image URL (e.g., /api/image/5)"
+        ],
+        "GalleryDomain": [
+          "required",
+          "text",
+          "Enter domain or category (e.g., Embedded&C&Sensors)"
+        ],
+        "GalleryParticipants": [
+          "required",
+          "number",
+          "Enter number of participants"
+        ],
+        "GalleryImagesUrl": [
+          "required",
+          "text",
+          "Enter multiple image URLs separated by & (e.g., /api/image/1&/api/image/2)"
+        ],
+        "GalleryImageDescription": [
+          "required",
+          "textarea",
+          "Enter image descriptions separated by & (e.g., winner1&team&presentation)"
+        ]
+      }
+    },
+    "Modify": {
+      "request_method": "POST",
+      "action_url": "/api/gallery/modify",
+      "enctype": "application/x-www-form-urlencoded",
+      "FormData": {
+        "GalleryId": ["required", "number", "Enter Gallery Id to modify"],
+        "GalleryName": ["", "text", "Update the gallery name"],
+        "GalleryDate": [
+          "",
+          "text",
+          "Update the gallery date (e.g., YYYY-MM-DD)"
+        ],
+        "GalleryDescription": [
+          "",
+          "textarea",
+          "Update the gallery description"
+        ],
+        "GalleryImageBanner": ["", "text", "Update the banner image URL"],
+        "GalleryDomain": ["", "text", "Update the domain"],
+        "GalleryParticipants": ["", "number", "Update participant count"],
+        "GalleryImagesUrl": ["", "text", "Update image URLs separated by &"],
+        "GalleryImageDescription": [
+          "",
+          "textarea",
+          "Update image descriptions separated by &"
+        ]
+      }
+    },
+    "Delete": {
+      "request_method": "GET",
+      "action_url": "/api/gallery/delete/",
+      "enctype": "application/x-www-form-urlencoded",
+      "FormData": {
+        "GalleryId": ["required", "number", "Enter Gallery Id to delete"]
+      }
+    },
+    "Fetch": {
+      "request_method": "GET",
+      "action_url": "/api/gallery/",
+      "enctype": "application/x-www-form-urlencoded",
+      "FormData": {
+        "GalleryId": ["required", "number", "Enter Gallery Id to fetch"]
+      }
+    },
+    "FetchAll": {
+      "request_method": "GET",
+      "action_url": "/api/gallery",
+      "enctype": "application/x-www-form-urlencoded",
+      "FormData": {}
+    }
+  },
+  "Team": {
+    "Add": {
+      "request_method": "POST",
+      "action_url": "/api/team/add",
+      "enctype": "application/x-www-form-urlencoded",
+      "FormData": {
+        "MemName": ["required", "text", "Enter full name"],
+        "MemPosition": [
+          "required",
+          "text",
+          "Choose Coordinator or SubCoordinator, enter these names without typos"
+        ],
+        "MemRole": ["required", "text", "E.g., Sponsorship, Media, Logistics"],
+        "MemStartTime": ["required", "text", "Start year (e.g., 2024)"],
+        "MemEndTime": ["required", "text", "End year (e.g., 2025)"],
+        "MemImageUrl": ["required", "text", "Image path like /api/images/123"],
+        "MemLinkedin": ["required", "text", "LinkedIn profile URL"]
+      }
+    },
+    "Modify": {
+      "request_method": "POST",
+      "action_url": "/api/team/modify",
+      "enctype": "application/x-www-form-urlencoded",
+      "FormData": {
+        "MemId": ["required", "number", "Enter Team Member ID"],
+        "MemName": ["", "text", "Update full name"],
+        "MemPosition": [
+          "",
+          "text",
+          "Choose Coordinator or SubCoordinator, enter these names without typos"
+        ],
+        "MemRole": ["", "text", "Update role"],
+        "MemStartTime": ["", "text", "Update start year"],
+        "MemEndTime": ["", "text", "Update end year"],
+        "MemImageUrl": ["", "text", "Update image path"],
+        "MemLinkedin": ["", "text", "Update LinkedIn URL"]
+      }
+    },
+    "Delete": {
+      "request_method": "GET",
+      "action_url": "/api/team/delete/",
+      "enctype": "application/x-www-form-urlencoded",
+      "FormData": {
+        "MemId": ["required", "number", "Enter Team Member ID to delete"]
+      }
+    },
+    "Fetch": {
+      "request_method": "GET",
+      "action_url": "/api/team/",
+      "enctype": "application/x-www-form-urlencoded",
+      "FormData": {
+        "MemId": ["required", "number", "Enter Team Member ID to fetch"]
+      }
+    },
+    "FetchAll": {
+      "request_method": "GET",
+      "action_url": "/api/team",
+      "enctype": "application/x-www-form-urlencoded",
+      "FormData": {}
+    }
+  },
+  "Opp": {
+    "Add": {
+      "request_method": "POST",
+      "action_url": "/api/opp/add",
+      "enctype": "application/x-www-form-urlencoded",
+      "FormData": {
+        "OppName": [
+          "required",
+          "text",
+          "Enter Opportunity Name like 'Research Fellowship'"
+        ],
+        "OppDesc": [
+          "required",
+          "textarea",
+          "Detailed description of the opportunity"
+        ],
+        "OppLink": [
+          "required",
+          "text",
+          "Link to the official page or application form"
+        ],
+        "OppDomain": ["required", "text", "E.g., VLSI, Digital Design, PCB"],
+        "OppValidFrom": ["required", "date", "Start date in YYYY-MM-DD format"],
+        "OppValidEnd": ["required", "date", "End date in YYYY-MM-DD format"],
+        "OppCreatedAt": [
+          "required",
+          "date",
+          "Date the opportunity was added (YYYY-MM-DD)"
+        ],
+        "OppEligibility": [
+          "required",
+          "textarea",
+          "Who can apply (e.g., UG students, final year only)"
+        ],
+        "OppOrganiser": [
+          "required",
+          "text",
+          "Name of the organizing body (e.g., IIT Patna, Google)"
+        ],
+        "OppApplicationProcedure": [
+          "required",
+          "textarea",
+          "Steps to apply for the opportunity"
+        ],
+        "OppLocation": ["required", "text", "Location or Remote if applicable"],
+        "OppType": [
+          "required",
+          "text",
+          "Category like Internship, Event, Scholarship, Grant"
+        ]
+      }
+    },
+    "Modify": {
+      "request_method": "POST",
+      "action_url": "/api/opp/modify",
+      "enctype": "application/x-www-form-urlencoded",
+      "FormData": {
+        "OppId": ["required", "number", "ID of the opportunity to modify"],
+        "OppName": ["", "text", "Enter Opportunity Name like 'AI Fellowship'"],
+        "OppDesc": ["", "textarea", "Detailed description of the opportunity"],
+        "OppLink": [
+          "",
+          "text",
+          "Link to the official page or application form"
+        ],
+        "OppDomain": ["", "text", "E.g., ML, AI, IoT, Cybersecurity"],
+        "OppValidFrom": ["", "date", "Start date in YYYY-MM-DD format"],
+        "OppValidEnd": ["", "date", "End date in YYYY-MM-DD format"],
+        "OppCreatedAt": ["", "date", "Date the opportunity was added"],
+        "OppEligibility": ["", "textarea", "Who can apply"],
+        "OppOrganiser": ["", "text", "Organizing body"],
+        "OppApplicationProcedure": ["", "textarea", "Steps to apply"],
+        "OppLocation": ["", "text", "Location or 'Remote'"],
+        "OppType": ["", "text", "Internship, Event, etc."]
+      }
+    },
+    "Delete": {
+      "request_method": "GET",
+      "action_url": "/api/opp/delete/",
+      "enctype": "application/x-www-form-urlencoded",
+      "FormData": {
+        "OppId": ["required", "number", "Enter Opportunity ID to delete"]
+      }
+    },
+    "Fetch": {
+      "request_method": "GET",
+      "action_url": "/api/opp/",
+      "enctype": "application/x-www-form-urlencoded",
+      "FormData": {
+        "OppId": ["required", "number", "Enter Opportunity ID to fetch"]
+      }
+    },
+    "FetchAll": {
+      "request_method": "GET",
+      "action_url": "/api/opp",
+      "enctype": "application/x-www-form-urlencoded",
+      "FormData": {}
+    }
+  }
+}

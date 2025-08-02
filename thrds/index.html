@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>thrds</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+                font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+                background-color: #f4f4f4;
+                color: #333;
+                text-align: center;
+                padding: 40px 20px;
+            }
+
+            h1 {
+                font-size: 2.5em;
+                color: #222;
+                margin-bottom: 10px;
+            }
+
+            p {
+                font-size: 1.1em;
+                line-height: 1.6;
+                max-width: 600px;
+                margin: 10px auto;
+            }
+
+            a {
+                color: hotpink;
+                text-decoration: none;
+            }
+
+            a:hover {
+                text-decoration: underline;
+            }
+
+            .button-link {
+                display: inline-block;
+                margin: 20px 10px;
+                padding: 12px 20px;
+                background-color: lightpink;
+                color: #fff;
+                border-radius: 6px;
+                text-decoration: none;
+                font-weight: bold;
+                transition: background 0.3s;
+            }
+
+            .button-link:hover {
+                background-color: pink;
+            }
+
+            .note {
+                margin-top: 40px;
+                font-style: italic;
+                color: #555;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>
+            thrds <span style="font-size: 0.6em">(pronounced as threads)</span>
+        </h1>
+        <p>
+            No login required. Just spawn a
+            <b><a href="/thrds/src/thrds.php">thrd</a></b
+            >, start a conversation, and comment like hell.
+        </p>
+        <p>The message will be broadcasted to all others in the thread.</p>
+
+        <a href="/thrds/src/thrds.php" class="button-link">Enter thrds</a>
+        <a href="/thrds/src/about.php" class="button-link"
+            >Want to know more?</a
+        >
+
+        <p class="note">
+            <b>UI is a bit animish</b>
+        </p>
+    </body>
+</html>

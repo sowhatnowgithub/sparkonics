@@ -1,0 +1,20 @@
+{
+  "name": "sowhatnow/sparkonics-server",
+  "description": "This is the backend for sparkonics",
+  "autoload": {
+    "psr-4": {
+      "Sowhatnow\\App\\": "app/",
+      "Sowhatnow\\Routes\\": "routes/",
+      "Sowhatnow\\Api\\": "api/",
+      "Sowhatnow\\": "./"
+    }
+  },
+  "authors": [
+    {
+      "name": "sowhatnow"
+    }
+  ],
+  "require": {
+    "phpmailer/phpmailer": "^6.10"
+  }
+}

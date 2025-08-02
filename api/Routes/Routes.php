@@ -1,0 +1,216 @@
+<?php
+$router->routeCreate(
+    "/api/events", // uri
+    ["EventsPageController", "FetchAllEvents"], // action controller
+    "GET", // request method
+    false, // args exist or not
+);
+$router->routeCreate(
+    "/api/events/add",
+    ["EventsPageController", "AddEvent"],
+    "POST",
+    true,
+);
+$router->routeCreate(
+    "/api/events/modify",
+    ["EventsPageController", "ModifyEvent"],
+    "POST",
+    true,
+);
+$router->routeCreateRegex(
+    '~^/api/events/delete/([a-zA-Z0-9_-]+)$~',
+    "deleteEvent",
+    ["EventsPageController", "DeleteEvent"],
+    "GET",
+    true,
+);
+$router->routeCreateRegex(
+    '~^/api/events/([a-zA-Z0-9_-]+)$~',
+    "fetchEvent",
+    ["EventsPageController", "FetchEvent"],
+    "GET",
+    true,
+);
+// Routes fof Profs
+$router->routeCreate(
+    "/api/profs",
+    ["ProfsPageController", "FetchAllProfs"],
+    "GET",
+    false,
+);
+$router->routeCreate(
+    "/api/profs/add",
+    ["ProfsPageController", "AddProf"],
+    "POST",
+    true,
+);
+$router->routeCreateRegex(
+    '~^/api/profs/([a-zA-Z0-9_-]+)$~',
+    "fetchProf",
+    ["ProfsPageController", "FetchProf"],
+    "GET",
+    true,
+);
+$router->routeCreate(
+    "/api/profs/modify",
+    ["ProfsPageController", "ModifyProf"],
+    "POST",
+    true,
+);
+$router->routeCreateRegex(
+    '~^/api/profs/delete/([a-zA-Z0-9_-]+)$~',
+    "deleteProf",
+    ["ProfsPageController", "DeleteProf"],
+    "GET",
+    true,
+);
+// Images Fetch
+$router->routeCreate(
+    "/api/images",
+    ["ImagesController", "FetchAllImages"],
+    "GET",
+    false,
+);
+$router->routeCreate(
+    "/api/images/add",
+    ["ImagesController", "AddImage"],
+    "POST",
+    true,
+);
+$router->routeCreateRegex(
+    '~^/api/images/([a-zA-Z0-9_-]+)$~',
+    "fetchimage",
+    ["ImagesController", "FetchImage"],
+    "GET",
+    true,
+);
+$router->routeCreate(
+    "/api/images/modify",
+    ["ImagesController", "ModifyImage"],
+    "POST",
+    true,
+);
+$router->routeCreateRegex(
+    '~^/api/images/delete/([a-zA-Z0-9_-]+)$~',
+    "deleteImage",
+    ["ImagesController", "DeleteImage"],
+    "GET",
+    true,
+);
+// Routes fof Gallery
+$router->routeCreate(
+    "/api/gallery",
+    ["GalleryController", "FetchAllGallery"],
+    "GET",
+    false,
+);
+$router->routeCreate(
+    "/api/gallery/add",
+    ["GalleryController", "AddGallery"],
+    "POST",
+    true,
+);
+$router->routeCreateRegex(
+    '~^/api/gallery/([a-zA-Z0-9_-]+)$~',
+    "fetchGallery",
+    ["GalleryController", "FetchGallery"],
+    "GET",
+    true,
+);
+$router->routeCreate(
+    "/api/gallery/modify",
+    ["GalleryController", "ModifyGallery"],
+    "POST",
+    true,
+);
+$router->routeCreateRegex(
+    '~^/api/gallery/delete/([a-zA-Z0-9_-]+)$~',
+    "deleteGallery",
+    ["GalleryController", "DeleteGallery"],
+    "GET",
+    true,
+);
+// Routes fof Team
+$router->routeCreate(
+    "/api/team",
+    ["TeamController", "FetchAllMems"],
+    "GET",
+    false,
+);
+$router->routeCreate(
+    "/api/team/add",
+    ["TeamController", "AddMem"],
+    "POST",
+    true,
+);
+$router->routeCreateRegex(
+    '~^/api/team/([a-zA-Z0-9_-]+)$~',
+    "fetchMem",
+    ["TeamController", "FetchMem"],
+    "GET",
+    true,
+);
+$router->routeCreate(
+    "/api/team/modify",
+    ["TeamController", "ModifyMem"],
+    "POST",
+    true,
+);
+$router->routeCreateRegex(
+    '~^/api/team/delete/([a-zA-Z0-9_-]+)$~',
+    "deleteMem",
+    ["TeamController", "DeleteMem"],
+    "GET",
+    true,
+);
+// Routes for Oppurtunities
+$router->routeCreate(
+    "/api/opp",
+    ["OppController", "FetchAllOpp"],
+    "GET",
+    false,
+);
+$router->routeCreate("/api/opp/add", ["OppController", "AddOpp"], "POST", true);
+$router->routeCreateRegex(
+    '~^/api/opp/([a-zA-Z0-9_-]+)$~',
+    "fetchOpp",
+    ["OppController", "FetchOpp"],
+    "GET",
+    true,
+);
+$router->routeCreate(
+    "/api/opp/modify",
+    ["OppController", "ModifyOpp"],
+    "POST",
+    true,
+);
+$router->routeCreateRegex(
+    '~^/api/opp/delete/([a-zA-Z0-9_-]+)$~',
+    "deleteOpp",
+    ["OppController", "DeleteOpp"],
+    "GET",
+    true,
+);
+// Routes for OA
+$router->routeCreate("/api/oa", ["OAController", "FetchAllOA"], "GET", false);
+$router->routeCreate("/api/oa/add", ["OAController", "AddOA"], "POST", true);
+$router->routeCreateRegex(
+    '~^/api/oa/([a-zA-Z0-9_-]+)$~',
+    "fetchOA",
+    ["OAController", "FetchOA"],
+    "GET",
+    true,
+);
+$router->routeCreate(
+    "/api/oa/modify",
+    ["OAController", "ModifyOA"],
+    "POST",
+    true,
+);
+$router->routeCreateRegex(
+    '~^/api/oa/delete/([a-zA-Z0-9_-]+)$~',
+    "deleteOA",
+    ["OAController", "DeleteOA"],
+    "GET",
+    true,
+);

@@ -1,0 +1,132 @@
+<?php
+
+namespace Sowhatnow\Api\Models;
+use Sowhatnow\Env;
+class GalleryModel
+{
+    protected $conn;
+    protected $query;
+    public function __construct()
+    {
+        try {
+            $dbPath = Env::BASE_PATH . "/api/Models/Database/gallery.db";
+            $this->conn = new \PDO("sqlite:$dbPath");
+            $this->conn->setAttribute(
+                \PDO::ATTR_ERRMODE,
+                \PDO::ERRMODE_EXCEPTION,
+            );
+            $this->conn->setAttribute(
+                \PDO::ATTR_DEFAULT_FETCH_MODE,
+                \PDO::FETCH_ASSOC,
+            );
+        } catch (\PDOException $e) {
+            return ["Error" => "Failed to fetch"];
+            exit();
+        }
+    }
+
+    public function cleanQuery($query): string
+    {
+        return $this->conn->quote($query);
+    }
+    public function AddGallery($query, $settings): array
+    {
+        try {
+            $stmt = $this->conn->prepare($query);
+
+            // Bind parameters securely
+            $stmt->bindParam(":GalleryName", $settings["GalleryName"]);
+            $stmt->bindParam(":GalleryDate", $settings["GalleryDate"]);
+            $stmt->bindParam(
+                ":GalleryDescription",
+                $settings["GalleryDescription"],
+            );
+            $stmt->bindParam(
+                ":GalleryImageBanner",
+                $settings["GalleryImageBanner"],
+            );
+            $stmt->bindParam(":GalleryDomain", $settings["GalleryDomain"]);
+            $stmt->bindParam(
+                ":GalleryParticipants",
+                $settings["GalleryParticipants"],
+            );
+            $stmt->bindParam(
+                ":GalleryImagesUrl",
+                $settings["GalleryImagesUrl"],
+            );
+            $stmt->bindParam(
+                ":GalleryImageDescription",
+                $settings["GalleryImageDescription"],
+            );
+
+            $stmt->execute();
+            return ["Success" => "God"];
+        } catch (\PDOException $e) {
+            return ["Error" => "Failed to insert: " . $e->getMessage()];
+        }
+    }
+
+    public function FetchGallery($galleryId): array
+    {
+        try {
+            $stmt = $this->conn->prepare(
+                "SELECT * FROM Gallery WHERE GalleryId = :galleryId",
+            );
+            $stmt->bindParam(":galleryId", $galleryId, \PDO::PARAM_INT);
+            $stmt->execute();
+            $gallery = $stmt->fetch();
+            $stmt = null;
+            if ($gallery != false) {
+                return $gallery;
+            } else {
+                return ["Error" => "Failed to fetcI"];
+            }
+        } catch (\PDOException $e) {
+            return ["Error" => "Failed to fetch"];
+        }
+    }
+    public function FetchAllGallery(): array
+    {
+        try {
+            $this->query = "SELECT * FROM Gallery";
+            $stmt = $this->conn->prepare($this->query);
+            $stmt->execute();
+            $gallery = $stmt->fetchAll();
+            $stmt = null;
+            if ($gallery != false) {
+                return $gallery;
+            } else {
+                return ["Error" => "Failed to fetcI"];
+            }
+        } catch (\PDOException $e) {
+            return ["Error" => "Failed to fetch"];
+        }
+    }
+    public function DeleteGallery($galleryId): array
+    {
+        try {
+            $stmt = $this->conn->prepare(
+                "DELETE FROM Gallery WHERE GalleryId = :galleryId",
+            );
+            $stmt->bindParam(":galleryId", $galleryId, \PDO::PARAM_INT);
+            $stmt->execute();
+            $stmt = null;
+            return ["Success" => "god"];
+        } catch (\PDOException $e) {
+            return ["Error" => "Failed to fetch"];
+        }
+    }
+    public function ModifyGallery($query, $params): array
+    {
+        try {
+            $stmt = $this->conn->prepare($query);
+            foreach ($params as $key => $value) {
+                $stmt->bindValue($key, $value);
+            }
+            $stmt->execute();
+            return ["Success" => "God"];
+        } catch (\PDOException $e) {
+            return ["Error" => "Update failed: " . $e->getMessage()];
+        }
+    }
+}
