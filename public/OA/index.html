@@ -2,144 +2,124 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
-        <title>Online Assesment</title>
+        <title>Test List Display</title>
         <style>
             :root {
-                --foreground: rgb(246, 231, 82); /* light text (tertiary) */
-                --primary: rgb(144, 252, 253); /* cyan (secondary) */
-
-                --muted-foreground: rgba(
-                    246,
-                    231,
-                    82,
-                    0.6
-                ); /* faded tertiary */
-                --border: rgba(144, 252, 253, 0.3);
-
-                --gradient-card: linear-gradient(
-                    145deg,
-                    rgb(1, 6, 15),
-                    rgb(2, 12, 30)
-                );
+                --primary-text: rgb(144, 252, 253);
+                --accent-color: #ffd300;
             }
 
-            /* Footer */
-            .footer {
-                background: var(--gradient-card);
-                border-top: 1px solid var(--border);
-                padding: 48px 16px;
+            body {
+                background-color: #111;
+                font-family: Arial, sans-serif;
+                color: var(--primary-text);
+                margin: 0;
+                padding: 20px;
             }
 
-            .footer-container {
-                max-width: 1536px;
-                margin: 0 auto;
+            h1 {
+                font-size: 2.5em;
+                color: var(--accent-color);
                 text-align: center;
+                margin-bottom: 30px;
+                text-shadow: 0 0 10px rgba(255, 211, 0, 0.7);
+                letter-spacing: 2px;
             }
 
-            .footer-title {
-                font-size: 2rem;
-                font-weight: 700;
-                color: var(--foreground);
-                margin-bottom: 16px;
-            }
-
-            .footer-description {
-                color: var(--muted-foreground);
-                margin-bottom: 24px;
-            }
-
-            .footer-links {
+            main {
                 display: flex;
-                justify-content: center;
-                gap: 24px;
-                color: var(--muted-foreground);
+                flex-direction: column;
+                gap: 20px;
             }
 
-            .footer-link {
-                cursor: pointer;
-                transition: color 0.3s ease;
+            .test-card {
+                background: rgba(26, 26, 26, 0.4);
+                border-left: 5px solid var(--accent-color);
+                padding: 16px;
+                border-radius: 8px;
             }
 
-            .footer-link:hover {
-                color: var(--primary);
+            .test-card h2 {
+                color: var(--accent-color);
+                margin-bottom: 8px;
+            }
+
+            .test-card p {
+                margin: 4px 0;
+            }
+
+            .domains {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                margin-top: 10px;
+            }
+
+            .domain-bubble {
+                background-color: var(--accent-color);
+                color: #000;
+                padding: 4px 10px;
+                border-radius: 999px;
+                font-size: 0.85em;
+            }
+
+            .test-link {
+                display: inline-block;
+                margin-top: 12px;
+                padding: 8px 14px;
+                background-color: var(--accent-color);
+                color: #000;
+                text-decoration: none;
+                font-weight: bold;
+                border-radius: 5px;
+                transition: background-color 0.3s ease;
+            }
+
+            .test-link:hover {
+                background-color: #e6c200;
             }
         </style>
-        <script src="../navbar-widget.iife.js"></script>
-        <link rel="stylesheet" href="../navbar-widget.css" />
     </head>
-    <body style="margin: 0; padding: 0">
-        <script type="module">
-            import { showAtomicPreloader } from "/preloader/preloader.js";
+    <body>
+        <h1>Sparkonics</h1>
+        <main id="test-list"></main>
 
-            const preloader = showAtomicPreloader({
-                timeout: 3000,
-                loadingText: "Loading Mock Test",
-                subtitle: "Preparing your experience...",
-                showProgress: true,
-                onComplete: () => {
-                    console.log("App ready!");
-                },
-            });
-        </script>
-        <script type="module">
-            import { showAtomicPreloader } from "/preloader/preloader_bg.js";
-
-            showAtomicPreloader({
-                onComplete: () => {
-                    console.log("Preloader animation finished. App is ready!");
-                    // You can now initialize your app here
-                },
-                blockSize: 75, // optional, default is 65px
-                revealDelay: 1, // optional, default is 1ms (very fast)
-            });
-        </script>
-
-        <div
-            id="sparkonics-navbar-widget"
-            style="
-                position: relative;
-                width: 100%;
-                height: auto;
-                z-index: 9999;
-                overflow-x: auto;
-                font-family:
-                    &quot;Inter&quot;, &quot;Space Grotesk&quot;, sans-serif;
-                background: linear-gradient(
-                    135deg,
-                    rgba(144, 252, 253, 0.08),
-                    rgba(0, 0, 0, 0.7)
-                );
-                border: 1px solid rgba(246, 231, 82, 0.3);
-                box-shadow: 0 0 18px rgba(144, 252, 253, 0.18);
-                padding: 0.5rem 1.2rem;
-                border-radius: 1.25rem;
-            "
-        >
-            <!-- Injected navbar HTML here -->
-            <div id="navbar-overlay">
-                <div id="react-navbar"></div>
-            </div>
-        </div>
         <script>
-            injectNavbar();
+            fetch("data.json")
+                .then((res) => res.json())
+                .then((data) => {
+                    const container = document.getElementById("test-list");
+                    const tests = data.testsDetails;
+
+                    tests.forEach((test) => {
+                        const card = document.createElement("div");
+                        card.className = "test-card";
+
+                        card.innerHTML = `
+                            <h2>${test.testname}</h2>
+                            <p>${test.description}</p>
+                            <p><strong>Available OAs:</strong> ${test.availableoas}</p>
+                            <p><strong>Total Questions in all OAs:</strong> ${test.total}</p>
+                            <div class="domains">
+                                ${test.domain
+                                    .split(",")
+                                    .map(
+                                        (d) =>
+                                            `<span class="domain-bubble">${d.trim()}</span>`,
+                                    )
+                                    .join("")}
+                            </div>
+                            ${
+                                test.link
+                                    ? `<a class="test-link" href="${test.link}" target="_blank">Go to Test</a>`
+                                    : ""
+                            }
+                        `;
+
+                        container.appendChild(card);
+                    });
+                })
+                .catch((err) => console.error("Error loading JSON:", err));
         </script>
-        <script type="module">
-            import { initSparkonicsBackground } from "/background/index.js";
-            const cleanup = initSparkonicsBackground();
-        </script>
-        <!-- Footer -->
-        <footer class="footer">
-            <div class="footer-container">
-                <h3 class="footer-title">Sparkonics</h3>
-                <p class="footer-description">
-                    Capturing innovation, one event at a time.
-                </p>
-                <div class="footer-links">
-                    <span class="footer-link">About</span>
-                    <span class="footer-link">Contact</span>
-                    <span class="footer-link">Privacy</span>
-                </div>
-            </div>
-        </footer>
     </body>
 </html>
