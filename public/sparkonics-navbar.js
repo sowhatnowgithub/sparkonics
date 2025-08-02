@@ -18,7 +18,6 @@
       padding: 12px 20px;
       border-radius: 12px;
       background: rgba(1, 6, 15, 0.95);
-      border: 1px solid rgba(144, 252, 253, 0.3);
       backdrop-filter: blur(10px);
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       max-width: calc(100vw - 32px);
@@ -38,8 +37,41 @@
       font-size: 14px;
     }
 
+    /* Logo styles - text with star */
+    #snx-nav .snx-logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      padding: 8px 16px;
+      margin-right: 20px;
+      transition: all 0.2s ease;
+      gap: 8px;
+    }
+
+    #snx-nav .snx-logo:hover {
+      transform: translateY(-1px);
+    }
+
+    #snx-nav .snx-logo-star {
+      font-size: 24px;
+      color: rgb(144, 252, 253);
+      animation: sparkle 2s ease-in-out infinite;
+    }
+
+    #snx-nav .snx-logo-text {
+      font-size: 20px;
+      font-weight: 700;
+      color: rgb(246, 231, 82);
+      letter-spacing: 0.5px;
+    }
+
+    @keyframes sparkle {
+      0%, 100% { transform: scale(1) rotate(0deg); }
+      50% { transform: scale(1.1) rotate(180deg); }
+    }
+
     /* Navigation links */
-    #snx-nav a {
+    #snx-nav a:not(.snx-logo) {
       text-decoration: none;
       color: rgb(246, 231, 82);
       transition: color 0.2s ease;
@@ -48,7 +80,7 @@
       white-space: nowrap;
     }
 
-    #snx-nav a:hover {
+    #snx-nav a:not(.snx-logo):hover {
       color: rgb(144, 252, 253);
       background: rgba(144, 252, 253, 0.1);
     }
@@ -147,11 +179,55 @@
       padding: 8px;
       border-radius: 4px;
       transition: all 0.2s ease;
+      position: absolute;
+      right: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 10001;
     }
 
     #snx-nav .snx-mobile-toggle:hover {
       color: rgb(144, 252, 253);
       background: rgba(144, 252, 253, 0.1);
+    }
+
+    /* Mobile container for logo and toggle */
+    #snx-nav .snx-mobile-header {
+      display: none;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      position: relative;
+      min-height: 52px;
+    }
+
+    /* Mobile logo (text with star) */
+    #snx-nav .snx-mobile-logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      padding: 8px 16px;
+      transition: all 0.2s ease;
+      z-index: 10000;
+      gap: 6px;
+    }
+
+    #snx-nav .snx-mobile-logo:hover {
+      transform: translateY(-1px);
+    }
+
+    #snx-nav .snx-mobile-logo .snx-logo-star {
+      font-size: 20px;
+      color: rgb(144, 252, 253);
+      animation: sparkle 2s ease-in-out infinite;
+    }
+
+    #snx-nav .snx-mobile-logo .snx-logo-text {
+      font-size: 18px;
+      font-weight: 700;
+      color: rgb(246, 231, 82);
+      letter-spacing: 0.5px;
     }
 
     /* Mobile styles */
@@ -161,6 +237,10 @@
         padding: 8px 16px;
         width: calc(100vw - 16px);
         max-width: none;
+      }
+
+      #snx-nav .snx-mobile-header {
+        display: flex;
       }
 
       #snx-nav .snx-mobile-toggle {
@@ -193,11 +273,16 @@
         width: 100%;
       }
 
-      #snx-nav a {
+      #snx-nav a:not(.snx-logo):not(.snx-mobile-logo) {
         display: block;
         text-align: center;
         padding: 10px 16px;
         font-size: 15px;
+      }
+
+      /* Hide desktop logo in mobile */
+      #snx-nav .snx-logo {
+        display: none;
       }
 
       /* Mobile dropdown adjustments */
@@ -212,7 +297,6 @@
         display: none;
         margin-top: 4px;
         box-shadow: none;
-        border: 1px solid rgba(144, 252, 253, 0.2);
         background: rgba(1, 6, 15, 0.8);
         opacity: 1;
         visibility: visible;
@@ -250,9 +334,17 @@
         font-size: 13px;
       }
 
-      #snx-nav a {
+      #snx-nav a:not(.snx-logo):not(.snx-mobile-logo) {
         font-size: 14px;
         padding: 8px 12px;
+      }
+
+      #snx-nav .snx-mobile-logo .snx-logo-star {
+        font-size: 18px;
+      }
+
+      #snx-nav .snx-mobile-logo .snx-logo-text {
+        font-size: 16px;
       }
     }
   `;
@@ -262,9 +354,25 @@
   const navbar = document.createElement("nav");
   navbar.id = "snx-nav";
   navbar.innerHTML = `
-    <button class="snx-mobile-toggle" aria-label="Toggle navigation">☰</button>
+    <!-- Mobile header with centered text logo and toggle -->
+    <div class="snx-mobile-header">
+      <a href="/public/" class="snx-mobile-logo">
+        <span class="snx-logo-star">⭐</span>
+        <span class="snx-logo-text">Sparkonics</span>
+      </a>
+      <button class="snx-mobile-toggle" aria-label="Toggle navigation">☰</button>
+    </div>
+
+    <!-- Desktop navigation with left-aligned text logo -->
     <ul class="snx-nav-list">
-      <li><a href="/public/">Home</a></li>
+      <!-- Text Logo on the left for Desktop (acts as home) -->
+      <li>
+        <a href="/public/" class="snx-logo">
+          <span class="snx-logo-star">⭐</span>
+          <span class="snx-logo-text">Sparkonics</span>
+        </a>
+      </li>
+
       <li><a href="/public/about">About</a></li>
       <li><a href="/public/events">Events</a></li>
       <li class="snx-dropdown">
