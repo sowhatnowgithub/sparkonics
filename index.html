@@ -1,10 +1,802 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Page Under Construction</title>
-  <style>
+    <head>
+        <meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            :root {
+                --primary-cyan: #90fcfd;
+                --primary-yellow: #f6e752;
+                --deep-navy: #010f15;
+                --orange-accent: #ff8c00;
+                --cyan-variant: #6dd5d8;
+                --yellow-variant: #e6d147;
+                --cyan-dark: #4a9da0;
+                --yellow-dark: #d4bc3d;
+                --glass-bg: rgba(144, 252, 253, 0.08);
+                --glass-border: rgba(144, 252, 253, 0.2);
+                --text-muted: rgba(246, 231, 82, 0.7);
+                --section-spacing: 120px;
+                --electric-blue: #00d4ff;
+                --neon-green: #39ff14;
+            }
+
+            body {
+                font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+                line-height: 1.6;
+                color: var(--primary-yellow);
+                overflow-x: hidden;
+                background: transparent;
+            }
+
+            /* Live Quiz Button - Floating */
+            .live-quiz-btn {
+                position: fixed;
+                top: 80px;
+                right: 20px;
+                z-index: 9998;
+                background: var(--orange-accent);
+                color: var(--deep-navy);
+                padding: 12px 20px;
+                border-radius: 25px;
+                text-decoration: none;
+                font-weight: 600;
+                font-size: 14px;
+                border: 2px solid var(--primary-yellow);
+                transition: all 0.3s ease;
+                box-shadow: 0 2px 10px rgba(255, 140, 0, 0.3);
+            }
+
+            .live-quiz-btn:hover {
+                background: var(--primary-yellow);
+                color: var(--deep-navy);
+                transform: translateY(-2px);
+                box-shadow: 0 4px 15px rgba(246, 231, 82, 0.4);
+            }
+
+            /* Hero Section */
+            .hero {
+                min-height: 100vh;
+                display: flex;
+                align-items: center;
+                padding: 80px 0;
+                position: relative;
+                margin-bottom: var(--section-spacing);
+            }
+
+            .container {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 0 20px;
+                position: relative;
+                z-index: 1;
+            }
+
+            .hero-content {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 60px;
+                align-items: center;
+            }
+
+            .hero-text h1 {
+                font-size: 3.5rem;
+                font-weight: 700;
+                color: var(--primary-cyan);
+                margin-bottom: 20px;
+                line-height: 1.2;
+            }
+
+            .hero-text .subtitle {
+                font-size: 1.5rem;
+                color: var(--primary-yellow);
+                margin-bottom: 15px;
+                font-weight: 300;
+            }
+
+            .hero-text p {
+                font-size: 1.1rem;
+                color: var(--text-muted);
+                margin-bottom: 30px;
+                line-height: 1.8;
+            }
+
+            .cta-button {
+                display: inline-block;
+                background: var(--primary-yellow);
+                color: var(--deep-navy);
+                padding: 15px 30px;
+                border-radius: 8px;
+                text-decoration: none;
+                font-weight: 600;
+                font-size: 1.1rem;
+                transition: all 0.3s ease;
+                border: 2px solid var(--primary-yellow);
+            }
+
+            .cta-button:hover {
+                background: transparent;
+                color: var(--primary-yellow);
+                transform: translateY(-2px);
+            }
+
+            .circuit-simulator {
+                background: var(--glass-bg);
+                border-radius: 12px;
+                padding: 30px;
+                border: 1px solid var(--glass-border);
+                backdrop-filter: blur(10px);
+                position: relative;
+                overflow: hidden;
+            }
+
+            .simulator-header {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                margin-bottom: 20px;
+            }
+
+            .simulator-header .dot {
+                width: 12px;
+                height: 12px;
+                border-radius: 50%;
+            }
+
+            .dot.red {
+                background: #ff5f57;
+            }
+            .dot.yellow {
+                background: #ffbd2e;
+            }
+            .dot.green {
+                background: #28ca42;
+            }
+
+            .simulator-title {
+                color: var(--primary-cyan);
+                font-size: 14px;
+                margin-left: 10px;
+                font-weight: 500;
+            }
+
+            .circuit-display {
+                height: 300px;
+                background: rgba(1, 15, 21, 0.7);
+                border-radius: 8px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                position: relative;
+                overflow: hidden;
+                border: 1px solid var(--glass-border);
+            }
+
+.simulator-video {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  object-fit: cover;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+
+
+            .circuit-node {
+                width: 40px;
+                height: 40px;
+                border: 2px solid var(--primary-cyan);
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: var(--primary-yellow);
+                font-weight: bold;
+                animation: pulse 2s infinite;
+            }
+
+            .circuit-connection {
+                position: absolute;
+                height: 2px;
+                background: var(--primary-cyan);
+                opacity: 0.6;
+            }
+
+            @keyframes pulse {
+                0%,
+                100% {
+                    opacity: 0.6;
+                }
+                50% {
+                    opacity: 1;
+                }
+            }
+
+            /* Main Sections */
+            .section {
+                padding: 60px 0;
+                margin-bottom: var(--section-spacing);
+                position: relative;
+            }
+
+            .section::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 90%;
+                height: 1px;
+                background: linear-gradient(
+                    90deg,
+                    transparent 0%,
+                    var(--glass-border) 50%,
+                    transparent 100%
+                );
+            }
+
+            .section:first-of-type::before {
+                display: none;
+            }
+
+            .section h2 {
+                font-size: 2.5rem;
+                color: var(--primary-cyan);
+                margin-bottom: 20px;
+                text-align: center;
+                font-weight: 600;
+            }
+
+            .section-subtitle {
+                font-size: 1.2rem;
+                color: var(--text-muted);
+                text-align: center;
+                margin-bottom: 50px;
+                max-width: 600px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            /* CTA Cards Grid */
+            .cta-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+                gap: 30px;
+                margin: 60px 0;
+            }
+
+            .cta-card {
+                background: var(--glass-bg);
+                border: 1px solid var(--glass-border);
+                backdrop-filter: blur(10px);
+                border-radius: 12px;
+                padding: 35px 25px;
+                text-align: center;
+                position: relative;
+                overflow: hidden;
+                transition: all 0.3s ease;
+            }
+
+            .cta-card:hover {
+                transform: translateY(-5px);
+                border-color: var(--primary-cyan);
+            }
+
+            .cta-card::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: linear-gradient(
+                    135deg,
+                    rgba(144, 252, 253, 0.05) 0%,
+                    rgba(246, 231, 82, 0.03) 100%
+                );
+                pointer-events: none;
+                opacity: 0;
+                transition: all 0.3s ease;
+            }
+
+            .cta-card:hover::before {
+                opacity: 1;
+            }
+
+            .cta-icon {
+                width: 70px;
+                height: 70px;
+                margin: 0 auto 20px;
+                background: linear-gradient(
+                    135deg,
+                    var(--primary-cyan),
+                    var(--cyan-variant)
+                );
+                border-radius: 12px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 2rem;
+                color: var(--deep-navy);
+                transition: all 0.3s ease;
+            }
+
+            .cta-card:hover .cta-icon {
+                transform: scale(1.1);
+            }
+
+            .cta-card h3 {
+                font-size: 1.5rem;
+                color: var(--primary-cyan);
+                margin-bottom: 15px;
+                font-weight: 600;
+            }
+
+            .cta-card p {
+                font-size: 1rem;
+                color: var(--text-muted);
+                margin-bottom: 25px;
+                line-height: 1.6;
+            }
+
+            .cta-button {
+                display: inline-block;
+                background: var(--primary-yellow);
+                color: var(--deep-navy);
+                padding: 12px 24px;
+                border-radius: 8px;
+                text-decoration: none;
+                font-weight: 600;
+                font-size: 0.95rem;
+                transition: all 0.3s ease;
+                border: 2px solid var(--primary-yellow);
+            }
+
+            .cta-button:hover {
+                background: transparent;
+                color: var(--primary-yellow);
+            }
+
+            /* About Us Teaser */
+            .about-teaser {
+                background: var(--glass-bg);
+                border: 1px solid var(--glass-border);
+                backdrop-filter: blur(20px);
+                border-radius: 16px;
+                padding: 50px 40px;
+                text-align: center;
+                position: relative;
+                overflow: hidden;
+                margin: var(--section-spacing) 0;
+                transition: all 0.4s ease;
+            }
+
+            .about-teaser:hover {
+                transform: translateY(-5px);
+                border-color: var(--primary-cyan);
+                box-shadow: 0 15px 35px rgba(144, 252, 253, 0.25);
+            }
+
+            .about-teaser::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: linear-gradient(
+                    135deg,
+                    rgba(144, 252, 253, 0.1) 0%,
+                    rgba(246, 231, 82, 0.05) 100%
+                );
+                pointer-events: none;
+            }
+
+            .about-teaser h3 {
+                font-size: 2rem;
+                color: var(--primary-cyan);
+                margin-bottom: 15px;
+                position: relative;
+                z-index: 1;
+            }
+
+            .about-teaser p {
+                font-size: 1.1rem;
+                color: var(--text-muted);
+                margin-bottom: 30px;
+                max-width: 600px;
+                margin-left: auto;
+                margin-right: auto;
+                position: relative;
+                z-index: 1;
+            }
+
+            .about-button {
+                display: inline-block;
+                background: var(--primary-yellow);
+                color: var(--deep-navy);
+                padding: 12px 25px;
+                border-radius: 8px;
+                text-decoration: none;
+                font-weight: 600;
+                transition: all 0.3s ease;
+                position: relative;
+                z-index: 1;
+            }
+
+            .about-button:hover {
+                background: var(--primary-cyan);
+                transform: translateY(-2px);
+            }
+
+            /* Features Section */
+            .features-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 40px;
+                margin-top: 40px;
+            }
+
+            .feature-item {
+                text-align: center;
+                padding: 40px 30px;
+                background: var(--glass-bg);
+                border-radius: 12px;
+                border: 1px solid var(--glass-border);
+                backdrop-filter: blur(10px);
+                transition: all 0.3s ease;
+                position: relative;
+            }
+
+            .feature-item:hover {
+                transform: translateY(-5px);
+                border-color: var(--primary-cyan);
+                box-shadow: 0 10px 30px rgba(144, 252, 253, 0.2);
+            }
+
+            .feature-icon {
+                width: 80px;
+                height: 80px;
+                background: linear-gradient(
+                    135deg,
+                    var(--primary-cyan),
+                    var(--cyan-variant)
+                );
+                border-radius: 16px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin: 0 auto 20px;
+                font-size: 2rem;
+                color: var(--deep-navy);
+                font-weight: 600;
+                position: relative;
+                overflow: hidden;
+            }
+
+            .feature-icon::before {
+                content: "";
+                position: absolute;
+                top: -50%;
+                left: -50%;
+                width: 200%;
+                height: 200%;
+                background: linear-gradient(
+                    45deg,
+                    transparent,
+                    rgba(255, 255, 255, 0.1),
+                    transparent
+                );
+                transform: rotate(45deg);
+                transition: all 0.6s ease;
+                opacity: 0;
+            }
+
+            .feature-item:hover .feature-icon::before {
+                opacity: 1;
+                transform: rotate(45deg) translate(100%, 100%);
+            }
+
+            .feature-title {
+                font-size: 1.3rem;
+                color: var(--primary-cyan);
+                margin-bottom: 15px;
+                font-weight: 600;
+            }
+
+            .feature-item p {
+                color: var(--text-muted);
+                line-height: 1.6;
+                margin-bottom: 20px;
+            }
+
+            .feature-link {
+                display: inline-block;
+                color: var(--primary-cyan);
+                text-decoration: none;
+                font-weight: 500;
+                font-size: 0.9rem;
+                transition: all 0.3s ease;
+                border-bottom: 1px solid transparent;
+            }
+
+            .feature-link:hover {
+                color: var(--primary-yellow);
+                border-bottom-color: var(--primary-yellow);
+                transform: translateX(5px);
+            }
+
+            /* Team Section - Reduced to 2 members */
+            .team-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 40px;
+                margin-top: 40px;
+                max-width: 600px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .team-member {
+                text-align: center;
+                background: var(--glass-bg);
+                padding: 40px 30px;
+                border-radius: 16px;
+                border: 1px solid var(--glass-border);
+                backdrop-filter: blur(10px);
+                transition: all 0.3s ease;
+            }
+
+            .team-member:hover {
+                transform: translateY(-5px);
+                border-color: var(--primary-cyan);
+            }
+
+
+.member-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* ensures it covers the entire circle */
+    display: block;
+}
+
+
+           .team-member:hover .member-avatar::before {
+                opacity: 1;
+                transform: rotate(45deg) translate(100%, 100%);
+            }
+
+            .member-name {
+                font-size: 1.4rem;
+                color: var(--primary-cyan);
+                margin-bottom: 8px;
+                font-weight: 600;
+            }
+
+            .member-role {
+                color: var(--text-muted);
+                font-size: 1rem;
+                margin-bottom: 15px;
+            }
+
+            .team-cta {
+                text-align: center;
+                margin-top: 50px;
+            }
+
+            .team-cta-button {
+                display: inline-block;
+                background: linear-gradient(
+                    135deg,
+                    var(--primary-cyan),
+                    var(--cyan-variant)
+                );
+                color: var(--deep-navy);
+                padding: 15px 30px;
+                border-radius: 10px;
+                text-decoration: none;
+                font-weight: 700;
+                font-size: 1.1rem;
+                transition: all 0.3s ease;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+            }
+
+            .team-cta-button:hover {
+                transform: translateY(-2px);
+            }
+
+            /* Thrds Highlight */
+            .thrds-highlight {
+                background: var(--glass-bg);
+                border: 1px solid var(--glass-border);
+                backdrop-filter: blur(20px);
+                border-radius: 16px;
+                margin: var(--section-spacing) auto;
+                padding: 60px 40px;
+                text-align: center;
+                position: relative;
+                overflow: hidden;
+            }
+
+            .thrds-highlight::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: linear-gradient(
+                    135deg,
+                    rgba(144, 252, 253, 0.1) 0%,
+                    rgba(246, 231, 82, 0.05) 100%
+                );
+                pointer-events: none;
+            }
+
+            .thrds-highlight h3 {
+                font-size: 2rem;
+                color: var(--primary-cyan);
+                margin-bottom: 15px;
+                position: relative;
+                z-index: 1;
+            }
+
+            .thrds-highlight p {
+                font-size: 1.1rem;
+                color: var(--text-muted);
+                margin-bottom: 30px;
+                max-width: 600px;
+                margin-left: auto;
+                margin-right: auto;
+                position: relative;
+                z-index: 1;
+            }
+
+            .thrds-button {
+                display: inline-block;
+                background: var(--primary-yellow);
+                color: var(--deep-navy);
+                padding: 12px 25px;
+                border-radius: 8px;
+                text-decoration: none;
+                font-weight: 600;
+                transition: all 0.3s ease;
+                position: relative;
+                z-index: 1;
+            }
+
+            .thrds-button:hover {
+                background: var(--primary-cyan);
+                transform: translateY(-2px);
+            }
+
+            /* Mobile Responsive */
+            @media (max-width: 768px) {
+                :root {
+                    --section-spacing: 80px;
+                }
+
+                .live-quiz-btn {
+                    top: 75px;
+                    right: 15px;
+                    padding: 10px 16px;
+                    font-size: 13px;
+                }
+
+                .hero {
+                    padding: 60px 0;
+                    margin-bottom: 60px;
+                }
+
+                .hero-content {
+                    grid-template-columns: 1fr;
+                    gap: 40px;
+                    text-align: center;
+                }
+
+                .hero-text h1 {
+                    font-size: 2.5rem;
+                }
+
+                .hero-text .subtitle {
+                    font-size: 1.2rem;
+                }
+
+                .section {
+                    padding: 40px 0;
+                    margin-bottom: 60px;
+                }
+
+                .section h2 {
+                    font-size: 2rem;
+                }
+
+                .circuit-simulator {
+                    padding: 20px;
+                }
+
+                .circuit-display {
+                    height: 200px;
+                }
+
+                .cta-grid {
+                    grid-template-columns: 1fr;
+                    gap: 25px;
+                }
+
+                .cta-card {
+                    padding: 30px 20px;
+                }
+
+                .cta-icon {
+                    width: 60px;
+                    height: 60px;
+                    font-size: 1.8rem;
+                }
+
+                .cta-card h3 {
+                    font-size: 1.3rem;
+                }
+
+                .cta-card p {
+                    font-size: 0.95rem;
+                }
+
+                .thrds-highlight {
+                    padding: 40px 20px;
+                    margin: 60px auto;
+                }
+
+                .about-teaser {
+                    padding: 40px 20px;
+                }
+            }
+
+            @media (max-width: 480px) {
+                .hero-text h1 {
+                    font-size: 2rem;
+                }
+
+                .section h2 {
+                    font-size: 1.8rem;
+                }
+
+                .features-grid {
+                    grid-template-columns: 1fr;
+                }
+
+                .feature-item,
+                .team-member {
+                    padding: 25px 20px;
+                }
+
+                .cta-grid {
+                    grid-template-columns: 1fr;
+                    gap: 20px;
+                }
+
+                .cta-card {
+                    padding: 25px 15px;
+                }
+
+                .cta-card h3 {
+                    font-size: 1.2rem;
+                }
+
+                .cta-card p {
+                    font-size: 0.9rem;}
+
+            }
+        </style>
+        <style>
             :root {
                 --foreground: rgb(246, 231, 82); /* light text (tertiary) */
                 --primary: rgb(144, 252, 253); /* cyan (secondary) */
@@ -65,42 +857,243 @@
                 color: var(--primary);
             }
         </style>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      height: 100vh;
-    }
-    .container {
-      text-align: center;
-    }
-    .emoji {
-      font-size: 4rem;
-    }
-    h1 {
-      margin-top: 0.5rem;
-      font-size: 2rem;
-    }
-    p {
-      color: #666;
-    }
-  </style>
-</head>
-<body>
+        <title>Sparkonics Home Page</title>
+    </head>
+    <body style="margin: 0; padding: 0">
 
         <script src="/public/sparkonics-navbar.js"></script>
-	        <script type="module">
+
+        <!-- Live Quiz Button -->
+	 <a href="/client/home" class="live-quiz-btn">🔥 Live Quiz</a>
+
+        <!-- Hero Section -->
+	<br><br>
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <div class="hero-text">
+                        <div class="subtitle">
+                            Society of Electrical Engineers
+                        </div>
+                        <h1>Sparkonics</h1>
+                        <p>
+                            Empowering the next generation of electrical
+                            engineers through hands-on learning, innovative
+                            projects, and collaborative community building.
+                        </p>
+                        <a href="#features" class="cta-button"
+                            >Explore Platform</a
+                        >
+                    </div>
+                    <div class="circuit-simulator">
+                        <div class="simulator-header">
+                            <div class="dot red"></div>
+                            <div class="dot yellow"></div>
+                            <div class="dot green"></div>
+                            <div class="simulator-title">
+                                Circuit Simulator v2.1
+                            </div>
+                        </div>
+                        <div class="circuit-display">
+<video  class="simulator-video" autoplay  muted loop>
+            <source src="/public/test2.mp4" type="video/mp4" >
+            Your browser does not support the video tag.
+        </video>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main CTA Section -->
+        <section class="section">
+            <div class="container">
+                <h2>Explore & Engage</h2>
+                <p class="section-subtitle">
+                    Discover what makes Sparkonics the hub for electrical
+                    engineering excellence.
+                </p>
+                <div class="cta-grid">
+                    <div class="cta-card">
+                        <div class="cta-icon">📅</div>
+                        <h3>Upcoming Events</h3>
+                        <p>
+                            Join exciting workshops, tech talks, and bootcamps
+                            designed to enhance your engineering skills and
+                            connect with innovators.
+                        </p>
+                        <a href="/public/events" class="cta-button">View All Events</a>
+                    </div>
+                    <div class="cta-card">
+                        <div class="cta-icon">🚀</div>
+                        <h3>Opportunities</h3>
+                        <p>
+                            Explore internships, research positions, and
+                            industry partnerships that will accelerate your
+                            career in electrical engineering.
+                        </p>
+                        <a href="/public/opp" class="cta-button"
+                            >Discover More</a
+                        >
+                    </div>
+                    <div class="cta-card">
+                        <div class="cta-icon">⚡</div>
+                        <h3>Project Gallery</h3>
+                        <p>
+                            Get inspired by innovative student projects and
+                            engineering breakthroughs from our community
+                            members.
+                        </p>
+                        <a href="/public/gallery" class="cta-button"
+                            >Browse Projects</a
+                        >
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Us Teaser -->
+        <section class="about-teaser">
+            <div class="container">
+                <h3>The Spark Behind Sparkonics</h3>
+                <p>
+                    Discover the passionate minds, groundbreaking initiatives,
+                    and the vision that drives our electrical engineering
+                    community. Learn about our journey, achievements, and what
+                    makes us the catalyst for future engineers.
+                </p>
+                <a href="/public/about" class="about-button">Meet Our Story</a>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features" class="section">
+            <div class="container">
+                <h2>Platform Features</h2>
+                <p class="section-subtitle">
+                    Comprehensive tools and resources to accelerate your
+                    learning journey in electrical engineering.
+                </p>
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon">LQ</div>
+                        <div class="feature-title">Live Quiz</div>
+                        <p>
+                            Interactive quizzes that test your knowledge in
+                            real-time with instant feedback and explanations.
+                        </p>
+                        <a href="/public/quiz" class="feature-link">Try Live Quiz →</a>
+                    </div>
+                                <div class="feature-item">
+                        <div class="feature-icon">OA</div>
+                        <div class="feature-title">Online Assessment</div>
+                        <p>
+                            Comprehensive evaluation system to track your
+                            progress and identify areas for improvement.
+                        </p>
+                        <a href="/public/oa" class="feature-link"
+                            >Start Assessment →</a
+                        >
+                    </div>
+            </div>
+        </section>
+
+        <!-- Thrds Highlight -->
+        <section class="thrds-highlight">
+            <div class="container">
+                <h3>Thrds - Q&A Community</h3>
+                <p>
+                    Join our Reddit-style micro-community where students and
+                    professionals discuss electrical engineering topics, share
+                    solutions, and help each other grow.
+                </p>
+                <a href="/thrds" class="thrds-button" target="_blank"
+                    >Join Discussion</a
+                >
+            </div>
+        </section>
+
+        <!-- Resources Section -->
+        <section id="resources" class="section">
+            <div class="container">
+                <h2>Resources</h2>
+                <p class="section-subtitle">
+                    Access curated resources including professor guidance,
+                    project galleries, and learning materials.
+                </p>
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon">PR</div>
+                        <div class="feature-title">Professors</div>
+                        <p>
+                            Connect with experienced faculty members for
+                            guidance, mentorship, and academic support.
+                        </p>
+                        <a href="/public/profs" class="feature-link"
+                            >Meet Professors →</a
+                        >
+                    </div>
+		    <div class="feature-item">
+                        <div class="feature-icon">LR</div>
+                        <div class="feature-title">Practical Resources for experimentation.</div>
+                        <p>
+			    LT Spice is the best opensource analog circuit simulator.
+                            Simulations to
+                            complement your theoretical knowledge.
+                        </p>
+                        <a href="https://www.analog.com/en/resources/design-tools-and-calculators/ltspice-simulator.html" target="_blank" class="feature-link">LT Spice →</a>
+            </div>
+        <div class="feature-item">
+                        <div class="feature-icon">CS</div>
+                        <div class="feature-title">Circuit Simulator</div>
+                        <p>
+                            Advanced simulation tools to design, test, and
+                            analyze electrical circuits before building them.
+			    IIT Patna Has access to MATLAB, This is a very powerful tool to synthesisCircuits, and simulations across wide varying domains.
+			    Login through your webmail and get access to it.
+                        </p>
+                        <a href="https://www.mathworks.com/academia/tah-portal/indian-institute-of-technology-patna-40640899.html" target="_blank" class="feature-link"
+                            >Open Simulator docs →</a
+                        >
+                    </div>
+
+        </section>
+
+        <!-- Team Section -->
+        <section id="team" class="section">
+            <div class="container">
+                <h2>Meet Our Leaders</h2>
+                <p class="section-subtitle">
+                    The passionate individuals leading Sparkonics to foster
+                    excellence in electrical engineering education.
+                </p>
+                <div class="team-grid">
+                    <div class="team-member">
+                        <div class="member-avatar">
+
+				<img src="/api/Models/Database/Images/400.jpeg" alt="BP"/>
+				</div>
+			<div class="member-name">B Puneeth Reddy</div>
+                        <div class="member-role">Overall Coordinator Sparkonics (2025-2026)</div>
+                    </div>
+                    <div class="team-member">
+                        <div class="member-avatar">
+				<img src="/api/Models/Database/Images/123.jpeg" alt="SG"/>
+			</div>
+                        <div class="member-name">Sumantha Gupta</div>
+                        <div class="member-role">Professor-In-Charge Sparkonics</div>
+                    </div>
+                </div>
+                <div class="team-cta">
+                    <a href="/public/teams" class="team-cta-button">Meet Full Team</a>
+                </div>
+            </div>
+        </section>
+
+        <script type="module">
             import { initSparkonicsBackground } from "/public/components/background/index.js";
             const cleanup = initSparkonicsBackground();
         </script>
-	<br><br><br>
-	<br>
-  <div class="container">
-    <div class="emoji">🚧</div>
-    <h1>Page Under Construction</h1>
-    <p>We're working on something awesome. Please check back soon, And you can check the pages in devlopment by moving through the navbar</p>
-  </div>
-  <br>
         <!-- Footer -->
         <footer class="footer">
             <div class="footer-container">
@@ -108,13 +1101,19 @@
                 <p class="footer-description">
                     Capturing innovation, one event at a time.
                 </p>
+		<img src="/api/Models/Database/Images/3.png" alt="logo" style="width:100px ; height:auto"/>
                 <div class="footer-links">
-                    <span class="footer-link">About</span>
-                    <span class="footer-link">Contact</span>
-                    <span class="footer-link">Privacy</span>
+
+			<span class="footer-link"><a href="https://in.linkedin.com/company/sparkonics" style="color: #ffd300" target="_blank">Linkedin</a></span>
+
+			<span class="footer-link"><a href="https://github.com/sparkonics" style="color: #ffd300" target="_blank">Gihtub</a></span>
+
+			<span class="footer-link"><a href="https://github.com/sowhatnowgithub/sparkonics" style="color: #ffd300" target="_blank">WebsiteGit</a></span>
+
+			<span class="footer-link"><a href="https://www.instagram.com/sparkonics.iitp/reels/" style="color: #ffd300" target="_blank">Instagram</a></span>
                 </div>
             </div>
         </footer>
-</body>
+    </body>
 </html>
 

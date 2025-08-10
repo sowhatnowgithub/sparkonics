@@ -154,12 +154,6 @@
     </style>"; ?>
 
   <style>
-    body {
-      font-family: monospace;
-      background-color: #282c34;
-      color: #f8f8f2;
-      padding: 20px;
-    }
     pre {
       background-color: #1e1e1e;
       padding: 20px;

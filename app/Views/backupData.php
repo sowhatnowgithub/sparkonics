@@ -1,8 +1,10 @@
 <?php
 $zip = new ZipArchive();
-$zipFileName = $url . "/app/Views/dbs.zip";
+$url = "/home/fac/sparkonics/public_html";
+$zipFileName = $url . "/app/Views/backupData.zip";
 
 if ($zip->open($zipFileName, ZipArchive::CREATE) === true) {
+
     $src = $url . "/api/Models/Database";
     $files = scandir($src);
     foreach ($files as $file) {
@@ -14,7 +16,7 @@ if ($zip->open($zipFileName, ZipArchive::CREATE) === true) {
             $zip->addFile($fullPath, "/api/Models/Database/$file");
         }
     }
-    $src = $url . "/api/Models/Database/Images";
+    $src = $url . "/public/images";
     $files = scandir($src);
     foreach ($files as $file) {
         if ($file == "." || $file == "..") {
@@ -22,7 +24,7 @@ if ($zip->open($zipFileName, ZipArchive::CREATE) === true) {
         }
         $fullPath = $src . DIRECTORY_SEPARATOR . $file;
         if (is_file($fullPath)) {
-            $zip->addFile($fullPath, "/api/Models/Database/Images/$file");
+            $zip->addFile($fullPath, "/public/images/$file");
         }
     }
     $zip->addFile(
@@ -38,11 +40,16 @@ if ($zip->open($zipFileName, ZipArchive::CREATE) === true) {
         "/app/Models/Database/Scheduler.db"
     );
     $zip->close();
+        if (is_file($zipFileName)) {
     header("Content-Type: application/zip");
-    header('Content-Disposition: attachment; filename="dbs.zip"');
+    header('Content-Disposition: attachment; filename="backupData.zip"');
     header("Content-Length: " . filesize($zipFileName));
     readfile($zipFileName);
-    unlink($zipFileName);
+	}
+	else {
+	echo "Failed";
+	}
+   // unlink($zipFileName);
 } else {
     echo "Failed to send the zip file";
 }

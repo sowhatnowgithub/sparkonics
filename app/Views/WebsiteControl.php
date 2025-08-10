@@ -7,12 +7,6 @@
   <style>
   <?php echo Sowhatnow\App\Views\NavBar::$STYLE; ?>
 
-  body {
-    font-family: monospace;
-    background-color: #282c34;
-    color: #f8f8f2;
-    padding: 20px;
-  }
   pre {
     background-color: #003366;
     color: #FFD700;

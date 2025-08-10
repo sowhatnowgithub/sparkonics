@@ -179,13 +179,15 @@
                 border: 1px solid var(--glass-border);
             }
 
-            .circuit-elements {
-                display: grid;
-                grid-template-columns: repeat(3, 1fr);
-                gap: 20px;
-                width: 80%;
-                height: 80%;
-            }
+.simulator-video {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  object-fit: cover;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+
 
             .circuit-node {
                 width: 40px;
@@ -565,6 +567,7 @@
     display: block;
 }
 
+
            .team-member:hover .member-avatar::before {
                 opacity: 1;
                 transform: rotate(45deg) translate(100%, 100%);
@@ -789,8 +792,8 @@
                 }
 
                 .cta-card p {
-                    font-size: 0.9rem;
-                }
+                    font-size: 0.9rem;}
+
             }
         </style>
         <style>
@@ -861,9 +864,10 @@
         <script src="/public/sparkonics-navbar.js"></script>
 
         <!-- Live Quiz Button -->
-	 <a href="/public/quiz" class="live-quiz-btn">🔥 Live Quiz</a>
+	 <a href="/client/home" class="live-quiz-btn">🔥 Live Quiz</a>
 
         <!-- Hero Section -->
+	<br><br>
         <section class="hero">
             <div class="container">
                 <div class="hero-content">
@@ -891,14 +895,10 @@
                             </div>
                         </div>
                         <div class="circuit-display">
-                            <div class="circuit-elements">
-                                <div class="circuit-node">R1</div>
-                                <div class="circuit-node">C1</div>
-                                <div class="circuit-node">L1</div>
-                                <div class="circuit-node">V+</div>
-                                <div class="circuit-node">⚡</div>
-                                <div class="circuit-node">GND</div>
-                            </div>
+<video  class="simulator-video" autoplay  muted loop>
+            <source src="test2.mp4" type="video/mp4" >
+            Your browser does not support the video tag.
+        </video>
                         </div>
                     </div>
                 </div>
@@ -1101,10 +1101,16 @@
                 <p class="footer-description">
                     Capturing innovation, one event at a time.
                 </p>
+		<img src="/api/Models/Database/Images/3.png" alt="logo" style="width:100px ; height:auto"/>
                 <div class="footer-links">
-                    <span class="footer-link">About</span>
-                    <span class="footer-link">Contact</span>
-                    <span class="footer-link">Privacy</span>
+
+			<span class="footer-link"><a href="https://in.linkedin.com/company/sparkonics" style="color: #ffd300" target="_blank">Linkedin</a></span>
+
+			<span class="footer-link"><a href="https://github.com/sparkonics" style="color: #ffd300" target="_blank">Gihtub</a></span>
+
+			<span class="footer-link"><a href="https://github.com/sowhatnowgithub/sparkonics" style="color: #ffd300" target="_blank">WebsiteGit</a></span>
+
+			<span class="footer-link"><a href="https://www.instagram.com/sparkonics.iitp/reels/" style="color: #ffd300" target="_blank">Instagram</a></span>
                 </div>
             </div>
         </footer>

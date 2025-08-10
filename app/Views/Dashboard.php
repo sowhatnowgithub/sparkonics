@@ -8,20 +8,7 @@
   <?php echo "<style>" . Sowhatnow\App\Views\NavBar::$STYLE . "</style>"; ?>
 
   <style>
-    /* Base Reset */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Segoe UI', sans-serif;
-    }
 
-    body {
-      font-family: monospace;
-      background-color: #282c34;
-      color: #f8f8f2;
-      padding: 20px;
-    }
     pre {
       background-color: #0b2d5e; /* darker blue */
       padding: 20px;

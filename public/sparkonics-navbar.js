@@ -357,22 +357,21 @@
     <!-- Mobile header with centered text logo and toggle -->
     <div class="snx-mobile-header">
       <a href="/public/" class="snx-mobile-logo">
-        <span class="snx-logo-star">⭐</span>
         <span class="snx-logo-text">Sparkonics</span>
       </a>
       <button class="snx-mobile-toggle" aria-label="Toggle navigation">☰</button>
     </div>
-
+    
     <!-- Desktop navigation with left-aligned text logo -->
     <ul class="snx-nav-list">
       <!-- Text Logo on the left for Desktop (acts as home) -->
       <li>
         <a href="/public/" class="snx-logo">
-          <span class="snx-logo-star">⭐</span>
+          <span class="snx-logo-star"></span>
           <span class="snx-logo-text">Sparkonics</span>
         </a>
       </li>
-
+      
       <li><a href="/public/about">About</a></li>
       <li><a href="/public/events">Events</a></li>
       <li class="snx-dropdown">

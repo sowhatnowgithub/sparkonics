@@ -97,6 +97,45 @@ $oppTableQuery = "CREATE TABLE Opp (
     OppLocation TEXT NOT NULL,
     OppType TEXT NOT NULL
 )";
+$clientsTableQuery = "CREATE TABLE Clients (
+    ClientId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    ClientName TEXT NOT NULL,
+    ClientWebMail TEXT NOT NULL,
+    ClientMobile TEXT NOT NULL UNIQUE,
+    ClientDegree TEXT NOT NULL,
+    ClientRollNo TEXT NOT NULL,
+    ClientPassword TEXT NOT NULL
+)";
+$quizTableQuery = "CREATE TABLE Quizes (
+    QuizId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    QuizName TEXT NOT NULL,
+    QuizDesc TEXT NOT NULL,
+    QuizStarts TEXT NOT NULL,
+    QuizDomain TEXT NOT NULL,
+    QuizEnds TEXT NOT NULL,
+    QuizQuestionScore INTEGER NOT NULL,
+    QuizHighScore TEXT NOT NULL,
+    QuizTopScorer TEXT NOT NULL
+)";
+$quizQuestionTableQuery = "CREATE TABLE QuizQuestions (
+QuizId INTEGER NOT NULL,
+QuizQuestionId INTEGER NOT NULL,
+QuizQuestion TEXT NOT NULL,
+QuizQuestionImage TEXT ,
+QuizAnswer INTEGER NOT NULL,
+QuizOptions TEXT NOT NULL,
+FOREIGN KEY (QuizId) REFERENCES Quizes(QuizId),
+PRIMARY KEY (QuizId, QuizQuestionId)
+)";
+$quizClientTableQuery = "CREATE TABLE QuizClient(
+QuizId INTEGER  NOT NULL,
+ClientId INTEGER  NOT NULL,
+QuizQuestionOptions TEXT NOT NULL,
+QuizTotalScore INTEGER NOT NULL,
+PRIMARY KEY (QuizId, ClientId),
+FOREIGN KEY (QuizId) REFERENCES Quizes(QuizId),
+FOREIGN KEY (ClientId) REFERENCES Clients(ClientId)
+)";
 $dbPathEvent = Env::BASE_PATH . "/api/Models/Database/eventsPageData.db";
 $dbPathProf = Env::BASE_PATH . "/api/Models/Database/profsPageData.db";
 $dbPathImages = Env::BASE_PATH . "/api/Models/Database/imagesData.db";
@@ -106,8 +145,10 @@ $dbPathOpp = Env::BASE_PATH . "/api/Models/Database/opp.db";
 
 $dbPathMem = Env::BASE_PATH . "/app/Models/Database/members.db";
 $dbPathJob = Env::BASE_PATH . "/app/Models/Database/Job.db";
+$dbPathClientsQuiz = Env::BASE_PATH . "/app/Models/Database/clients.db";
 
-$dataBase = new DatabaseManager($dbPathOpp);
+
+$dataBase = new DatabaseManager($dbPathClientsQuiz);
 
 $dataBase->CreateAction($eventsTableQuery, "CreateEventsTable");
 $dataBase->CreateAction($galleryTableQuery, "CreateGalleryTable");
@@ -118,6 +159,12 @@ $dataBase->CreateAction($imagesTableQuery, "CreateImagesTable");
 $dataBase->CreateAction($jobTableQuery, "CreateJobTable");
 $dataBase->CreateAction($oppTableQuery, "CreateOppTable");
 
+$dataBase->CreateAction($clientsTableQuery, "CreateClientTable");
+$dataBase->CreateAction($quizTableQuery, "CreateQuizTable");
+$dataBase->CreateAction($quizClientTableQuery, "CreateQuizClientTable");
+
+$dataBase->CreateAction($quizQuestionTableQuery, "CreateQuizQuestionTable");
+
 var_dump($dataBase->getAllActions());
 
 //$dataBase->ExecuteAction("CreateProfsTable");
@@ -127,4 +174,10 @@ var_dump($dataBase->getAllActions());
 //$dataBase->ExecuteAction("CreateTeamTable");
 //$dataBase->ExecuteAction("CreateMemberTable");
 //$dataBase->ExecuteAction("CreateJobTable");
-$dataBase->ExecuteAction("CreateOppTable");
+//$dataBase->ExecuteAction("CreateOppTable");
+//$dataBase->ExecuteAction("CreateQuizTable");
+//$dataBase->ExecuteAction("CreateClientTable");
+//$dataBase->ExecuteAction("CreateQuizClientTable");
+
+$dataBase->ExecuteAction("CreateQuizQuestionTable");
+

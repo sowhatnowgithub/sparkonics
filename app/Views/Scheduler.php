@@ -6,12 +6,13 @@
   <title>Scheduler</title>
   <?php echo "<style>" . Sowhatnow\App\Views\NavBar::$STYLE . "</style>"; ?>
   <style>
-  body {
-    font-family: monospace;
-    background-color: #282c34;
-    color: skyblue;
-    padding: 20px;
-  }
+* {
+
+color: black;
+}
+h2,h1,h3 {
+color: black;
+}
     .content {
       padding: 40px;
       max-width: 1000px;
@@ -75,7 +76,6 @@
 
     h1 {
       text-align: center;
-      color: skyblue;
     }
   </style>
   <script>

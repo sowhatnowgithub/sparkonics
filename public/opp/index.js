@@ -75,8 +75,8 @@ export function renderSparkonicsOpportunities(containerId) {
 
     .opportunity-card {
       position: relative;
-      height: 340px;
       perspective: 1000px;
+      min-height: 500px;
       cursor: pointer;
     }
 

@@ -1,0 +1,293 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Sparkonics | Client Access</title>
+        <style>
+            @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap");
+
+            body {
+                margin: 0;
+                font-family: "Poppins", sans-serif;
+                background: url("/images/logo.png") no-repeat center center
+                    fixed;
+                background-size: cover;
+                color: #fff;
+            }
+
+            .gradient-bar {
+                padding: 20px 0;
+                text-align: center;
+                box-shadow: 0 0 12px #00f0ff;
+            }
+
+            .title-highlight {
+                font-size: 30px;
+                font-weight: 600;
+		color:  rgb(246, 231, 82);
+            }
+
+            /* Auth portion */
+            .form-area {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                min-height: 90vh;
+                padding-top: 20px;
+            }
+
+            .auth-box {
+                width: 360px;
+                background: rgba(0, 0, 0, 0.75);
+                border-radius: 10px;
+                padding: 30px 25px;
+                backdrop-filter: blur(5px);
+                box-shadow: 0 0 20px rgba(0, 183, 255, 0.4);
+            }
+
+            /* For Animation */
+            .fade-slide {
+                animation: scaleIn 0.4s ease-in-out;
+            }
+
+            @keyframes scaleIn {
+                from {
+                    opacity: 0;
+                    transform: scale(0.95);
+                }
+                to {
+                    opacity: 1;
+                    transform: scale(1);
+                }
+            }
+
+            .auth-box h2 {
+                text-align: center;
+                margin-bottom: 15px;
+                color: #00cfff;
+                font-weight: 500;
+            }
+
+            .field-row {
+                margin-bottom: 18px;
+            }
+
+            .field-row input,
+            .field-row select {
+                width: 100%;
+                padding: 9px;
+                border-radius: 5px;
+                background: transparent;
+                border: 1px solid #00b7ff;
+                color: #fff;
+                transition: 0.3s;
+            }
+
+            .field-row input:focus,
+            .field-row select:focus {
+                border-color: #00f0ff;
+                box-shadow: 0 0 10px #00f0ff;
+                outline: none;
+            }
+
+            .field-row label {
+                display: block;
+                margin-top: 6px;
+                font-size: 13px;
+                color: #ccc;
+            }
+
+            /*For Glowing Button */
+            .neon-button {
+                width: 100%;
+                padding: 10px;
+                border: 2px solid #00e1ff;
+                background: transparent;
+                color: #00e1ff;
+                font-weight: bold;
+                cursor: pointer;
+                border-radius: 5px;
+                position: relative;
+                z-index: 1;
+                transition: 0.3s;
+            }
+
+            .neon-button::before {
+                content: "";
+                position: absolute;
+                top: -5px;
+                left: -5px;
+                right: -5px;
+                bottom: -5px;
+                background: #00e1ff;
+                border-radius: 8px;
+                filter: blur(10px);
+                opacity: 0.5;
+                z-index: -1;
+            }
+
+            .neon-button:hover {
+                background: #00e1ff;
+                color: #000;
+                box-shadow: 0 0 15px #00e1ff;
+            }
+
+            /* Form */
+            .switch-prompt {
+                margin-top: 15px;
+                text-align: center;
+                font-size: 13px;
+            }
+
+            .switch-prompt a {
+                color: #00c3ff;
+                font-weight: 600;
+                text-decoration: none;
+            }
+
+            .switch-prompt a:hover {
+                text-decoration: underline;
+            }
+
+            .field-row select {
+                background-color: #111;
+                color: #fff;
+                border: 1px solid #00b7ff;
+                border-radius: 5px;
+                padding: 10px;
+                appearance: none;
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                cursor: pointer;
+            }
+
+            .field-row select::-ms-expand {
+                display: none;
+            }
+
+            .field-row select:focus {
+                outline: none;
+                box-shadow: 0 0 10px #00f0ff;
+                border-color: #00f0ff;
+            }
+
+            .field-row select option {
+                background-color: #000;
+                color: #fff;
+            }
+        </style>
+    </head>
+    <body>
+        <header class="gradient-bar">
+            <h1 class="title-highlight">Sparkonics(Client)</h1>
+        </header>
+
+        <main class="form-area">
+            <div class="auth-box">
+                <div id="formPanel"></div>
+            </div>
+        </main>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                const formPanel = document.getElementById("formPanel");
+
+                const loadTemplate = (type) => {
+                    formPanel.innerHTML =
+                        type === "signup" ? buildSignUp() : buildLogin();
+                    bindLinks();
+                };
+
+                const buildLogin = () => `
+            <form class="fade-slide" action="/client/auth" method="POST">
+              <h2>Login</h2>
+              <div class="field-row">
+                <input type="email" name="usermail" required />
+                <label>Webmail ID</label>
+              </div>
+              <div class="field-row">
+                <input type="password" name="userpassword" required />
+                <label>Password</label>
+              </div>
+              <div class="field-row">
+                <input type="number" name="usermobile" required />
+                <label>Your Mobile</label>
+              </div>
+              <button type="submit" class="neon-button">Login</button>
+              <div class="switch-prompt">
+                <p>New user? <a href="#" id="toRegister">Register here</a></p>
+              </div>
+            </form>
+          `;
+
+                const buildSignUp = () => `
+            <form class="fade-slide" method="POST" action="/client/mailverify">
+              <h2>Register</h2>
+              <div class="field-row">
+                <input type="text" required name="userrollnumber" placeholder="2302cm05"/>
+                <label>Roll Number</label>
+              </div>
+              <div class="field-row">
+                <select required name="userdepartment">
+                  <option value="" disabled selected>Select Department</option>
+                  <option value="ee">EE Department</option>
+                 <option value="physics">Physics</option>
+                 <option value="maths">M&C</option>
+                 <option value="cse">CSE</option>
+                 <option value="mech">Mechanical</option>
+                 <option value="checmical">Chemical</option>
+                 <option value="civil">Civil</option>
+                 <option value="mme">	Metallurgical and Materials Engineering</option>
+                 </select>
+                <label>Program</label>
+              </div>
+              <div class="field-row">
+                <input type="number" name="userphone" required />
+                <label>Phone Number</label>
+              </div>
+              <div class="field-row">
+                <input type="email" placeholder="sowhatnow@iitp.ac.in" name="usermail" required />
+                <label>Webmail ID</label>
+              </div>
+              <div class="field-row">
+                <input type="password"  name="userpassword"required />
+                <label>Password</label>
+              </div>
+              <div class="field-row">
+                <input type="text" name="username" placeholder="sowhatnow" required />
+                <label>User Name</label>
+              </div>
+              <button type="submit" class="neon-button">Register</button>
+              <div class="switch-prompt">
+                <p>Already registered? <a href="#" id="toLogin">Login here</a></p>
+              </div>
+            </form>
+          `;
+
+                const bindLinks = () => {
+                    const toRegister = document.getElementById("toRegister");
+                    const toLogin = document.getElementById("toLogin");
+
+                    if (toRegister) {
+                        toRegister.addEventListener("click", (e) => {
+                            e.preventDefault();
+                            loadTemplate("signup");
+                        });
+                    }
+
+                    if (toLogin) {
+                        toLogin.addEventListener("click", (e) => {
+                            e.preventDefault();
+                            loadTemplate("login");
+                        });
+                    }
+                };
+
+                loadTemplate("login");
+            });
+        </script>
+    </body>
+</html>
+
